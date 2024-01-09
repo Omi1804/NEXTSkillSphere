@@ -3,8 +3,8 @@ import { Typography, AppBar, useTheme, Button } from "@mui/material";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import logo from "/fevicon.png";
-import Image from "next/image.js";
-import userState from "@/store/atoms/courses";
+import Image from "next/image";
+import { userState } from "@/store/atoms/";
 import { useRecoilState } from "recoil";
 import axios from "axios";
 import { BASE_URL } from "@/config";
@@ -19,24 +19,24 @@ const Header = () => {
   //------------------------------HANDLERS------------------------------//
 
   // to populate the array with email
-  useEffect(() => {
-    const fetchUser = async () => {
-      try {
-        const response = await axios.get(`${BASE_URL}admin/me`, {
-          headers: {
-            authorization: "Bearer " + localStorage.getItem("token"),
-          },
-        });
+  // useEffect(() => {
+  //   const fetchUser = async () => {
+  //     try {
+  //       const response = await axios.get(`${BASE_URL}admin/me`, {
+  //         headers: {
+  //           authorization: "Bearer " + localStorage.getItem("token"),
+  //         },
+  //       });
 
-        const responseData = response.data;
-        if (responseData.email != null) {
-          setUser({ email: responseData.email });
-        }
-      } catch (error) {}
-    };
+  //       const responseData = response.data;
+  //       if (responseData.email != null) {
+  //         setUser({ email: responseData.email });
+  //       }
+  //     } catch (error) {}
+  //   };
 
-    fetchUser();
-  }, []);
+  //   fetchUser();
+  // }, []);
 
   const handleLogout = () => {
     localStorage.removeItem("token");
@@ -57,9 +57,6 @@ const Header = () => {
           background: "linear-gradient(45deg, #009688, #004d40)", // gradient background
           boxShadow: theme.shadows[5],
           transition: "all 0.3s", // smooth transition for hover effects
-          "&:hover": {
-            transform: "scale(1.02)", // subtle scale on hover
-          },
         }}
       >
         <div
@@ -71,8 +68,12 @@ const Header = () => {
           }}
         >
           <Image
-            src="/favicon.png"
+            src="/fevicon.png"
             alt="Company Logo"
+            width={100}
+            height={100}
+            quality={100}
+            priority={true}
             style={{
               width: "3rem",
               height: "100%",
@@ -96,29 +97,30 @@ const Header = () => {
             style={{
               fontSize: "1.5rem",
               fontWeight: "500",
+              fontFamily: "Roboto",
             }}
           >
             Course Lelo
           </Typography>
         </div>
-        {user.email == null ? (
+        {user.userEmail == null ? (
           <div className="signinButtons">
-            <Link to="/signup">
+            <Link href="/signup">
               <Button
                 size="large"
-                variant="filled"
                 style={{
+                  color: "white",
                   backgroundColor: "#002D23",
                 }}
               >
                 SignUp
               </Button>
             </Link>
-            <Link to="/login">
+            <Link href="/login">
               <Button
                 size="large"
-                variant="filled"
                 style={{
+                  color: "white",
                   backgroundColor: "#002D23",
                   marginInline: "1rem 2rem",
                 }}
@@ -142,12 +144,12 @@ const Header = () => {
                 fontWeight: "500",
               }}
             >
-              {user.email}
+              {user.userEmail}
             </Typography>
             <Button
               size="large"
-              variant="filled"
               style={{
+                color: "white",
                 backgroundColor: "#002D23",
               }}
               onClick={handleLogout}
