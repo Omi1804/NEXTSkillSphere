@@ -11,10 +11,9 @@ import {
   CssBaseline,
   Snackbar,
 } from "@mui/material";
-import { green } from "@mui/material/colors";
 import { useRouter } from "next/router";
 import { userState } from "@/store/atoms";
-import { useRecoilValue, useSetRecoilState, useRecoilState } from "recoil";
+import { useSetRecoilState } from "recoil";
 import axios from "axios";
 import { BASE_URL } from "@/config";
 
@@ -31,7 +30,7 @@ const Signup = () => {
 
   //------------------------------HANDLERS------------------------------//
 
-  const handleChange = (e) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.target.name == "email"
       ? setEmail(e.target.value)
       : setPassword(e.target.value);
@@ -52,16 +51,22 @@ const Signup = () => {
           router.push("/login");
         }, 3000);
       }
-    } catch (error) {
-      if (
-        error.response &&
-        error.response.status === 400 &&
-        error.response.data.message === "Admin already exists!"
-      ) {
-        setOpenSnackbar2(true);
-        setTimeout(() => {
-          router.push("/login");
-        }, 3000);
+    } catch (error: unknown) {
+      if (axios.isAxiosError(error)) {
+        // Now TypeScript knows that error is an AxiosError
+        if (
+          error.response &&
+          error.response.status === 400 &&
+          error.response.data.message === "Admin already exists!"
+        ) {
+          setOpenSnackbar2(true);
+          setTimeout(() => {
+            router.push("/login");
+          }, 3000);
+        }
+      } else {
+        // Handle non-Axios errors here
+        console.error("An unexpected error occurred:", error);
       }
     }
   };
@@ -154,7 +159,7 @@ const Signup = () => {
           label="Email"
           fullWidth
           variant="outlined"
-          mb={2}
+          sx={{ mb: 2 }}
           onChange={handleChange}
         />
       </Box>

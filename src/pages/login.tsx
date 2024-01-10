@@ -26,7 +26,7 @@ const Login = () => {
   const router = useRouter();
 
   //------------------------------HANDLERS------------------------------//
-  const handleChange = (e) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.target.name == "email"
       ? setEmail(e.target.value)
       : setPassword(e.target.value);
@@ -46,12 +46,22 @@ const Login = () => {
         setUser({ userEmail: email });
         router.push("/courses");
       }
-    } catch (error) {
-      if (error.response.data.message === "Please Signup First!") {
-        setOpenSnackbar(true);
-        setTimeout(() => {
-          router.push("/signup");
-        }, 2000);
+    } catch (error: unknown) {
+      if (axios.isAxiosError(error)) {
+        // Now TypeScript knows that error is an AxiosError
+        if (
+          error.response &&
+          error.response.status === 400 &&
+          error.response.data.message === "Admin already exists!"
+        ) {
+          setOpenSnackbar(true);
+          setTimeout(() => {
+            router.push("/login");
+          }, 3000);
+        }
+      } else {
+        // Handle non-Axios errors here
+        console.error("An unexpected error occurred:", error);
       }
     }
   };
@@ -120,7 +130,7 @@ const Login = () => {
           label="Email"
           fullWidth
           variant="outlined"
-          mb={2}
+          sx={{ mb: 2 }}
           onChange={handleChange}
         />
       </Box>
@@ -159,9 +169,6 @@ const Login = () => {
         style={{
           backgroundColor: "#009688",
           color: "white",
-          "&:hover": {
-            backgroundColor: "#007965",
-          },
         }}
         onClick={handleSubmit}
       >
