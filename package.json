@@ -16,11 +16,13 @@
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.0.4",
     "next": "14.0.4",
+    "next-auth": "^4.24.6",
     "react": "^18",
     "react-dom": "^18",
     "recoil": "^0.7.7"
   },
   "devDependencies": {
+    "@types/jsonwebtoken": "^9.0.6",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",

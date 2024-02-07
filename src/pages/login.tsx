@@ -21,7 +21,6 @@ const Login = () => {
   //------------------------------VARIABLES------------------------------//
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [openSnackbar, setOpenSnackbar] = useState(false);
   const setUser = useSetRecoilState(userState);
   const router = useRouter();
 
@@ -54,7 +53,6 @@ const Login = () => {
           error.response.status === 400 &&
           error.response.data.message === "Admin already exists!"
         ) {
-          setOpenSnackbar(true);
           setTimeout(() => {
             router.push("/login");
           }, 3000);
@@ -78,29 +76,6 @@ const Login = () => {
       borderRadius={2}
     >
       <CssBaseline />
-      <Snackbar
-        open={openSnackbar}
-        autoHideDuration={5000}
-        onClose={() => setOpenSnackbar(false)}
-        anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
-        ContentProps={{
-          style: {
-            backgroundColor: "#004d40",
-            color: "white",
-            borderRadius: "8px",
-          },
-        }}
-        message="Please Sign in first !!!"
-        action={
-          <Button
-            size="small"
-            style={{ color: "#009688" }}
-            onClick={() => setOpenSnackbar(false)}
-          >
-            Close
-          </Button>
-        }
-      />
       <AppBar
         position="relative"
         elevation={0}

@@ -6,12 +6,6 @@ interface IAdmin {
   password: string;
 }
 
-interface IUser {
-  email: string;
-  password: string;
-  purchasedCourses: mongoose.Types.ObjectId[];
-}
-
 interface ICourse {
   title: string;
   description: string;
@@ -26,12 +20,6 @@ const adminSchema = new mongoose.Schema<IAdmin>({
   password: String,
 });
 
-const userSchema = new mongoose.Schema<IUser>({
-  email: String,
-  password: String,
-  purchasedCourses: [{ type: mongoose.Schema.Types.ObjectId, ref: "Courses" }],
-});
-
 const courseSchema = new mongoose.Schema<ICourse>({
   title: String,
   description: String,
@@ -40,7 +28,7 @@ const courseSchema = new mongoose.Schema<ICourse>({
   published: Boolean,
 });
 
-// Mongoose Models
-export const Admins: Model<IAdmin> = mongoose.model("Admins", adminSchema);
-export const Users: Model<IUser> = mongoose.model("Users", userSchema);
-export const Courses: Model<ICourse> = mongoose.model("Courses", courseSchema);
+export const Admins: Model<IAdmin> =
+  mongoose.models.Admins || mongoose.model("Admins", adminSchema);
+export const Courses: Model<ICourse> =
+  mongoose.models.Courses || mongoose.model("Courses", courseSchema);
