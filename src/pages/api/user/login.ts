@@ -6,4 +6,6 @@ import { Admins, Courses } from "@/models";
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
-) {}
+) {
+  await connectToDb();
+}

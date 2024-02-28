@@ -1,6 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
+import jwt from "jsonwebtoken";
 import { connectToDb } from "@/lib";
-import { Courses, Users } from "@/models";
+import { Courses } from "@/models";
 
 export default async function handler(
   req: NextApiRequest,
