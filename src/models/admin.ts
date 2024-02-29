@@ -25,7 +25,7 @@ const courseSchema = new mongoose.Schema<ICourse>({
   description: String,
   price: Number,
   imageLink: String,
-  published: Boolean,
+  published: { type: Boolean, default: false },
 });
 
 export const Admins: Model<IAdmin> =

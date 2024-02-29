@@ -65,9 +65,9 @@ export const authenticateUser = async (
   try {
     const decoded: DecodedToken = jwt.verify(token, secretKey) as DecodedToken;
 
-    const { email, password }: { email: string; password: string } = decoded;
+    const { id }: { id: string } = decoded;
 
-    const existingUser = await Users.findOne({ email, password });
+    const existingUser = await Users.findOne({ _id: id });
 
     if (!existingUser) {
       return res.status(403).json({ message: "User not found!" });
