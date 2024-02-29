@@ -7,7 +7,7 @@ interface IUser {
 }
 
 const userSchema = new mongoose.Schema<IUser>({
-  email: String,
+  email: { type: String, unique: true },
   password: String,
   purchasedCourses: [{ type: mongoose.Schema.Types.ObjectId, ref: "Courses" }],
 });

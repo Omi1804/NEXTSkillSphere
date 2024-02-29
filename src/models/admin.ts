@@ -16,7 +16,7 @@ interface ICourse {
 
 // Mongoose Schemas with TypeScript types
 const adminSchema = new mongoose.Schema<IAdmin>({
-  email: String,
+  email: { type: String, unique: true },
   password: String,
 });
 
