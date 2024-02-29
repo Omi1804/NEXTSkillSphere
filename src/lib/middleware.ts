@@ -1,7 +1,8 @@
 import jwt from "jsonwebtoken";
 import { NextApiResponse, NextApiRequest } from "next";
 import { Admins, Users } from "@/models";
-const secretKey = process.env.JWT_Secret as string;
+const secretKey = process.env.SECRET_KEY as string;
+
 if (!secretKey) {
   throw new Error(
     "JWT Secret Key is not defined in the environment variables."
@@ -9,8 +10,7 @@ if (!secretKey) {
 }
 
 interface DecodedToken {
-  email: string;
-  password: string;
+  id: string;
 }
 
 export const authenticateAdmin = async (
@@ -32,9 +32,9 @@ export const authenticateAdmin = async (
   try {
     const decoded: DecodedToken = jwt.verify(token, secretKey) as DecodedToken;
 
-    const { email, password }: { email: string; password: string } = decoded;
+    const { id }: { id: string } = decoded;
 
-    const existingUser = await Admins.findOne({ email, password });
+    const existingUser = await Admins.findOne({ _id: id });
 
     if (!existingUser) {
       return res.status(403).json({ message: "Admin not found!" });
