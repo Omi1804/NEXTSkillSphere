@@ -1,9 +1,12 @@
-import React from 'react'
+import JoinCourse from "@/components/HomeComponents/JoinCourse";
+import React from "react";
 
 const index = () => {
   return (
-    <div>index</div>
-  )
-}
+    <div>
+      <JoinCourse />
+    </div>
+  );
+};
 
-export default index
+export default index;

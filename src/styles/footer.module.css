@@ -1,0 +1,40 @@
+.custom {
+  position: relative;
+  cursor: pointer;
+  padding-bottom: 0.3rem;
+}
+
+.custom::before,
+.custom::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  height: 3px; /* Thickness of the underline */
+  transition: width 0.4s ease, left 0.4s ease; /* Adjust timing to your preference */
+  border-radius: 15px;
+}
+
+/* White underline setup */
+.custom::before {
+  width: 100%; /* Start with a full underline */
+  left: 0;
+  background-color: white; /* White underline color */
+}
+
+/* Blue underline setup (initially hidden) */
+.custom::after {
+  width: 0;
+  left: 50%;
+  background-color: #6a7cf0; /* Blue underline color */
+}
+
+/* Hover effects */
+.custom:hover::before {
+  width: 0;
+  left: 50%;
+}
+
+.custom:hover::after {
+  width: 100%;
+  left: 0;
+}

@@ -1,0 +1,54 @@
+.homebtn {
+  position: relative;
+  margin-top: 5rem;
+  width: 17rem;
+  background-image: linear-gradient(to right, #00eda4, #6a7df1);
+  padding: 1rem;
+  color: white;
+  border-radius: 5px;
+  font-size: 1rem;
+  font-weight: 600;
+  border-top-left-radius: 2rem;
+  overflow: hidden; /* Ensures the pseudo-elements do not overflow the button */
+  transition: all 0.5s ease;
+}
+
+.homebtn::before,
+.homebtn::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  height: 100%;
+  background-image: linear-gradient(
+    to right,
+    #009977,
+    #4757f1
+  ); /* Darker gradient */
+
+  opacity: 0.3;
+}
+
+.homebtn::before {
+  width: 90%;
+  border-top-right-radius: 5rem;
+  border-bottom-right-radius: 5rem;
+  transition: left 0.4s ease;
+}
+
+.homebtn::after {
+  width: 70%;
+  border-top-right-radius: 3rem;
+  border-bottom-right-radius: 3rem;
+  opacity: 0.6;
+  transition: left 0.6s ease;
+}
+
+.homebtn:hover::before,
+.homebtn:hover::after {
+  left: 0%;
+}
+
+.homebtn:hover {
+  border-top-left-radius: 5px;
+}
