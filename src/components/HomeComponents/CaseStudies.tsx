@@ -1,7 +1,7 @@
 import React from "react";
 
 const CaseStudies = () => {
-  return <div>CaseStudies</div>;
+  return <div></div>;
 };
 
 export default CaseStudies;
