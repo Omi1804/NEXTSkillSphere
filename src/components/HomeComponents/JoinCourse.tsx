@@ -3,7 +3,7 @@ import style from "@/styles/home.module.css";
 
 const JoinCourse = () => {
   return (
-    <div className="border-t-1  flex py-28 flex-col items-center bg-[url('/doodleimage.jpg')] bg-contain bg-no-repeat bg-center w-full h-[70vh]">
+    <div className="border-t-1  flex py-28 flex-col items-center bg-[url('/doodleimage.jpg')] bg-contain bg-no-repeat bg-center w-full h-[65vh]">
       <h1 className="font-extrabold text-5xl mb-4">
         Start a Journey. Enroll Now
       </h1>

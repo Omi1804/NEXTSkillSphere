@@ -1,6 +1,6 @@
 .homebtn {
   position: relative;
-  margin-top: 5rem;
+  margin-top: 4rem;
   width: 17rem;
   background-image: linear-gradient(to right, #00eda4, #6a7df1);
   padding: 1rem;
@@ -51,4 +51,53 @@
 
 .homebtn:hover {
   border-top-left-radius: 5px;
+}
+
+.viewCategory,
+.viewCollection {
+  position: relative;
+  color: white;
+  font-weight: 500;
+  font-size: 1.1rem;
+  margin-inline: 5rem;
+  margin-top: 0.5rem;
+  cursor: pointer;
+  padding-bottom: 0.1rem;
+  letter-spacing: 0.9px;
+}
+.viewCategory::before,
+.viewCollection::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 2px;
+  border-radius: 15px;
+  background-color: white;
+  width: 100%;
+  transition: all 0.3s ease; /* Smooth transition for non-focused state */
+}
+
+.viewCategory:hover::before,
+.viewCollection:hover::before {
+  animation: elasticUnderline 0.6s ease forwards;
+}
+
+@keyframes elasticUnderline {
+  0% {
+    width: 100%;
+    left: 0%;
+  }
+  50% {
+    width: 50%; /* Shrinks to 50% of its width */
+    left: 25%; /* Moves to center */
+  }
+  70% {
+    width: 120%; /* Expands to 120% of its original width */
+    left: -10%; /* Moves to the left to accommodate the expansion */
+  }
+  100% {
+    width: 100%; /* Returns to original width */
+    left: 0%; /* Returns to original position */
+  }
 }
