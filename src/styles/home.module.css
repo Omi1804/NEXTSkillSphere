@@ -101,3 +101,80 @@
     left: 0%; /* Returns to original position */
   }
 }
+
+.teamProfile,
+.teamProfileImg {
+  position: relative;
+  cursor: pointer;
+}
+.teamProfile > h3 {
+  transition: color 0.5s ease-in-out;
+}
+
+.teamProfile > a {
+  position: absolute;
+  top: 33%;
+  opacity: 0;
+  transition: all 0.5s;
+}
+.teamProfile:hover > a {
+  opacity: 1;
+}
+
+.teamProfile .teamProfileImg::before {
+  content: "";
+  border: 7px solid #00eda4;
+  font-size: 14px;
+  opacity: 0;
+  width: 143px;
+  height: 143px;
+  border-radius: 50%;
+  display: inline-block;
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin: auto;
+  transform: scale(0.95);
+  background-image: linear-gradient(to right, #00eda6cc, #6a7cf1d1);
+  transition: all 0.5s ease-in-out, opacity 0.5s ease-in-out,
+    transform 0.5s ease-in-out;
+}
+
+.teamProfile:hover .teamProfileImg::before,
+.teamProfile:hover > h3 {
+  opacity: 1;
+  transform: scale(1);
+  color: #00eda4; /* This will now only apply to h3 */
+}
+
+.teamProfile .teamProfileImg::after {
+  content: "";
+  background-image: url("/team-hover2.webp");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  transition: all 0.3s linear;
+  transform: scale(1.6);
+  overflow: hidden;
+  opacity: 0;
+}
+
+.teamProfile:hover .teamProfileImg::after {
+  opacity: 1;
+  transform: scale(1.4);
+}
+
+.teamProfile:hover {
+  background-image: url("/team-hover1.webp");
+  background-size: 12.7rem;
+  background-position: top;
+  background-repeat: no-repeat;
+}
