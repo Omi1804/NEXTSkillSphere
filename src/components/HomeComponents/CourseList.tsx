@@ -2,7 +2,7 @@ import styles from "@/styles/home.module.css";
 
 const CourseList = () => {
   return (
-    <div className="relative border-2 border-blue-500">
+    <div className="relative ">
       <div className="text-center w-full h-[33rem] bg-[url('/group-image.jpg')] bg-center bg-cover bg-no-repeat pt-16">
         <h1 className="text-white font-extrabold text-[2.5rem] mt-5">
           Become a Pro with these Course
@@ -12,10 +12,14 @@ const CourseList = () => {
         </p>
       </div>
       <div className=" absolute flex gap-8 justify-items-center w-full px-20 top-[20.74%]">
-        <div className="overflow-hidden rounded-2xl shadow-md hover:shadow-2xl duration-300">
-          <div className="relative">
-            <img src="/homeCourses2.jpg" alt="" />
-            <div className="absolute top-0 left-0 flex hover:bg-[#00ECA3] w-full h-full items-center justify-center cursor-pointer duration-500 opacity-95 ">
+        <div className="overflow-hidden rounded-xl hover:rounded-tl-[3rem] shadow-md hover:shadow-2xl duration-300">
+          <div className="relative h-[16.81rem]">
+            <img
+              src="/homeCourses2.jpg"
+              className="w-full h-full object-cover"
+              alt=""
+            />
+            <div className="absolute top-0 left-0 flex hover:bg-[#00ECA3] w-full h-full items-center justify-center cursor-pointer duration-500 opacity-0 hover:opacity-95 ">
               <p className="text-white font-bold">View Details</p>
               <span className="material-symbols-outlined text-white">
                 visibility
@@ -24,7 +28,7 @@ const CourseList = () => {
           </div>
           <div className="px-10 py-14 text-center bg-white">
             <h1 className="font-extrabold text-[1.8rem] mb-4">
-              <span className="text-[#00ECA3] ">01 </span>
+              <span className="text-[#00ECA3] mx-1 ">01 </span>
               GREAT FOR HIGH SCHOOL
             </h1>
             <p className="font-extralight text-base w-[90%] leading-6 tracking-wide">
@@ -32,31 +36,39 @@ const CourseList = () => {
             </p>
           </div>
         </div>
-        <div className="overflow-hidden rounded-2xl shadow-md hover:shadow-2xl duration-300">
-          <div className="relative">
-            <img src="/homeCourses2.jpg" alt="" />
-            <div className="absolute top-0 left-0 flex hover:bg-[#00ECA3] w-full h-full items-center justify-center cursor-pointer duration-500 opacity-95 ">
+        <div className="overflow-hidden h-[90%] rounded-xl hover:rounded-tl-[3rem] shadow-md hover:shadow-2xl duration-300">
+          <div className="relative h-[16.81rem]">
+            <img
+              src="/homeCourses3.jpg"
+              className="w-full h-full object-cover"
+              alt=""
+            />
+            <div className="absolute top-0 left-0 flex hover:bg-[#00ECA3] w-full h-full items-center justify-center cursor-pointer duration-500 opacity-0 hover:opacity-95  ">
               <p className="text-white font-bold">View Details</p>
               <span className="material-symbols-outlined text-white">
                 visibility
               </span>
             </div>
           </div>
-          <div className="px-10 py-8 text-center  bg-white">
+          <div className="relative px-10 py-8 text-center  bg-white">
             <h1 className="font-extrabold text-[1.8rem] mb-4">
-              <span className="text-[#00ECA3] ">01 </span>
-              GREAT FOR HIGH SCHOOL
+              <span className="text-[#00ECA3] mx-1">02 </span>
+              GROUP TRAINING
             </h1>
             <p className="font-extralight text-base w-[90%] leading-6 tracking-wide">
-              Ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+              Dolor sit amet, consectetur adipiscing elit, sed do eiusmod
             </p>
           </div>
         </div>
-        <div className=" overflow-hidden rounded-2xl shadow-md hover:shadow-2xl duration-300">
-          <div className="relative">
-            <img src="/homeCourses2.jpg" alt="" />
-            <div className="absolute top-0 left-0 flex hover:bg-[#00ECA3] w-full h-full items-center justify-center cursor-pointer duration-500 opacity-95 ">
-              <p className="text-white font-bold">View Details</p>
+        <div className=" overflow-hidden rounded-xl hover:rounded-tl-[3rem] shadow-md hover:shadow-2xl duration-300">
+          <div className="relative h-[16.81rem]">
+            <img
+              src="/homeCourses1.jpg"
+              className="w-full h-full object-cover"
+              alt=""
+            />
+            <div className="absolute top-0 left-0 flex hover:bg-[#00ECA3] w-full h-full items-center justify-center cursor-pointer duration-500 opacity-0 hover:opacity-95 ">
+              <p className="text-white font-bold ">View Details</p>
               <span className="material-symbols-outlined text-white">
                 visibility
               </span>
@@ -64,11 +76,12 @@ const CourseList = () => {
           </div>
           <div className="px-10 py-14 text-center bg-white">
             <h1 className="font-extrabold text-[1.8rem] mb-4">
-              <span className="text-[#00ECA3] ">01 </span>
-              GREAT FOR HIGH SCHOOL
+              <span className="text-[#00ECA3] mx-1">03 </span>
+              BETTER FOR GROUP STUDIES
             </h1>
             <p className="font-extralight text-base w-[90%] leading-6 tracking-wide">
-              Ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+              Amet, consectetur adipiscing elit, sed do eiusmod tempor
+              incididunt.
             </p>
           </div>
         </div>

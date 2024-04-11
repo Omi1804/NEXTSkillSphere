@@ -9,6 +9,10 @@ module.exports = {
     "./src/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
+    fontFamily: {
+      heading: ["Roboto"],
+      body: ["Poppins"],
+    },
     extend: {},
   },
   plugins: [],
