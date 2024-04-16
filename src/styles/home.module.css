@@ -183,6 +183,41 @@
   justify-content: center;
   position: relative;
   padding: 1rem;
+  text-align: center;
+}
+
+.learningList {
+  cursor: pointer;
+  display: inline-block;
+  padding: 0px;
+  text-align: center;
+  position: relative;
+  float: none;
+  margin: 0px;
+}
+
+.firstLink::after,
+.secondLink::after {
+  content: "";
+  position: absolute;
+  content: "";
+  width: 50%;
+  height: 3px;
+  bottom: 1px;
+  background: #e1e1e1;
+  right: 0;
+}
+
+.secondLink::before,
+.thirdLink::before {
+  content: "";
+  position: absolute;
+  content: "";
+  width: 50%;
+  height: 3px;
+  bottom: 1px;
+  background: #e1e1e1;
+  left: 0;
 }
 
 .learningLink {
@@ -201,9 +236,13 @@
   position: relative;
   width: 255px;
   text-align: center;
-  letter-spacing: -0.04em;
+  letter-spacing: -0.01em;
   word-spacing: 0.16em;
-  line-height: 24px;
+  line-height: 26px;
+  transition: all 0.3s linear;
+}
+.learningLink:hover {
+  color: #00eda4;
 }
 
 .learningLink::before {
@@ -222,9 +261,14 @@
   z-index: 9;
 }
 
+.learningLink.currentLink {
+  color: #00eda4;
+}
+
 .learningLink.currentLink::before {
   border-color: #00eda4;
   border-width: 7px;
+  transition: all 0.3s linear;
   background: #fafafa;
   width: 33px;
   height: 33px;
