@@ -178,3 +178,56 @@
   background-position: top;
   background-repeat: no-repeat;
 }
+
+.learningAllList {
+  justify-content: center;
+  position: relative;
+  padding: 1rem;
+}
+
+.learningLink {
+  display: block;
+  background: none !important;
+  font-size: 1.05rem;
+  font-weight: bold;
+  text-transform: none;
+  padding: 18px 35px 35px; /* top , right/left, bottom */
+  margin: 0 auto;
+  color: rgba(34, 34, 34, 0.33);
+  border: 0px;
+  border-radius: 0px;
+  display: block;
+  float: none;
+  position: relative;
+  width: 255px;
+  text-align: center;
+  letter-spacing: -0.04em;
+  word-spacing: 0.16em;
+  line-height: 24px;
+}
+
+.learningLink::before {
+  content: "";
+  position: absolute;
+  left: 0px;
+  right: 0px;
+  bottom: -10px;
+  width: 24px;
+  height: 24px;
+  margin: auto;
+  border: 5px solid #f1f1f1;
+  opacity: 1;
+  border-radius: 50%;
+  background: #e1e1e1;
+  z-index: 9;
+}
+
+.learningLink.currentLink::before {
+  border-color: #00eda4;
+  border-width: 7px;
+  background: #fafafa;
+  width: 33px;
+  height: 33px;
+  bottom: -14px;
+  box-shadow: 0 5px 30px 0px rgba(0, 0, 0, 0.15);
+}
