@@ -36,18 +36,24 @@ const HeroPage1 = () => {
           </button>
         </div>
       </div>
-      <div className="border-2 border-red-500 p-20"></div>
+      <div className=" p-20"></div>
       <div className=" w-full h-[110vh] object-contain bg-[url('/bg1.jpg')] bg-no-repeat bg-center bg-cover py-10">
-        <div className="border-2 w-[50%] h-full text-center flex flex-col justify-center items-center">
-          <h1 className="text-6xl font-body font-bold">Learn Anything</h1>
-          <p></p>
-          <p>Get Access for Award Winning Online Courses </p>
-          <div>
-            <button>
+        <div className=" w-[50%] h-full flex flex-col justify-center text-left items-center">
+          <div className="pl-[8rem] pr-6">
+            <h1 className="text-6xl font-body font-bold tracking-wide mb-4">
+              Learn Anything
+            </h1>
+            <p className="w-[13rem] my-2 h-[3px] bg-[linear-gradient(90deg,_rgb(0,_237,_164)_0%,_rgb(106,_125,_241)_100%)] mb-14"></p>
+            <p className="text-[2.5rem] my-8 font-light font-heading tracking-wide leading-normal bg-clip-text text-transparent bg-[linear-gradient(90deg,_rgb(0,_237,_164)_0%,_rgb(106,_125,_241)_100%)]">
+              Get Access for Award Winning Online Courses{" "}
+            </p>
+          </div>
+          <div className="my-4 flex items-center justify-center gap-10">
+            <button className="flex items-center gap-3 rounded-lg justify-center w-[13rem] p-4 rounded-tl-[2.3rem] bg-[linear-gradient(90deg,_rgb(0,_237,_164)_0%,_rgb(106,_125,_241)_100%)] text-white hover:shadow-xl hover:scale-105 duration-300">
               <span className="material-symbols-outlined">search</span>
               <p>Discover Courses</p>
             </button>
-            <button>
+            <button className="flex items-center gap-3 rounded-lg justify-center w-[13rem] p-4 rounded-tl-[2.3rem] bg-white text-black hover:shadow-xl hover:scale-105 duration-300">
               <span className="material-symbols-outlined">forum</span>
               <p>Talk to us</p>
             </button>
