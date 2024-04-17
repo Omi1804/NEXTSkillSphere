@@ -5,9 +5,13 @@ import { useState } from "react";
 const LearningPath = () => {
   const [active, setActive] = useState(1);
 
-  const CommonComponent = () => {
+  interface Component2 {
+    path1: string;
+    path2: string;
+  }
+  const CommonComponent1 = () => {
     return (
-      <div className="border-2 py-5 px-24 w-[50%] text-left">
+      <div className=" py-5 px-24 w-[50%] text-left">
         <h1 className="font-body font-bold text-3xl text-[#222222] py-2">
           The Prodigious eLearning Courses for you
         </h1>
@@ -60,27 +64,61 @@ const LearningPath = () => {
     );
   };
 
+  const CommonComponent2 = ({ path1, path2 }: Component2) => {
+    return (
+      <div className="p-4 pl-10 w-[50%] h-full flex">
+        <div className={`${styles.figure1}`}>
+          <div className={`${styles.blueFigure}`}></div>
+          <div
+            className={`h-[30rem] object-contain rounded-xl overflow-hidden shadow-lg ${styles.learningImgContainer1}`}
+          >
+            <img src={path1} className="w-full h-full" alt="" />
+          </div>
+        </div>
+        <div className={`mt-10 mx-7 ${styles.figure2}`}>
+          <div className={`${styles.blueFigure2}`}></div>
+          <div
+            className={`h-[30rem] object-contain rounded-xl overflow-hidden shadow-lg ${styles.learningImgContainer2}`}
+          >
+            <img src={path2} className="w-full h-full" alt="" />
+          </div>
+        </div>
+      </div>
+    );
+  };
+
   const renderContent = () => {
     switch (active) {
       case 1:
         return (
-          <div className="border-2 border-red-500 flex w-full">
-            {<CommonComponent />}
-            <div className="border-2 py-5 px-20 w-[50%]"></div>
+          <div className="flex w-full">
+            {<CommonComponent1 />}
+            {
+              <CommonComponent2
+                path1={"/man-laptop.jpg"}
+                path2={"/girl-ipad.jpg"}
+              />
+            }
           </div>
         );
       case 2:
         return (
-          <div className="border-2 border-red-500 flex w-full">
-            {<CommonComponent />}
-            <div className="border-2 py-5 px-20 w-[50%]"></div>
+          <div className="flex w-full">
+            {<CommonComponent1 />}
+            <CommonComponent2
+              path1={"/home-tab-2.jpg"}
+              path2={"/home-tab-4.jpg"}
+            />
           </div>
         );
       case 3:
         return (
-          <div className="border-2 border-red-500 flex w-full">
-            {<CommonComponent />}
-            <div className="border-2 py-5 px-20 w-[50%]"></div>
+          <div className="flex w-full">
+            {<CommonComponent1 />}
+            <CommonComponent2
+              path1={"/man-laptop.jpg"}
+              path2={"/girl-ipad.jpg"}
+            />
           </div>
         );
       default:
@@ -101,40 +139,37 @@ const LearningPath = () => {
           className={`${styles.learningList} ${styles.firstLink}`}
           onClick={() => setActive(1)}
         >
-          <Link
-            href=""
+          <p
             className={`${styles.learningLink} ${
               active === 1 && styles.currentLink
             } `}
           >
             Creating a Better Future For you
-          </Link>
+          </p>
         </li>
         <li
           className={`${styles.learningList} ${styles.secondLink}`}
           onClick={() => setActive(2)}
         >
-          <Link
-            href=""
+          <p
             className={`${styles.learningLink} ${
               active === 2 && styles.currentLink
             } `}
           >
             Learn why eLearny is Best
-          </Link>
+          </p>
         </li>
         <li
           className={`${styles.learningList} ${styles.thirdLink}`}
           onClick={() => setActive(3)}
         >
-          <Link
-            href=""
+          <p
             className={`${styles.learningLink} ${
               active === 3 && styles.currentLink
             } `}
           >
             Our Simple & Effective process
-          </Link>
+          </p>
         </li>
       </ul>
       <div className="w-full mt-10">{renderContent()}</div>

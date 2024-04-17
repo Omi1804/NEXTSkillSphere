@@ -275,3 +275,88 @@
   bottom: -14px;
   box-shadow: 0 5px 30px 0px rgba(0, 0, 0, 0.15);
 }
+
+.figure1,
+.figure2 {
+  position: relative;
+}
+
+.figure1:hover .blueFigure,
+.figure2:hover .blueFigure2 {
+  scale: 1.1;
+}
+
+.blueFigure {
+  transition: all 0.3s linear;
+  position: absolute;
+  width: 5rem;
+  height: 5rem;
+  background-color: #6a7df1;
+  top: -20px;
+  left: -20px;
+  border-radius: 50%;
+  opacity: 0.85;
+  z-index: 1;
+}
+.blueFigure::before {
+  content: "";
+  width: 7rem;
+  height: 7rem;
+  background: #6a7df1;
+  opacity: 0.3;
+  position: absolute;
+  border-radius: 50%;
+  top: -16px;
+  left: -16px;
+}
+
+.blueFigure2 {
+  transition: all 0.3s linear;
+  position: absolute;
+  width: 5rem;
+  height: 5rem;
+  background-color: #6a7df1;
+  top: 20px;
+  left: 82%;
+  border-radius: 50%;
+  opacity: 1;
+  z-index: -1;
+}
+
+.learningImgContainer1,
+.learningImgContainer2 {
+  position: relative;
+}
+
+.learningImgContainer1::after {
+  transition: all 0.3s linear;
+  content: "";
+  position: absolute;
+  width: 13rem;
+  height: 13rem;
+  bottom: -45px;
+  right: -82px;
+  background-color: #00eda4;
+  opacity: 0.85;
+  border-radius: 50%;
+  z-index: 1;
+}
+
+.learningImgContainer2::after {
+  transition: all 0.3s linear;
+  content: "";
+  position: absolute;
+  width: 12rem;
+  height: 12rem;
+  bottom: 11px;
+  left: -139px;
+  background-color: #00eda4;
+  opacity: 0.85;
+  border-radius: 50%;
+  z-index: 1;
+}
+
+.learningImgContainer1:hover.learningImgContainer1::after,
+.learningImgContainer2:hover.learningImgContainer2::after {
+  scale: 0.8;
+}
