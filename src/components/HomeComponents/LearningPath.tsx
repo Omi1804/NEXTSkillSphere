@@ -116,8 +116,8 @@ const LearningPath = () => {
           <div className="flex w-full">
             {<CommonComponent1 />}
             <CommonComponent2
-              path1={"/man-laptop.jpg"}
-              path2={"/girl-ipad.jpg"}
+              path1={"/home-tab-3.jpg"}
+              path2={"/student-writing.jpg"}
             />
           </div>
         );
@@ -172,7 +172,7 @@ const LearningPath = () => {
           </p>
         </li>
       </ul>
-      <div className="w-full mt-10">{renderContent()}</div>
+      <div className="w-full mt-16">{renderContent()}</div>
     </div>
   );
 };

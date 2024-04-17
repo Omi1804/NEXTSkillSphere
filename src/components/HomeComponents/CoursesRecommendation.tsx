@@ -43,7 +43,6 @@ const CoursesRecommendation = () => {
           </p>
         </div>
       </div>
-      <div className="border-2 py-16"></div>
     </div>
   );
 };
