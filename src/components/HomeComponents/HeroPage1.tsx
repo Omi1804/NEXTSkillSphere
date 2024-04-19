@@ -16,6 +16,7 @@ const HeroPage1 = () => {
       showStatus={false}
       showArrows={false}
       autoPlay={true}
+      interval={2000}
       infiniteLoop={true}
       renderIndicator={(onClickHandler, isSelected, index, label) => {
         if (isSelected) {
@@ -42,7 +43,7 @@ const HeroPage1 = () => {
         );
       }}
     >
-      <div className=" w-full h-[110vh] object-contain bg-[url('/bg3.jpg')] bg-no-repeat bg-center bg-cover text-center py-10">
+      <div className=" w-full h-[100vh] object-contain bg-[url('/bg3.jpg')] bg-no-repeat bg-center bg-cover text-center py-10">
         <div className="w-24 h-24 rounded-full mx-auto flex items-center justify-center bg-[linear-gradient(rgb(255,_219,_79)_0%,_rgb(255,_174,_79)_35%,_rgb(255,_42,_117)_100%)]">
           <span className="material-symbols-outlined text-white font-extrabold text-[4.5rem] ">
             deployed_code
@@ -75,7 +76,7 @@ const HeroPage1 = () => {
         </div>
       </div>
       <div
-        className="relative w-full h-[110vh] py-10 "
+        className="relative w-full h-[100vh] py-10 "
         onMouseMove={handleMouseMove}
       >
         <div className="absolute  w-full h-full object-contain ">
@@ -154,7 +155,7 @@ const HeroPage1 = () => {
         </div>
       </div>
 
-      <div className=" w-full h-[110vh] bg-[url('/bg1.jpg')] bg-cover bg-no-repeat bg-center object-contain  py-10">
+      <div className=" w-full h-[100vh] bg-[url('/bg1.jpg')] bg-cover bg-no-repeat bg-center object-contain  py-10">
         <div className=" w-[50%] h-full flex flex-col justify-center text-left items-center">
           <div className="pl-[8rem] pr-6">
             <h1 className="text-6xl font-body font-bold tracking-wide mb-4">
