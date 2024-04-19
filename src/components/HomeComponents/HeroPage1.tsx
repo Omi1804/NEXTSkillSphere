@@ -16,6 +16,7 @@ const HeroPage1 = () => {
       showStatus={false}
       showArrows={false}
       autoPlay={true}
+      showThumbs={false}
       interval={2000}
       infiniteLoop={true}
       renderIndicator={(onClickHandler, isSelected, index, label) => {
@@ -91,9 +92,8 @@ const HeroPage1 = () => {
             <Image
               src="/shapes-bg.webp"
               alt="Background"
-              layout="fill"
-              objectFit="contain"
-              style={{ opacity: 1 }}
+              fill
+              style={{ objectFit: "contain" }}
               className="w-full h-full"
             />
           </div>
@@ -109,8 +109,9 @@ const HeroPage1 = () => {
             <Image
               src="/phone-img.webp"
               alt="Foreground"
-              layout="fill"
-              objectFit="contain"
+              style={{ objectFit: "contain" }}
+              fill={true}
+              sizes=""
               className="w-full h-full"
             />
           </div>

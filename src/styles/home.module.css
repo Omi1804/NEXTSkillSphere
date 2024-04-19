@@ -360,3 +360,7 @@
 .learningImgContainer2:hover.learningImgContainer2::after {
   scale: 0.8;
 }
+
+.navbar .active {
+  color: #00eda4;
+}

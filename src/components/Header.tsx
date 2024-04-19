@@ -165,24 +165,99 @@
 
 // export default Header;
 
-import React from "react";
+import React, { useState } from "react";
 import styles from "@/styles/home.module.css";
+import { usePathname } from "next/navigation";
+import Login from "./Login";
 
 const Header = () => {
+  const [isLoginOpen, setIsLoginOpen] = useState(false);
+  const path = usePathname();
+
+  const openLoginModal = () => setIsLoginOpen(true);
+  const closeLoginModal = () => setIsLoginOpen(false);
+
   return (
-    <div className={`w-full border-2 border-black px-[4rem] py-4 bg-[#222222]`}>
+    <div
+      className={`w-full border-2 border-black px-[4rem] py-4 bg-[#222222] flex justify-between`}
+    >
       <div className=" w-[8rem] h-auto object-contain">
         <img src="/icons/logo.webp" alt="" className="w-full h-full" />
       </div>
-      <div className={`${styles.navbar} `}>
-        <ul>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-        </ul>
+
+      <ul
+        className={`flex gap-1 items-center justify-center ${styles.navbar} relative left-14`}
+      >
+        <li
+          className={`text-white font-body font-medium text-base  tracking-wide mx-3 hover:text-[#00eda4] cursor-pointer duration-300 ${
+            path === "/" && styles.active
+          }`}
+        >
+          <p className="duration-300">Home</p>
+        </li>
+        <li
+          className={`text-white font-body font-medium text-base  tracking-wide mx-3 hover:text-[#00eda4] cursor-pointer duration-300 ${
+            path === "/about" && styles.active
+          }`}
+        >
+          <p className="duration-300">About</p>
+        </li>
+        <li
+          className={`text-white font-body font-medium text-base  tracking-wide mx-3 hover:text-[#00eda4] cursor-pointer duration-300 ${
+            path === "/services" && styles.active
+          }`}
+        >
+          <p className="duration-300">Services</p>
+        </li>
+        <li
+          className={`text-white font-body font-medium text-base  tracking-wide mx-3 hover:text-[#00eda4] cursor-pointer duration-300 ${
+            path === "/students" && styles.active
+          }`}
+        >
+          <p className="duration-300">Students</p>
+        </li>
+        <li
+          className={`text-white font-body font-medium text-base  tracking-wide mx-3 hover:text-[#00eda4] cursor-pointer duration-300 ${
+            path === "/whyus" && styles.active
+          }`}
+        >
+          <p className="duration-300">Why Us</p>
+        </li>
+        <li
+          className={`text-white font-body font-medium text-base  tracking-wide mx-3 hover:text-[#00eda4] cursor-pointer duration-300 ${
+            path === "/courses" && styles.active
+          }`}
+        >
+          <p className="duration-300">Courses</p>
+        </li>
+        <li
+          className={`text-white font-body font-medium text-base  tracking-wide mx-3 hover:text-[#00eda4] cursor-pointer duration-300 ${
+            path === "/contact" && styles.active
+          }`}
+        >
+          <p className="duration-300">Contact</p>
+        </li>
+      </ul>
+
+      <div className="flex gap-5">
+        <button
+          className="flex items-center justify-center text-[#969696] gap-1 hover:text-[#00eda4] hover:shadow-md  duration-200"
+          onClick={openLoginModal}
+        >
+          <span className="material-symbols-outlined text-xl  transition">
+            lock_open
+          </span>
+          <p className="font-body font-light text-base transition">Login</p>
+        </button>
+        <button className="flex items-center justify-center text-[#969696] gap-1 hover:text-[#00eda4] hover:shadow-md  duration-200">
+          <span className="material-symbols-outlined text-xl transition">
+            person
+          </span>
+          <p className="font-body font-light text-base transition">Register</p>
+        </button>
       </div>
-      <div></div>
+      {/* @ts-ignore */}
+      <Login isOpen={isLoginOpen} onClose={closeLoginModal} />
     </div>
   );
 };
