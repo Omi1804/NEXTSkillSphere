@@ -169,6 +169,7 @@ import React, { useState } from "react";
 import styles from "@/styles/home.module.css";
 import { usePathname } from "next/navigation";
 import Login from "./Login";
+import Link from "next/link";
 
 const Header = () => {
   const [isLoginOpen, setIsLoginOpen] = useState(false);
@@ -178,11 +179,11 @@ const Header = () => {
   const closeLoginModal = () => setIsLoginOpen(false);
 
   return (
-    <div
-      className={`w-full border-2 border-black px-[4rem] py-4 bg-[#222222] flex justify-between`}
-    >
+    <div className={`w-full px-[4rem] py-4 bg-[#222222] flex justify-between`}>
       <div className=" w-[8rem] h-auto object-contain">
-        <img src="/icons/logo.webp" alt="" className="w-full h-full" />
+        <Link href={"/"}>
+          <img src="/icons/logo.webp" alt="" className="w-full h-full" />
+        </Link>
       </div>
 
       <ul
@@ -193,49 +194,63 @@ const Header = () => {
             path === "/" && styles.active
           }`}
         >
-          <p className="duration-300">Home</p>
+          <p className="duration-300">
+            <Link href={"/"}>Home</Link>
+          </p>
         </li>
         <li
           className={`text-white font-body font-medium text-base  tracking-wide mx-3 hover:text-[#00eda4] cursor-pointer duration-300 ${
             path === "/about" && styles.active
           }`}
         >
-          <p className="duration-300">About</p>
+          <p className="duration-300">
+            <Link href={"/about"}>About</Link>
+          </p>
         </li>
         <li
           className={`text-white font-body font-medium text-base  tracking-wide mx-3 hover:text-[#00eda4] cursor-pointer duration-300 ${
             path === "/services" && styles.active
           }`}
         >
-          <p className="duration-300">Services</p>
+          <p className="duration-300">
+            <Link href={"/services"}>Services</Link>
+          </p>
         </li>
         <li
           className={`text-white font-body font-medium text-base  tracking-wide mx-3 hover:text-[#00eda4] cursor-pointer duration-300 ${
             path === "/students" && styles.active
           }`}
         >
-          <p className="duration-300">Students</p>
+          <p className="duration-300">
+            <Link href={"/students"}>Students</Link>
+          </p>
         </li>
         <li
           className={`text-white font-body font-medium text-base  tracking-wide mx-3 hover:text-[#00eda4] cursor-pointer duration-300 ${
             path === "/whyus" && styles.active
           }`}
         >
-          <p className="duration-300">Why Us</p>
+          <p className="duration-300">
+            <Link href={"/whyus"}>Why Us</Link>
+          </p>
         </li>
         <li
           className={`text-white font-body font-medium text-base  tracking-wide mx-3 hover:text-[#00eda4] cursor-pointer duration-300 ${
             path === "/courses" && styles.active
           }`}
         >
-          <p className="duration-300">Courses</p>
+          <p className="duration-300">
+            <Link href={"/courses"}>Courses</Link>
+          </p>
         </li>
         <li
           className={`text-white font-body font-medium text-base  tracking-wide mx-3 hover:text-[#00eda4] cursor-pointer duration-300 ${
             path === "/contact" && styles.active
           }`}
         >
-          <p className="duration-300">Contact</p>
+          <p className="duration-300">
+            <Link href={"/contact"}>Contact</Link>
+          </p>
         </li>
       </ul>
 
@@ -253,7 +268,9 @@ const Header = () => {
           <span className="material-symbols-outlined text-xl transition">
             person
           </span>
-          <p className="font-body font-light text-base transition">Register</p>
+          <p className="font-body font-light text-base transition">
+            <Link href={"/register"}>Register</Link>
+          </p>
         </button>
       </div>
       {/* @ts-ignore */}
