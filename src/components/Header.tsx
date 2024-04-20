@@ -179,7 +179,7 @@ const Header = () => {
   const closeLoginModal = () => setIsLoginOpen(false);
 
   return (
-    <div className={`w-full px-[4rem] py-4 bg-[#222222] flex justify-between`}>
+    <div className={`w-full px-[4rem] py-5 bg-[#222222] flex justify-between`}>
       <div className=" w-[8rem] h-auto object-contain">
         <Link href={"/"}>
           <img src="/icons/logo.webp" alt="" className="w-full h-full" />
