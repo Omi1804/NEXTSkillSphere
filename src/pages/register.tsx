@@ -1,21 +1,15 @@
-import styles from "@/styles/register.module.css";
+import CommonHero from "@/components/CommonHero";
 
 const Register = () => {
   return (
     <div>
-      <div
-        className={`${styles.registerHero} flex items-end px-[8rem] py-[4rem]`}
-      >
-        <div className="text-white">
-          <h1 className="text-[4rem] font-extrabold ">Create an Account</h1>
-          <p
-            className={`w-full h-[3px] bg-white rounded-md ${styles.registerLine}`}
-          ></p>
-          <p className="font-extralight tracking-widest mt-6">
-            HOME / CREATE AN ACCOUNT
-          </p>
-        </div>
-      </div>
+      <CommonHero
+        Image={
+          "https://elearni.wpenginepowered.com/wp-content/themes/elearni/images/breadcrumb.png"
+        }
+        heroHeading={"Create an Account"}
+        subHeading={"CREATE AN ACCOUNT"}
+      />
       <div className=" w-full bg-transparent  px-[6rem] py-[8rem]">
         <div className="flex gap-4 w-full border shadow-md mb-5">
           <span className="material-symbols-outlined border p-2  bg-[#0A80A3] text-white">
