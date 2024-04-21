@@ -36,7 +36,7 @@ export const Options = () => {
           </div>
         </div>
       </div>
-      <div className="w-[60%] px-[4rem] justify-center flex gap-10">
+      <div className="w-[60%] px-[4rem] justify-center flex gap-7">
         <div className="bg-[#fafafa] w-[50%] rounded-xl overflow-hidden shadow-sm hover:shadow-2xl hover:bg-white duration-300">
           <div className="w-full object-contain h-[14rem]">
             <img
