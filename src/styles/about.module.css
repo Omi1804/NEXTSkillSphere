@@ -55,3 +55,97 @@
     left: 15px;
   }
 }
+
+.learningAllList {
+  position: relative;
+}
+
+.learningList {
+  cursor: pointer;
+  padding: 2rem;
+  text-align: center;
+  position: relative;
+}
+
+.firstLink::after,
+.secondLink::after,
+.thirdLink::after {
+  content: "";
+  position: absolute;
+  width: 3px;
+  height: 100%;
+  background: #e1e1e1;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
+
+.secondLink::before,
+.thirdLink::before {
+  content: "";
+  position: absolute;
+  content: "";
+  width: 3px;
+  height: 100%;
+  top: 100%;
+  bottom: 1px;
+  background: #e1e1e1;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
+
+.learningLink {
+  position: relative;
+  display: block;
+  font-size: 0.9rem;
+  font-weight: 600;
+  font-family: "Roboto", "Helvetica Neue";
+  padding: 0px 10px 30px 44px;
+  color: rgba(34, 34, 34, 0.33);
+  letter-spacing: -0.01em;
+  word-spacing: 0.16em;
+  transition: all 0.3s linear;
+}
+
+.learningNumber {
+  position: relative;
+  top: 2.4rem;
+  left: 1.3rem;
+}
+
+.learningLink:hover {
+  color: #00eda4;
+}
+
+/* grey dot */
+.learningLink::before {
+  content: "";
+  position: absolute;
+  left: 0px;
+  right: 0px;
+  bottom: -10px;
+  width: 24px;
+  height: 24px;
+  margin: auto;
+  border: 5px solid #f1f1f1;
+  opacity: 1;
+  border-radius: 50%;
+  background: #e1e1e1;
+  z-index: 9;
+}
+
+.learningLink.currentLink {
+  color: #00eda4;
+}
+
+.learningLink.currentLink::before {
+  border-color: #00eda4;
+  border-width: 7px;
+  transition: all 0.3s linear;
+  background: #fafafa;
+  width: 33px;
+  height: 33px;
+  bottom: -14px;
+  box-shadow: 0 5px 30px 0px rgba(0, 0, 0, 0.15);
+}
