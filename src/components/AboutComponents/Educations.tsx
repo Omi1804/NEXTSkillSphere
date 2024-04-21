@@ -2,7 +2,7 @@ import styles from "@/styles/about.module.css";
 
 export const Educations = () => {
   return (
-    <div className="grid grid-cols-2 bg-[url('/fw12.webp')] bg-no-repeat bg-center bg-contain px-[5rem] py-[8rem]">
+    <div className="grid grid-cols-2 bg-[url('/fw12.webp')] bg-no-repeat bg-center bg-contain px-[5rem] py-[6rem]">
       <div className="pr-10">
         <h1 className="font-body font-extrabold text-3xl mb-5">
           Promoting Good Education since the very beginning
@@ -26,13 +26,41 @@ export const Educations = () => {
           </div>
         </div>
       </div>
-      <div className="p-8 border-2">
-        <div className="border-2 py-2">
-          <div className={styles.educationBar}></div>
-          <p className="text-sm font-body font-semibold mt-2 tracking-wide">
+      <div className="px-10 flex flex-col justify-between relative">
+        <div className="my-1">
+          <div className={`${styles.educationBar} before:w-[40%]`}></div>
+          <p className="text-sm font-body font-semibold mt-1 tracking-wide ">
             OUTSOURCING EDUCATION
+            <span className={`${styles.educationBarSpan} font-body`}>60%</span>
           </p>
-          <span>60%</span>
+        </div>
+        <div className="my-1">
+          <div className={`${styles.educationBar} before:w-[35%]`}></div>
+          <p className="text-sm font-body font-semibold mt-1 tracking-wide ">
+            BUSINESS DEVELOPMENT
+            <span className={`${styles.educationBarSpan} font-body`}>50%</span>
+          </p>
+        </div>
+        <div className="my-1">
+          <div className={`${styles.educationBar} before:w-[28%]`}></div>
+          <p className="text-sm font-body font-semibold mt-1 tracking-wide ">
+            CREATIVE DESIGN
+            <span className={`${styles.educationBarSpan} font-body`}>80%</span>
+          </p>
+        </div>
+        <div className="my-1">
+          <div className={`${styles.educationBar} before:w-[26%]`}></div>
+          <p className="text-sm font-body font-semibold mt-1 tracking-wide ">
+            SOCIAL STUDIES
+            <span className={`${styles.educationBarSpan} font-body`}>70%</span>
+          </p>
+        </div>
+        <div className="my-1">
+          <div className={`${styles.educationBar} before:w-[31%]`}></div>
+          <p className="text-sm font-body font-semibold mt-1 tracking-wide ">
+            TECHNICAL STUDIES
+            <span className={`${styles.educationBarSpan} font-body`}>35%</span>
+          </p>
         </div>
       </div>
     </div>

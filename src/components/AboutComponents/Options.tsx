@@ -3,7 +3,7 @@ import React from "react";
 export const Options = () => {
   return (
     <div
-      className="w-full flex bg-[url('/fw10.webp')] bg-no-repeat px-[5rem] py-[8rem]"
+      className="w-full flex bg-[url('/fw10.webp')]  bg-no-repeat px-[5rem] py-[6rem]"
       style={{
         backgroundSize: "contain",
         backgroundPositionY: "550%",

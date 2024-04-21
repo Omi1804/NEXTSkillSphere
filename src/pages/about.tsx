@@ -1,11 +1,10 @@
 import {
-  AboutProcess,
   CoursesForYou,
   Educations,
   Options,
-  Testimonials,
 } from "@/components/AboutComponents";
 import CommonHero from "@/components/CommonHero";
+import JoinCourse from "@/components/HomeComponents/JoinCourse";
 import React from "react";
 
 const about = () => {
@@ -20,10 +19,9 @@ const about = () => {
       />
 
       <Options />
-      <AboutProcess />
       <Educations />
       <CoursesForYou />
-      <Testimonials />
+      <JoinCourse />
     </div>
   );
 };

@@ -10,9 +10,48 @@
 .educationBar::before {
   content: "";
   position: absolute;
-  width: 60%;
   height: 7px;
   top: 0;
   left: 0;
   background-image: linear-gradient(to right, #6a7df1, #00eda4);
+}
+.educationBarSpan {
+  position: relative;
+  color: white;
+  font-size: 0.65rem;
+  font-weight: 600;
+  padding: 0.5rem;
+  top: -51px;
+  left: 0%;
+  text-align: center;
+  width: 30px;
+  height: 30px;
+  line-height: 35px;
+  animation: MoveRight 2s linear infinite;
+}
+.educationBarSpan::before {
+  content: "";
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  left: 0;
+  background-color: #00eda4;
+  right: 0;
+  z-index: -1;
+  border-radius: 50% 0 50% 50%;
+  transform: rotate(130deg);
+  -moz-transform: rotate(130deg);
+  -webkit-transform: rotate(130deg);
+  margin: auto;
+}
+
+@keyframes MoveRight {
+  50%,
+  0% {
+    left: 0%;
+  }
+
+  50% {
+    left: 15px;
+  }
 }
