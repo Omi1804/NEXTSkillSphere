@@ -54,3 +54,174 @@
   );
   color: white;
 }
+
+.ImageContainer,
+.techniqueImage {
+  position: relative;
+}
+
+.ImageContainer::before {
+  background-color: #68d4fb;
+  border-radius: 50%;
+  bottom: 0rem;
+  content: "";
+  display: inline-block;
+  height: 41px;
+  opacity: 0.5;
+  position: absolute;
+  right: 0rem;
+  width: 41px;
+  z-index: 1;
+  animation: bigger 1s linear infinite;
+}
+.ImageContainer::after {
+  background-color: #00eda4;
+  border-radius: 50%;
+  content: "";
+  display: inline-block;
+  height: 75px;
+  left: 24px;
+  opacity: 0.5;
+  position: absolute;
+  top: 24px;
+  width: 75px;
+  z-index: 1;
+  animation: bigger 1s linear infinite;
+}
+
+.techniqueImage::before {
+  background-color: #68d4fb;
+  border-radius: 50%;
+  bottom: 0;
+  content: "";
+  display: inline-block;
+  height: 41px;
+  opacity: 1;
+  position: absolute;
+  right: 0;
+  width: 41px;
+}
+.techniqueImage::after {
+  background-color: #00eda4;
+  border-radius: 50%;
+  content: "";
+  display: inline-block;
+  height: 75px;
+  left: 24px;
+  opacity: 1;
+  position: absolute;
+  top: 24px;
+  width: 75px;
+  z-index: 1;
+}
+
+@keyframes bigger {
+  50%,
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.5);
+  }
+}
+
+.homebtn {
+  position: relative;
+  margin-top: 1rem;
+  width: 17rem;
+  background-image: linear-gradient(to right, #00eda4, #6a7df1);
+  padding: 1rem;
+  color: white;
+  border-radius: 5px;
+  font-size: 1rem;
+  font-weight: 600;
+  border-top-left-radius: 2rem;
+  overflow: hidden; /* Ensures the pseudo-elements do not overflow the button */
+  transition: all 0.5s ease;
+}
+
+.homebtn::before,
+.homebtn::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  height: 100%;
+  background-image: linear-gradient(
+    to right,
+    #009977,
+    #4757f1
+  ); /* Darker gradient */
+
+  opacity: 0.3;
+}
+
+.homebtn::before {
+  width: 90%;
+  border-top-right-radius: 5rem;
+  border-bottom-right-radius: 5rem;
+  transition: left 0.4s ease;
+}
+
+.homebtn::after {
+  width: 70%;
+  border-top-right-radius: 3rem;
+  border-bottom-right-radius: 3rem;
+  opacity: 0.6;
+  transition: left 0.6s ease;
+}
+
+.homebtn:hover::before,
+.homebtn:hover::after {
+  left: 0%;
+}
+
+.homebtn:hover {
+  border-top-left-radius: 5px;
+}
+
+.specialFeatures {
+  position: relative;
+  transition: all 0.3s ease-in-out;
+  z-index: 1;
+}
+
+.specialIcons {
+  position: relative;
+  transition: all 0.3s ease-in-out;
+}
+
+.specialFeatures:hover .specialIcons {
+  transition: all 0.3s ease-in-out;
+  border: none;
+  background-image: linear-gradient(to right, #00eda4, #6a7df1);
+}
+
+.specialFeatures:hover .featureHeading {
+  color: #00eda4;
+  transition: all 0.3s ease-in-out;
+}
+.specialFeatures:hover .specialIcons > img {
+  transition: all 0.3s ease-in-out;
+  filter: brightness(0) invert(1);
+}
+
+.specialIcons::before {
+  content: "";
+  box-shadow: 0px 15px 30px 0px rgba(0, 0, 0, 0.15);
+  width: 100%;
+  height: 100%;
+  display: inline-block;
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: -1;
+  border-radius: 50%;
+  opacity: 1;
+  background-color: #00eda69d;
+  transition: all 0.3s linear 0s;
+}
+
+.specialFeatures:hover .specialIcons::before {
+  transform: scale(1.2);
+}

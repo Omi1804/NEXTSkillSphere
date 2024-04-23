@@ -1,7 +1,9 @@
 import CommonHero from "@/components/CommonHero";
-import CaseStudies from "@/components/HomeComponents/CaseStudies";
+
 import JoinCourse from "@/components/HomeComponents/JoinCourse";
 import AllServices from "@/components/ServicesComponents/AllServices";
+import ModernTechniques from "@/components/ServicesComponents/ModernTechniques";
+import SpecialFeatures from "@/components/ServicesComponents/SpecialFeatures";
 import React from "react";
 
 const Services = () => {
@@ -13,6 +15,8 @@ const Services = () => {
         subHeading={"SERVICES"}
       />
       <AllServices />
+      <ModernTechniques />
+      <SpecialFeatures />
       <JoinCourse />
     </div>
   );
