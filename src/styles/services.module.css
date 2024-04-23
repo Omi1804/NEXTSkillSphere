@@ -1,0 +1,56 @@
+.allServices {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.5s ease-in-out;
+}
+.allServices::before {
+  transition: all 0.5s ease-in-out;
+  position: absolute;
+  mask-image: url("/icons/cloud1.png");
+  background-color: #00eda4;
+  content: "";
+  width: 177px;
+  height: 147px;
+  display: inline-block;
+  left: -55px;
+  top: -54px;
+  opacity: 0;
+}
+
+.allServices::after {
+  position: absolute;
+  transition: all 0.5s ease-in-out;
+  right: -33px;
+  bottom: -17px;
+  background-color: #6a7df1;
+  content: "";
+  mask-image: url("/icons/cloud2.png");
+  width: 91px;
+  height: 93px;
+  display: inline-block;
+  mask-position: right bottom;
+  mask-repeat: no-repeat;
+  opacity: 0;
+}
+
+.allServices:hover::before,
+.allServices:hover::after {
+  opacity: 1;
+}
+.allServices:hover {
+  border-top-left-radius: 3rem;
+}
+
+.allServices:hover > h1 {
+  color: #00eda4;
+}
+
+.allServices:hover > button {
+  /* bg-[linear-gradient(90deg,_rgb(0,_237,_164)_0%,_rgb(106,_125,_241)_100%)] */
+  background-image: linear-gradient(
+    90deg,
+    rgb(0, 237, 164) 0%,
+    rgb(106, 125, 241) 100%
+  );
+  color: white;
+}
