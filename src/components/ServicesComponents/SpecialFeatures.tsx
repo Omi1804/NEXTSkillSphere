@@ -9,12 +9,8 @@ const SpecialFeatures = () => {
       <p className="font-heading font-extralight text-base tracking-wide">
         LEARNING VIA APP NEVER GETS EASIER
       </p>
-      <div
-        className={`border-2 border-blue-500 grid grid-cols-3 grid-rows-3 mt-[3rem] p-4 `}
-      >
-        <div
-          className={`flex items-center justify-center  gap-5 ${styles.specialFeatures}`}
-        >
+      <div className={` grid grid-cols-3 gap-14 grid-rows-3 mt-[3rem] p-5 `}>
+        <div className={`flex items-center   gap-5 ${styles.specialFeatures}`}>
           <div
             className={`w-[6rem] bg-white h-[6rem] object-contain flex items-center justify-center border rounded-full p-[1.2rem]  ${styles.specialIcons}`}
           >
@@ -35,9 +31,7 @@ const SpecialFeatures = () => {
             </p>
           </div>
         </div>
-        <div
-          className={`flex items-center justify-center  gap-5 ${styles.specialFeatures}`}
-        >
+        <div className={`flex items-center   gap-5 ${styles.specialFeatures}`}>
           <div
             className={`w-[6rem] bg-white h-[6rem] object-contain flex items-center justify-center border rounded-full p-[1.2rem]  ${styles.specialIcons}`}
           >
@@ -58,9 +52,7 @@ const SpecialFeatures = () => {
             </p>
           </div>
         </div>
-        <div
-          className={`flex items-center justify-center  gap-5 ${styles.specialFeatures}`}
-        >
+        <div className={`flex items-center   gap-5 ${styles.specialFeatures}`}>
           <div
             className={`w-[6rem] bg-white h-[6rem] object-contain flex items-center justify-center border rounded-full p-[1.2rem]  ${styles.specialIcons}`}
           >
@@ -81,9 +73,7 @@ const SpecialFeatures = () => {
             </p>
           </div>
         </div>
-        <div
-          className={`flex items-center justify-center  gap-5 ${styles.specialFeatures}`}
-        >
+        <div className={`flex items-center   gap-5 ${styles.specialFeatures}`}>
           <div
             className={`w-[6rem] bg-white h-[6rem] object-contain flex items-center justify-center border rounded-full p-[1.2rem]  ${styles.specialIcons}`}
           >
@@ -104,9 +94,7 @@ const SpecialFeatures = () => {
             </p>
           </div>
         </div>
-        <div
-          className={`flex items-center justify-center  gap-5 ${styles.specialFeatures}`}
-        >
+        <div className={`flex items-center   gap-5 ${styles.specialFeatures}`}>
           <div
             className={`w-[6rem] bg-white h-[6rem] object-contain flex items-center justify-center border rounded-full p-[1.2rem]  ${styles.specialIcons}`}
           >
@@ -127,9 +115,7 @@ const SpecialFeatures = () => {
             </p>
           </div>
         </div>
-        <div
-          className={`flex items-center justify-center  gap-5 ${styles.specialFeatures}`}
-        >
+        <div className={`flex items-center   gap-5 ${styles.specialFeatures}`}>
           <div
             className={`w-[6rem] bg-white h-[6rem] object-contain flex items-center justify-center border rounded-full p-[1.2rem]  ${styles.specialIcons}`}
           >
@@ -150,9 +136,7 @@ const SpecialFeatures = () => {
             </p>
           </div>
         </div>
-        <div
-          className={`flex items-center justify-center  gap-5 ${styles.specialFeatures}`}
-        >
+        <div className={`flex items-center  gap-5 ${styles.specialFeatures}`}>
           <div
             className={`w-[6rem] bg-white h-[6rem] object-contain flex items-center justify-center border rounded-full p-[1.2rem]  ${styles.specialIcons}`}
           >
@@ -173,9 +157,7 @@ const SpecialFeatures = () => {
             </p>
           </div>
         </div>
-        <div
-          className={`flex items-center justify-center  gap-5 ${styles.specialFeatures}`}
-        >
+        <div className={`flex items-center   gap-5 ${styles.specialFeatures}`}>
           <div
             className={`w-[6rem] bg-white h-[6rem] object-contain flex items-center justify-center border rounded-full p-[1.2rem]  ${styles.specialIcons}`}
           >
@@ -196,9 +178,7 @@ const SpecialFeatures = () => {
             </p>
           </div>
         </div>
-        <div
-          className={`flex items-center justify-center  gap-5 ${styles.specialFeatures}`}
-        >
+        <div className={`flex items-center   gap-5 ${styles.specialFeatures}`}>
           <div
             className={`w-[6rem] bg-white h-[6rem] object-contain flex items-center justify-center border rounded-full p-[1.2rem]  ${styles.specialIcons}`}
           >
