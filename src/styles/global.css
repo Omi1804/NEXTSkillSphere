@@ -14,23 +14,35 @@ a {
   color: inherit;
 }
 
+button {
+  --tw-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1),
+    0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --tw-shadow-colored: 0 10px 15px -3px var(--tw-shadow-color),
+    0 4px 6px -4px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000),
+    var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+
 body::-webkit-scrollbar-track {
   -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
   background-color: #f5f5f5;
 }
 
 body::-webkit-scrollbar {
-  width: 5px;
+  width: 7px;
   background-color: #f5f5f5;
 }
 
 body::-webkit-scrollbar-thumb {
   background-color: #fff;
-
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+  border-radius: 0.2rem;
+  cursor: pointer;
   background-image: -webkit-linear-gradient(
     top,
     #00eda6cc 0%,
-    #6a7cf1d1 50%,
-    #4757f1 100%
+    #6a7cf1d1 40%,
+    #4757f1 60%,
+    #00eda6cc 100%
   );
 }
