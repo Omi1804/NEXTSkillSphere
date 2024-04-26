@@ -1,0 +1,82 @@
+[
+  {
+    "id": 1,
+    "image": "/course_image1.jpg",
+    "price": 200,
+    "time": "8 weeks",
+    "level": "Beginner",
+    "heading": "Introduction to Data Science",
+    "category": "Data Science & Analytics",
+    "instructor": "John Doe"
+  },
+  {
+    "id": 2,
+    "image": "/course_image2.jpg",
+    "price": 300,
+    "time": "10 weeks",
+    "level": "Intermediate",
+    "heading": "Advanced Business Analysis",
+    "category": "Business Analysis",
+    "instructor": "Jane Smith"
+  },
+  {
+    "id": 3,
+    "image": "/course_image3.jpg",
+    "price": 150,
+    "time": "5 weeks",
+    "level": "Advanced",
+    "heading": "Mastering Foreign Languages",
+    "category": "Foreign Language",
+    "instructor": "Emily Johnson"
+  },
+  {
+    "id": 4,
+    "image": "/course_image4.jpg",
+    "price": 250,
+    "time": "6 weeks",
+    "level": "Beginner",
+    "heading": "Fundamentals of Computer Science",
+    "category": "Computer Science",
+    "instructor": "Michael Brown"
+  },
+  {
+    "id": 5,
+    "image": "/course_image5.jpg",
+    "price": 350,
+    "time": "12 weeks",
+    "level": "Intermediate",
+    "heading": "Artificial Intelligence Concepts",
+    "category": "Artificial Intelligence",
+    "instructor": "Sarah Davis"
+  },
+  {
+    "id": 6,
+    "image": "/course_image6.jpg",
+    "price": 400,
+    "time": "15 weeks",
+    "level": "Advanced",
+    "heading": "Professional Architectural Design",
+    "category": "Design Architect",
+    "instructor": "Alex Wilson"
+  },
+  {
+    "id": 7,
+    "image": "/course_image7.jpg",
+    "price": 180,
+    "time": "4 weeks",
+    "level": "Beginner",
+    "heading": "Basics of Engineering Principles",
+    "category": "Engineering & Architecture",
+    "instructor": "Laura Moore"
+  },
+  {
+    "id": 8,
+    "image": "/course_image8.jpg",
+    "price": 220,
+    "time": "9 weeks",
+    "level": "Intermediate",
+    "heading": "Business & Management Essentials",
+    "category": "Business & Management",
+    "instructor": "Chris Johnson"
+  }
+]

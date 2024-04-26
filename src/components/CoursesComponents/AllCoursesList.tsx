@@ -1,9 +1,11 @@
 import styles from "@/styles/courses.module.css";
+import CourseCard from "./CourseCard";
+import courses from "@/coursesData.json";
 
 const AllCoursesList = () => {
   return (
     <div className="border-2">
-      <div className="flex bg-[#F8F8FC] px-12 py-8 items-center justify-between">
+      <div className="flex bg-[#F8F8FC] px-[6rem] py-8 items-center justify-between">
         <div className="flex items-center mx-6">
           <span className="material-symbols-outlined mx-2 text-[#00ECA3] text-2xl">
             tune
@@ -20,7 +22,22 @@ const AllCoursesList = () => {
             <option value="All Categories" selected>
               All Categories
             </option>
+
+            <option value="https://demo-themewinter.com/courselog/courses/">
+              {" "}
+              All Categories
+            </option>
             <option value="ai">Artificial Intelligence</option>
+            <option value="bussinessManagement">
+              Business &amp; Management
+            </option>
+            <option>Business Analysis</option>
+            <option>Computer Science</option>
+            <option>Data Science &amp; Analytics</option>
+            <option>Design Architect</option>
+            <option>Engineering &amp; Architecture</option>
+            <option>Foreign Language</option>
+            <option>Learning Management</option>
           </select>
           <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
             <svg
@@ -101,35 +118,23 @@ const AllCoursesList = () => {
           </div>
         </div>
       </div>
-      <div className=" p-[5rem]">
+      <div className=" px-[8rem] py-[4rem]">
         <p className="mx-4 font-heading  text-lg">
           Showing 1-6 of 10 results :
         </p>
-        <div className="border-2 w-full my-5 mx-2 grid grid-cols-3">
-          <div>
-            <div>
-              <img src="/course_image5.jpg" alt="" />
-            </div>
-            <div>
-              <div>
-                <div>
-                  <span className="material-symbols-outlined">
-                    signal_cellular_alt
-                  </span>
-                  <p>Intermediate</p>
-                </div>
-                <div>
-                  <span className="material-symbols-outlined">schedule</span>
-                  <p>10 Weeks</p>
-                </div>
-              </div>
-              <h2>Bases Matemáticas dios Álgebra Ecuacion</h2>
-              <div>
-                <img src="/icons/teacher1.png" alt="" />
-                <p>Atwood</p>
-              </div>
-            </div>
-          </div>
+        <div className="w-full my-5 gap-8 mx-2 grid grid-cols-3">
+          {courses.map((course) => (
+            <CourseCard
+              key={course.id}
+              image={course.image}
+              price={course.price}
+              time={course.time}
+              level={course.level}
+              heading={course.heading}
+              category={course.category}
+              instructor={course.instructor}
+            />
+          ))}
         </div>
       </div>
     </div>
