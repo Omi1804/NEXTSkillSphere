@@ -1,8 +1,24 @@
 import styles from "@/styles/courses.module.css";
 import CourseCard from "./CourseCard";
 import courses from "@/coursesData.json";
+import { useState } from "react";
+
+const ITEMS_PER_PAGE = 6;
 
 const AllCoursesList = () => {
+  const [currentPage, setCurrentPage] = useState(1);
+  const totalPages = Math.ceil(courses.length / ITEMS_PER_PAGE);
+
+  const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+  const selectedCourses = courses.slice(
+    startIndex,
+    startIndex + ITEMS_PER_PAGE
+  );
+
+  const changePage = (pageNumber: number) => {
+    setCurrentPage(pageNumber);
+  };
+
   return (
     <div className="border-2">
       <div className="flex bg-[#F8F8FC] px-[6rem] py-8 items-center justify-between">
@@ -52,14 +68,17 @@ const AllCoursesList = () => {
 
         <div className="relative inline-block mx-4 shadow-sm w-full">
           <select
-            name="prices"
-            id="priceSelect"
+            name="languages"
+            id="languagesSelect"
             className="h-full appearance-none outline-none border-none rounded-lg text-black bg-white py-3 px-5 pr-10 tracking-wide font-heading shadow-sm w-full cursor-pointer"
           >
             <option value="All Languages" selected>
               All Languages
             </option>
             <option value="English">English</option>
+            <option value="Hindi">Hindi</option>
+            <option value="Tamil">Tamil</option>
+            <option value="Telugu">Telugu</option>
           </select>
           <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
             <svg
@@ -82,6 +101,9 @@ const AllCoursesList = () => {
               All Prices
             </option>
             <option value="Free">Free</option>
+            <option value="Free">Paid</option>
+            <option value="Free">Prices: High To Low</option>
+            <option value="Free">Prices: Low To High</option>
           </select>
           <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
             <svg
@@ -96,8 +118,8 @@ const AllCoursesList = () => {
 
         <div className="relative inline-block mx-4 shadow-sm w-full">
           <select
-            name="prices"
-            id="priceSelect"
+            name="levels"
+            id="levelSelect"
             className="h-full appearance-none outline-none border-none rounded-lg text-black bg-white py-3 px-5 pr-10 tracking-wide font-heading shadow-sm w-full cursor-pointer"
           >
             <option value="All Skills" selected>
@@ -120,10 +142,11 @@ const AllCoursesList = () => {
       </div>
       <div className=" px-[8rem] py-[4rem]">
         <p className="mx-4 font-heading  text-lg">
-          Showing 1-6 of 10 results :
+          Showing {startIndex + 1}-{startIndex + selectedCourses.length} of{" "}
+          {courses.length} results:
         </p>
         <div className="w-full my-5 gap-8 mx-2 grid grid-cols-3">
-          {courses.map((course) => (
+          {selectedCourses.map((course) => (
             <CourseCard
               key={course.id}
               image={course.image}
@@ -134,6 +157,21 @@ const AllCoursesList = () => {
               category={course.category}
               instructor={course.instructor}
             />
+          ))}
+        </div>
+        <div className="flex justify-center space-x-2">
+          {Array.from({ length: totalPages }, (_, i) => (
+            <button
+              key={i + 1}
+              className={`px-4 py-2 rounded-full ${
+                currentPage === i + 1
+                  ? "bg-[#00ECA3] text-white"
+                  : "bg-white text-black border"
+              }`}
+              onClick={() => changePage(i + 1)}
+            >
+              {i + 1}
+            </button>
           ))}
         </div>
       </div>

@@ -1,5 +1,55 @@
 [
   {
+    "id": 11,
+    "image": "/course_image11.jpg",
+    "price": 280,
+    "time": "7 weeks",
+    "level": "Intermediate",
+    "heading": "Web Development Fundamentals",
+    "category": "Web Development",
+    "instructor": "David Lee"
+  },
+  {
+    "id": 12,
+    "image": "/course_image12.jpg",
+    "price": 180,
+    "time": "6 weeks",
+    "level": "Beginner",
+    "heading": "Introduction to Graphic Design",
+    "category": "Design & Creativity",
+    "instructor": "Sophia Chen"
+  },
+  {
+    "id": 13,
+    "image": "/course_image13.jpg",
+    "price": 400,
+    "time": "10 weeks",
+    "level": "Advanced",
+    "heading": "Advanced Statistics for Data Science",
+    "category": "Data Science & Analytics",
+    "instructor": "Daniel Miller"
+  },
+  {
+    "id": 14,
+    "image": "/course_image14.jpg",
+    "price": 150,
+    "time": "5 weeks",
+    "level": "Beginner",
+    "heading": "Introduction to Digital Marketing",
+    "category": "Digital Marketing",
+    "instructor": "Emma Thompson"
+  },
+  {
+    "id": 15,
+    "image": "/course_image15.jpg",
+    "price": 300,
+    "time": "8 weeks",
+    "level": "Intermediate",
+    "heading": "Advanced Machine Learning Techniques",
+    "category": "Machine Learning",
+    "instructor": "Kevin Wang"
+  },
+  {
     "id": 1,
     "image": "/course_image1.jpg",
     "price": 200,
@@ -78,5 +128,75 @@
     "heading": "Business & Management Essentials",
     "category": "Business & Management",
     "instructor": "Chris Johnson"
+  },
+  {
+    "id": 9,
+    "image": "/course_image9.jpg",
+    "price": 320,
+    "time": "9 weeks",
+    "level": "Intermediate",
+    "heading": "Full Stack development",
+    "category": "Computer Science",
+    "instructor": "Eric Huan"
+  },
+  {
+    "id": 10,
+    "image": "/course_image10.jpg",
+    "price": 620,
+    "time": "4 weeks",
+    "level": "Beginner",
+    "heading": "Python and Its Basics",
+    "category": "Computer Science",
+    "instructor": "Jheremy Situ"
+  },
+  {
+    "id": 11,
+    "image": "/course_image11.jpg",
+    "price": 280,
+    "time": "7 weeks",
+    "level": "Intermediate",
+    "heading": "Web Development Fundamentals",
+    "category": "Web Development",
+    "instructor": "David Lee"
+  },
+  {
+    "id": 12,
+    "image": "/course_image12.jpg",
+    "price": 180,
+    "time": "6 weeks",
+    "level": "Beginner",
+    "heading": "Introduction to Graphic Design",
+    "category": "Design & Creativity",
+    "instructor": "Sophia Chen"
+  },
+  {
+    "id": 13,
+    "image": "/course_image13.jpg",
+    "price": 400,
+    "time": "10 weeks",
+    "level": "Advanced",
+    "heading": "Advanced Statistics for Data Science",
+    "category": "Data Science & Analytics",
+    "instructor": "Daniel Miller"
+  },
+  {
+    "id": 14,
+    "image": "/course_image14.jpg",
+    "price": 150,
+    "time": "5 weeks",
+    "level": "Beginner",
+    "heading": "Introduction to Digital Marketing",
+    "category": "Digital Marketing",
+    "instructor": "Emma Thompson"
+  },
+  {
+    "id": 15,
+    "image": "/course_image15.jpg",
+    "price": 300,
+    "time": "8 weeks",
+    "level": "Intermediate",
+    "heading": "Advanced Machine Learning Techniques",
+    "category": "Machine Learning",
+    "instructor": "Kevin Wang"
   }
 ]
