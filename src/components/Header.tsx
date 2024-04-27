@@ -179,7 +179,7 @@ const Header = () => {
   const closeLoginModal = () => setIsLoginOpen(false);
 
   return (
-    <div className={`w-full px-[4rem] py-5 bg-[#222222] flex justify-between`}>
+    <div className={`w-full px-[4rem] py-6 bg-[#222222] flex justify-between`}>
       <div className=" w-[8rem] h-auto object-contain">
         <Link href={"/"}>
           <img src="/icons/logo.webp" alt="" className="w-full h-full" />
@@ -216,7 +216,7 @@ const Header = () => {
             <Link href={"/services"}>Services</Link>
           </p>
         </li>
-        <li
+        {/* <li
           className={`text-white font-body font-medium text-base  tracking-wide mx-3 hover:text-[#00eda4] cursor-pointer duration-300 ${
             path === "/students" && styles.active
           }`}
@@ -233,7 +233,7 @@ const Header = () => {
           <p className="duration-300">
             <Link href={"/whyus"}>Why Us</Link>
           </p>
-        </li>
+        </li> */}
         <li
           className={`text-white font-body font-medium text-base  tracking-wide mx-3 hover:text-[#00eda4] cursor-pointer duration-300 ${
             path === "/courses" && styles.active

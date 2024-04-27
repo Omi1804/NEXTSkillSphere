@@ -1,5 +1,7 @@
 import CommonHero from "@/components/CommonHero";
+import GetInTouch from "@/components/ContactUs/GetInTouch";
 import AllCoursesList from "@/components/CoursesComponents/AllCoursesList";
+import JoinCourse from "@/components/HomeComponents/JoinCourse";
 import React from "react";
 
 const courses = () => {
@@ -11,6 +13,7 @@ const courses = () => {
         subHeading={"COURSE LIST"}
       />
       <AllCoursesList />
+      <JoinCourse />
     </div>
   );
 };

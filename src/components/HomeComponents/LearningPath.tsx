@@ -66,7 +66,7 @@ const LearningPath = () => {
 
   const CommonComponent2 = ({ path1, path2 }: Component2) => {
     return (
-      <div className="p-4 pl-10 w-[50%] h-full flex">
+      <div className="p-4 pl-10 w-[50%] h-full flex justify-center items-center">
         <div className={`${styles.figure1}`}>
           <div className={`${styles.blueFigure}`}></div>
           <div
@@ -91,7 +91,7 @@ const LearningPath = () => {
     switch (active) {
       case 1:
         return (
-          <div className="flex w-full">
+          <div className="flex w-full justify-center items-center px-16">
             {<CommonComponent1 />}
             {
               <CommonComponent2
@@ -103,7 +103,7 @@ const LearningPath = () => {
         );
       case 2:
         return (
-          <div className="flex w-full">
+          <div className="flex w-full justify-center items-center px-16">
             {<CommonComponent1 />}
             <CommonComponent2
               path1={"/home-tab-2.jpg"}
@@ -113,7 +113,7 @@ const LearningPath = () => {
         );
       case 3:
         return (
-          <div className="flex w-full">
+          <div className="flex w-full justify-center items-center px-16">
             {<CommonComponent1 />}
             <CommonComponent2
               path1={"/home-tab-3.jpg"}
@@ -172,7 +172,7 @@ const LearningPath = () => {
           </p>
         </li>
       </ul>
-      <div className="w-full mt-16">{renderContent()}</div>
+      <div className="w-full mt-16 ">{renderContent()}</div>
     </div>
   );
 };

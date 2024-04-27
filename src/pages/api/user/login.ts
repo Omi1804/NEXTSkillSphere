@@ -38,7 +38,9 @@ export default async function handler(
       expiresIn: "1d",
     });
 
-    return res.status(200).json({ message: "Logged in successfully", token });
+    return res
+      .status(200)
+      .json({ message: "Logged in successfully", token, existingUser });
   } catch (error) {
     console.log(error);
     return res

@@ -4,6 +4,8 @@ import { connectToDb } from "@/lib";
 import { Users } from "@/models";
 
 interface UserInput {
+  username: string;
+  name: string;
   email: string;
   password: string;
 }
@@ -18,7 +20,7 @@ export default async function handler(
 
   try {
     await connectToDb();
-    const { email, password }: UserInput = req.body;
+    const { email, password, username, name }: UserInput = req.body;
 
     if (!email || !password) {
       return res.status(400).json({ message: "Invalid email or password" });
@@ -30,7 +32,7 @@ export default async function handler(
       return res.status(400).json({ message: "User already exists!" });
     }
 
-    const newUser = await Users.create({ email, password }); // Ensure password is hashed before saving
+    const newUser = await Users.create({ email, password, username, name });
 
     if (!process.env.SECRET_KEY) {
       console.log("Secret key for token generation is missing.");
@@ -43,7 +45,7 @@ export default async function handler(
 
     return res
       .status(200)
-      .json({ message: "User created successfully", token });
+      .json({ message: "User created successfully", token, newUser });
   } catch (error) {
     console.log(error);
     return res

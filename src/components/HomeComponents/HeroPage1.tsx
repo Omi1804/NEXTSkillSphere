@@ -65,21 +65,18 @@ const HeroPage1 = () => {
           Over 1900 online courses
         </h3>
         <div className="my-10 flex items-center justify-center gap-10">
-          <button className="flex items-center gap-3 rounded-lg justify-center w-[11rem] p-4 rounded-tl-[2.3rem] bg-[linear-gradient(90deg,_rgb(255,_94,_58)_0%,_rgb(255,_42,_104)_100%)] text-white hover:shadow-xl hover:scale-105 duration-300">
+          <button className="flex items-center gap-3 rounded-lg justify-center w-[11rem] p-4 rounded-tl-[2.3rem] bg-[linear-gradient(90deg,_rgb(255,_94,_58)_0%,_rgb(255,_42,_104)_100%)] text-white shadow-md hover:shadow-xl hover:scale-105 duration-300">
             <span className="material-symbols-outlined ">edit</span>
             <p className="font-heading text-base">Learn Now</p>
           </button>
 
-          <button className="flex items-center gap-3 rounded-lg justify-center w-[13rem] p-4 rounded-tl-[2.3rem] bg-[linear-gradient(90deg,_rgb(0,_237,_164)_0%,_rgb(106,_125,_241)_100%)] text-white hover:shadow-xl hover:scale-105 duration-300">
+          <button className="flex items-center gap-3 rounded-lg justify-center w-[13rem] p-4 rounded-tl-[2.3rem] bg-[linear-gradient(90deg,_rgb(0,_237,_164)_0%,_rgb(106,_125,_241)_100%)] text-white shadow-md hover:shadow-xl hover:scale-105 duration-300">
             <span className="material-symbols-outlined">adjust</span>
             <p className="font-heading text-base">Explore eLearny</p>
           </button>
         </div>
       </div>
-      <div
-        className="relative w-full h-[100vh] py-10 "
-        onMouseMove={handleMouseMove}
-      >
+      <div className="relative w-full h-[100vh] " onMouseMove={handleMouseMove}>
         <div className="absolute  w-full h-full object-contain ">
           {/* Background Image */}
           <div
@@ -149,7 +146,7 @@ const HeroPage1 = () => {
               </p>
             </li>
           </ul>
-          <button className="flex items-center gap-3 mx-auto rounded-lg justify-center w-[13rem] p-4 rounded-tl-[2.3rem] bg-[linear-gradient(90deg,_rgb(0,_237,_164)_0%,_rgb(106,_125,_241)_100%)] text-white hover:shadow-xl hover:scale-105 duration-300">
+          <button className="flex items-center gap-3 mx-auto rounded-lg justify-center w-[13rem] p-4 rounded-tl-[2.3rem] shadow-md bg-[linear-gradient(90deg,_rgb(0,_237,_164)_0%,_rgb(106,_125,_241)_100%)] text-white hover:shadow-xl hover:scale-105 duration-300">
             <span className="material-symbols-outlined">visibility</span>
             <p>View Courses</p>
           </button>
@@ -169,11 +166,11 @@ const HeroPage1 = () => {
           </div>
 
           <div className="my-4 flex items-center justify-center gap-10">
-            <button className="flex items-center gap-3 rounded-lg justify-center w-[13rem] p-4 rounded-tl-[2.3rem] bg-[linear-gradient(90deg,_rgb(0,_237,_164)_0%,_rgb(106,_125,_241)_100%)] text-white hover:shadow-xl hover:scale-105 duration-300">
+            <button className="flex items-center gap-3 rounded-lg justify-center w-[13rem] p-4 rounded-tl-[2.3rem] bg-[linear-gradient(90deg,_rgb(0,_237,_164)_0%,_rgb(106,_125,_241)_100%)] text-white hover:shadow-xl hover:scale-105 duration-300 shadow-md">
               <span className="material-symbols-outlined">search</span>
               <p>Discover Courses</p>
             </button>
-            <button className="flex items-center gap-3 rounded-lg justify-center w-[13rem] p-4 rounded-tl-[2.3rem] bg-white text-black hover:shadow-xl hover:scale-105 duration-300">
+            <button className="flex items-center gap-3 rounded-lg justify-center w-[13rem] p-4 rounded-tl-[2.3rem] bg-white text-black hover:shadow-xl hover:scale-105 duration-300 shadow-md">
               <span className="material-symbols-outlined">forum</span>
               <p>Talk to us</p>
             </button>
