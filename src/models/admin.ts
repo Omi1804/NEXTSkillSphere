@@ -11,7 +11,10 @@ interface ICourse {
   description: string;
   price: number;
   imageLink: string;
-  published: boolean;
+  time: string;
+  level: string;
+  category: string;
+  instructor: string;
 }
 
 // Mongoose Schemas with TypeScript types
@@ -25,7 +28,10 @@ const courseSchema = new mongoose.Schema<ICourse>({
   description: String,
   price: Number,
   imageLink: String,
-  published: { type: Boolean, default: false },
+  time: String,
+  level: String,
+  category: String,
+  instructor: String,
 });
 
 export const Admins: Model<IAdmin> =
