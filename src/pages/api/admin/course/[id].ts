@@ -21,7 +21,7 @@ export default async function handler(
       }
 
       // const existingCourse = await Courses.findById(courseId);
-      const existingCourse = await prisma.courses.findUnique({
+      const existingCourse = await prisma.course.findUnique({
         where: {
           id: courseId,
         },
@@ -31,7 +31,7 @@ export default async function handler(
       }
 
       try {
-        const updatedCourse = await prisma.courses.update({
+        const updatedCourse = await prisma.course.update({
           where: {
             id: courseId,
           },
@@ -58,7 +58,7 @@ export default async function handler(
     const courseId: any = req.query.id;
 
     try {
-      const deleteCourse = await prisma.courses.delete({
+      const deleteCourse = await prisma.course.delete({
         where: {
           id: courseId,
         },

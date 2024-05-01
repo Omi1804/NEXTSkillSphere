@@ -1,7 +1,8 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import jwt from "jsonwebtoken";
-import { connectToDb } from "@/lib";
-import { Users } from "@/models";
+import { PrismaClient } from "@prisma/client";
+
+const prisma = new PrismaClient();
 
 interface UserInput {
   username: string;
@@ -10,6 +11,7 @@ interface UserInput {
   password: string;
 }
 
+//creating new user
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
@@ -19,27 +21,40 @@ export default async function handler(
   }
 
   try {
-    await connectToDb();
     const { email, password, username, name }: UserInput = req.body;
 
     if (!email || !password) {
       return res.status(400).json({ message: "Invalid email or password" });
     }
 
-    const existingUser = await Users.findOne({ email });
+    // const existingUser = await Users.findOne({ email });
+    const existingUser = await prisma.user.findUnique({
+      where: {
+        email,
+        password,
+      },
+    });
 
     if (existingUser) {
       return res.status(400).json({ message: "User already exists!" });
     }
 
-    const newUser = await Users.create({ email, password, username, name });
+    // const newUser = await Users.create({ email, password, username, name });
+    const newUser = await prisma.user.create({
+      data: {
+        email,
+        password,
+        username,
+        name,
+      },
+    });
 
     if (!process.env.SECRET_KEY) {
       console.log("Secret key for token generation is missing.");
       return res.status(500).json({ message: "Internal server error." });
     }
 
-    const token = jwt.sign({ id: newUser._id }, process.env.SECRET_KEY, {
+    const token = jwt.sign({ id: newUser.id }, process.env.SECRET_KEY, {
       expiresIn: "1d",
     });
 
@@ -50,6 +65,8 @@ export default async function handler(
     console.log(error);
     return res
       .status(404)
-      .json({ message: "Invalid credentials or user does not exist" });
+      .json({ message: "Invalid credentials or user does not exist", error });
+  } finally {
+    await prisma.$disconnect();
   }
 }

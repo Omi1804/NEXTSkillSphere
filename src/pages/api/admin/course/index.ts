@@ -15,7 +15,7 @@ export default async function handler(
 
       const newCourse = req.body;
       // await Courses.create(newCourse);
-      await prisma.courses.create({
+      await prisma.course.create({
         data: {
           imageLink: newCourse.imageLink,
           price: newCourse.price,
@@ -44,7 +44,7 @@ export default async function handler(
       await authenticateAdmin(req, res);
 
       // const courses = await Courses.find({});
-      const courses = await prisma.courses.findMany();
+      const courses = await prisma.course.findMany();
 
       res.status(200).json(courses);
     } catch (error: any) {

@@ -76,7 +76,7 @@ export const authenticateUser = async (
     const { id }: { id: string } = decoded;
 
     // const existingUser = await Users.findOne({ _id: id });
-    const existingUser = await prisma.users.findUnique({
+    const existingUser = await prisma.user.findUnique({
       where: {
         id,
       },
