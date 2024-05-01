@@ -9,21 +9,20 @@ datasource db {
 
 model admins {
   id       String @id @default(auto()) @map("_id") @db.ObjectId
-  v        Int    @map("__v")
   email    String @unique
   password String
 }
 
 model users {
-  id       String   @id @default(auto()) @map("_id") @db.ObjectId
-  email    String   @unique
+  id       String    @id @default(auto()) @map("_id") @db.ObjectId
+  email    String    @unique
   password String
-  username String   @unique
+  username String    @unique
   name     String
-  courses  Course[]
+  courses  courses[]
 }
 
-model Course {
+model courses {
   id          String  @id @default(auto()) @map("_id") @db.ObjectId
   imageLink   String
   price       Int
