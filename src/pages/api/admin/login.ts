@@ -1,7 +1,8 @@
 import { NextApiRequest, NextApiResponse } from "next";
+import { PrismaClient } from "@prisma/client";
 import jwt from "jsonwebtoken";
-import { connectToDb } from "@/lib";
-import { Admins, Courses } from "@/models";
+
+const prisma = new PrismaClient();
 
 export default async function handler(
   req: NextApiRequest,
@@ -11,16 +12,20 @@ export default async function handler(
     return res.status(405).end(); // Method Not Allowed
   }
 
-  await connectToDb();
-
   try {
-    const { email, password } = req.body;
+    const { email, password }: { email: string; password: string } = req.body;
 
     if (!email || !password) {
       return res.status(400).json({ message: "Invalid email or password" });
     }
 
-    const existingUser = await Admins.findOne({ email });
+    // const existingUser = await Admins.findOne({ email });
+    const existingUser = await prisma.admins.findUnique({
+      where: {
+        email: email,
+        password: password,
+      },
+    });
 
     if (!existingUser || existingUser.password !== password) {
       // Ensure to use hashed password comparison in real app
@@ -34,15 +39,19 @@ export default async function handler(
       return res.status(500).json({ message: "Internal server error." });
     }
 
-    const token = jwt.sign({ id: existingUser._id }, process.env.SECRET_KEY, {
+    const token = jwt.sign({ id: existingUser.id }, process.env.SECRET_KEY, {
       expiresIn: "1d",
     });
 
-    return res.status(200).json({ message: "Logged in successfully", token });
-  } catch (error) {
-    console.log(error);
-    return res
-      .status(404)
-      .json({ message: "Invalid credentials or user does not exist" });
+    return res.status(200).json({
+      message: "Logged in successfully",
+      token,
+      adminDetails: existingUser,
+    });
+  } catch (err) {
+    console.error("Server Error:", err);
+    return res.status(500).json({ message: "Internal server error" });
+  } finally {
+    await prisma.$disconnect();
   }
 }

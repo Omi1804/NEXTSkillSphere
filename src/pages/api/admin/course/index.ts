@@ -1,14 +1,17 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { connectToDb, authenticateAdmin } from "@/lib";
+import { PrismaClient } from "@prisma/client";
+import { authenticateAdmin } from "@/lib";
 import { Courses } from "@/models";
+
+const prisma = new PrismaClient();
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
+  //creating a new Courses
   if (req.method === "POST") {
     try {
-      await connectToDb();
       await authenticateAdmin(req, res);
 
       const newCourse = req.body;
@@ -20,6 +23,7 @@ export default async function handler(
     } catch (error: any) {
       return res.status(400).json({ message: error.message });
     }
+    //Get all the courses
   } else if (req.method === "GET") {
     try {
       await connectToDb();

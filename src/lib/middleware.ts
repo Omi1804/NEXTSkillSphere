@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
+import { PrismaClient } from "@prisma/client";
 import { NextApiResponse, NextApiRequest } from "next";
-import { Admins, Users } from "@/models";
 const secretKey = process.env.SECRET_KEY as string;
 
 if (!secretKey) {
@@ -8,6 +8,8 @@ if (!secretKey) {
     "JWT Secret Key is not defined in the environment variables."
   );
 }
+
+const prisma = new PrismaClient();
 
 interface DecodedToken {
   id: string;
@@ -34,7 +36,11 @@ export const authenticateAdmin = async (
 
     const { id }: { id: string } = decoded;
 
-    const existingUser = await Admins.findOne({ _id: id });
+    const existingUser = await prisma.admins.findUnique({
+      where: {
+        id,
+      },
+    });
 
     if (!existingUser) {
       return res.status(403).json({ message: "Admin not found!" });
@@ -43,6 +49,8 @@ export const authenticateAdmin = async (
     req.headers.userEmail = existingUser.email;
   } catch (err) {
     return res.status(401).json({ message: "Invalid token!" });
+  } finally {
+    await prisma.$disconnect();
   }
 };
 
@@ -67,7 +75,12 @@ export const authenticateUser = async (
 
     const { id }: { id: string } = decoded;
 
-    const existingUser = await Users.findOne({ _id: id });
+    // const existingUser = await Users.findOne({ _id: id });
+    const existingUser = await prisma.users.findUnique({
+      where: {
+        id,
+      },
+    });
 
     if (!existingUser) {
       return res.status(403).json({ message: "User not found!" });
@@ -76,5 +89,7 @@ export const authenticateUser = async (
     req.headers.userEmail = existingUser.email;
   } catch (err) {
     return res.status(401).json({ message: "Invalid token!" });
+  } finally {
+    await prisma.$disconnect();
   }
 };

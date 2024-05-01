@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { connectToDb, authenticateAdmin } from "@/lib";
+import { authenticateAdmin } from "@/lib";
 
 export default async function handler(
   req: NextApiRequest,
@@ -9,7 +9,6 @@ export default async function handler(
     return res.status(405).end();
   }
   try {
-    await connectToDb();
     await authenticateAdmin(req, res);
 
     const { userEmail } = req.headers;
