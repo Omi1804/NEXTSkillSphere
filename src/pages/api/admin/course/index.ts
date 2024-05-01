@@ -1,7 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { PrismaClient } from "@prisma/client";
 import { authenticateAdmin } from "@/lib";
-import { Courses } from "@/models";
 
 const prisma = new PrismaClient();
 
@@ -49,7 +48,10 @@ export default async function handler(
 
       res.status(200).json(courses);
     } catch (error: any) {
+      console.log(error);
       return res.status(400).json({ message: error.message });
+    } finally {
+      await prisma.$disconnect();
     }
   } else {
     return res.status(405).end();
