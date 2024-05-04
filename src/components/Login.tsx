@@ -1,7 +1,43 @@
+import { BASE_URL } from "@/config";
 import styles from "@/styles/login.module.css";
+import axios from "axios";
+import { useState } from "react";
 
-const Login = ({ isOpen, onClose }: any) => {
+const Login = ({ isOpen, onClose, setUserDetails }: any) => {
   if (!isOpen) return null;
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState(null);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    e.target.name == "email"
+      ? setEmail(e.target.value)
+      : setPassword(e.target.value);
+  };
+
+  const handleSubmit = async (e: any) => {
+    e.preventDefault();
+
+    try {
+      const response = await axios.post(`${BASE_URL}/user/login`, {
+        email: email,
+        password: password,
+      });
+      const responseData = response.data;
+
+      if (responseData.token) {
+        const token = responseData.token;
+        localStorage.setItem("eLearniToken", token);
+        setUserDetails(responseData.userDetails);
+        onClose();
+      }
+    } catch (e: any) {
+      setError(e.response.data.message);
+      console.log(e);
+    }
+  };
+
   return (
     <div className={`${styles.modalBackdrop}`}>
       <div className={`${styles.modalContent} relative shadow-2xl`}>
@@ -29,6 +65,7 @@ const Login = ({ isOpen, onClose }: any) => {
               placeholder="Email"
               required
               className="w-full border-[1px] px-5 py-2 rounded-tl-3xl outline-none border-[#0000002e] shadow-sm mt-3 text-[#b4aab4] font-body  focus:shadow-lg duration-300"
+              onChange={handleChange}
             />
           </div>
           <div className="my-8">
@@ -44,8 +81,16 @@ const Login = ({ isOpen, onClose }: any) => {
               placeholder="Password"
               required
               className="w-full border-[1px] px-5 py-2 rounded-tl-3xl outline-none border-[#0000002e] shadow-sm mt-3 text-[#b4aab4] font-body  focus:shadow-lg duration-300"
+              onChange={handleChange}
             />
           </div>
+          {error != null && (
+            <div className="my-[-1rem]">
+              <p className="text-base font-medium font-body text-red-400 py-2">
+                {error}.
+              </p>
+            </div>
+          )}
           <div className="flex items-center justify-start gap-2 my-8">
             <input type="checkbox" name="remember" />
             <label
@@ -55,7 +100,10 @@ const Login = ({ isOpen, onClose }: any) => {
               Remember me
             </label>
           </div>
-          <button className="flex items-center gap-3 rounded-lg justify-center w-full p-4 rounded-tl-[2.3rem] bg-[linear-gradient(90deg,_rgb(0,_237,_164)_0%,_rgb(106,_125,_241)_100%)] text-white hover:shadow-xl hover:scale-105 hover:rounded-md duration-300">
+          <button
+            className="flex items-center gap-3 rounded-lg justify-center w-full p-4 rounded-tl-[2.3rem] bg-[linear-gradient(90deg,_rgb(0,_237,_164)_0%,_rgb(106,_125,_241)_100%)] text-white hover:shadow-xl hover:scale-105 hover:rounded-md duration-300"
+            onClick={handleSubmit}
+          >
             Log In
           </button>
         </form>

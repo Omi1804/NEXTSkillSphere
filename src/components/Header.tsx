@@ -172,11 +172,19 @@ import Login from "./Login";
 import Link from "next/link";
 
 const Header = () => {
+  const [userDetails, setUserDetails] = useState<any>(null);
   const [isLoginOpen, setIsLoginOpen] = useState(false);
+  const [loggedOut, setLoggedOut] = useState(false);
   const path = usePathname();
 
   const openLoginModal = () => setIsLoginOpen(true);
   const closeLoginModal = () => setIsLoginOpen(false);
+
+  const logoutHandle = () => {
+    setLoggedOut((prev) => !prev);
+  };
+
+  console.log(userDetails);
 
   return (
     <div className={`w-full px-[4rem] py-6 bg-[#222222] flex justify-between`}>
@@ -253,28 +261,62 @@ const Header = () => {
           </p>
         </li>
       </ul>
+      {userDetails == null ? (
+        <div className="flex gap-5">
+          <button
+            className="flex items-center justify-center text-[#969696] gap-1 hover:text-[#00eda4] hover:shadow-md  duration-200"
+            onClick={openLoginModal}
+          >
+            <span className="material-symbols-outlined text-xl  transition">
+              lock_open
+            </span>
+            <p className="font-body font-light text-base transition">Login</p>
+          </button>
+          <button className="flex items-center justify-center text-[#969696] gap-1 hover:text-[#00eda4] hover:shadow-md  duration-200">
+            <span className="material-symbols-outlined text-xl transition">
+              person
+            </span>
+            <p className="font-body font-light text-base transition">
+              <Link href={"/register"}>Register</Link>
+            </p>
+          </button>
+        </div>
+      ) : (
+        <div className="relative ">
+          <button
+            className="flex items-center justify-center text-[#969696] gap-1 hover:text-[#00eda4] hover:shadow-md  duration-200"
+            onClick={logoutHandle}
+          >
+            <span className="material-symbols-outlined text-2xl transition">
+              person
+            </span>
+            <p className="font-body font-light text-lg transition">
+              {userDetails.name}
+            </p>
+          </button>
+          {loggedOut && (
+            <div className="w-full absolute top-[3.5rem] bg-[#222] z-50 flex justify-center items-center p-2 rounded-b-xl shadow-lg border-t-2 border-[#1b1b1b]">
+              <p
+                className="text-white font-body text-base font-medium mb-1 cursor-pointer hover:text-[#00ECA3] duration-300"
+                onClick={() => {
+                  setUserDetails(null);
+                  setLoggedOut(false);
+                  localStorage.removeItem("eLearniToken");
+                }}
+              >
+                Logout
+              </p>
+            </div>
+          )}
+        </div>
+      )}
 
-      <div className="flex gap-5">
-        <button
-          className="flex items-center justify-center text-[#969696] gap-1 hover:text-[#00eda4] hover:shadow-md  duration-200"
-          onClick={openLoginModal}
-        >
-          <span className="material-symbols-outlined text-xl  transition">
-            lock_open
-          </span>
-          <p className="font-body font-light text-base transition">Login</p>
-        </button>
-        <button className="flex items-center justify-center text-[#969696] gap-1 hover:text-[#00eda4] hover:shadow-md  duration-200">
-          <span className="material-symbols-outlined text-xl transition">
-            person
-          </span>
-          <p className="font-body font-light text-base transition">
-            <Link href={"/register"}>Register</Link>
-          </p>
-        </button>
-      </div>
       {/* @ts-ignore */}
-      <Login isOpen={isLoginOpen} onClose={closeLoginModal} />
+      <Login
+        isOpen={isLoginOpen}
+        onClose={closeLoginModal}
+        setUserDetails={setUserDetails}
+      />
     </div>
   );
 };
