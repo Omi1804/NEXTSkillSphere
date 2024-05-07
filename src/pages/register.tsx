@@ -1,6 +1,78 @@
 import CommonHero from "@/components/CommonHero";
+import { useRouter } from "next/navigation";
+import { BASE_URL } from "@/config";
+import axios from "axios";
+import { useState } from "react";
 
 const Register = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [username, setUsername] = useState("");
+  const [name, setName] = useState("");
+  const [passwordStrength, setPasswordStrength] = useState("weak");
+  const [error, setError] = useState(null);
+  const router = useRouter();
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const name = e.target.name;
+    const value = e.target.value;
+
+    if (name === "password") {
+      setPassword(value);
+      // Check password strength
+      const hasUpperCase = /[A-Z]/.test(value);
+      const hasLowerCase = /[a-z]/.test(value);
+      const hasNumber = /\d/.test(value);
+      const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(value);
+
+      if (hasUpperCase && hasLowerCase && hasNumber && hasSpecialChar) {
+        if (value.length >= 12) {
+          setPasswordStrength("strong");
+        } else {
+          setPasswordStrength("medium");
+        }
+      } else {
+        setPasswordStrength("weak");
+      }
+    } else {
+      switch (name) {
+        case "email":
+          setEmail(value);
+          break;
+        case "username":
+          setUsername(value);
+          break;
+        case "name":
+          setName(value);
+          break;
+        default:
+          break;
+      }
+    }
+  };
+
+  const handleSubmit = async (e: any) => {
+    try {
+      e.preventDefault();
+      const response = await axios.post(`${BASE_URL}/user/signup`, {
+        email: email,
+        password: password,
+        username: username,
+        name: name,
+      });
+      const responseData = response.data;
+      if (responseData.message === "User created successfully") {
+        const token = responseData.token;
+        localStorage.setItem("eLearniToken", token);
+        router.push("/");
+      }
+      console.log(responseData);
+    } catch (error: any) {
+      setError(error.response.data.message);
+      console.error("An unexpected error occurred:", error);
+    }
+  };
+
   return (
     <div>
       <CommonHero
@@ -36,6 +108,7 @@ const Register = () => {
                   name="username"
                   className="w-full border-[1px] px-5 py-2 bg-[#fafafa]  rounded-tl-3xl outline-none border-[#b71717] shadow-sm mt-2 rounded-md text-[#b4aab4] font-body  focus:shadow-lg duration-300 focus:border-[#0000002e]"
                   required
+                  onChange={handleChange}
                 />
               </div>
               <div className="my-8">
@@ -50,6 +123,7 @@ const Register = () => {
                   name="email"
                   required
                   className="w-full border-[1px] px-5 py-2  bg-[#fafafa] rounded-tl-3xl outline-none border-[#b71717] shadow-sm mt-2 rounded-md text-[#b4aab4] font-body  focus:shadow-lg duration-300 focus:border-[#0000002e]"
+                  onChange={handleChange}
                 />
               </div>
               <div className="my-4">
@@ -64,17 +138,40 @@ const Register = () => {
                   name="password"
                   required
                   className="w-full border-[1px] px-5 py-2  bg-[#fafafa] rounded-tl-3xl outline-none border-[#b71717] shadow-sm mt-2 rounded-md text-[#b4aab4] font-body  focus:shadow-lg duration-300 focus:border-[#0000002e]"
+                  onChange={handleChange}
                 />
-                <button className="py-3 px-12 bg-[#65D56D] my-3 border border-black rounded-sm font-body text-base font-semibold">
-                  Strong
-                </button>
+                <p
+                  className={`py-3 px-12 w-[9.5rem] text-center  ${
+                    passwordStrength === "weak"
+                      ? "bg-[#E53E3E]"
+                      : passwordStrength === "medium"
+                      ? "bg-[#F7CF1F]"
+                      : "bg-[#65D56D]"
+                  } my-3 border border-black rounded-sm font-body text-base font-semibold`}
+                >
+                  {passwordStrength === "strong"
+                    ? "Strong"
+                    : passwordStrength === "medium"
+                    ? "Medium"
+                    : "Weak"}
+                </p>
               </div>
-              <p className="bg-[#fafafa] p-1 font-heading text-[#737373] font-light text-[.9rem] tracking-wide mb-8">
+              <p className="bg-[#fafafa] p-1 font-heading text-[#737373] font-light text-[.9rem] tracking-wide mb-2">
                 Hint: The password should be at least twelve characters long. To
                 make it stronger, use upper and lower case letters, numbers, and
                 symbols like ! " ? $ % ^ & .
               </p>
-              <button className="flex items-center gap-3 font-bold rounded-lg justify-center w-[14rem] p-4 rounded-tl-[2.3rem] bg-[linear-gradient(90deg,_rgb(0,_237,_164)_0%,_rgb(106,_125,_241)_100%)] text-white hover:shadow-xl hover:scale-105 duration-300 hover:rounded-md">
+              {error != null && (
+                <div className="m-2">
+                  <p className="text-base font-medium font-body text-red-600 py-2">
+                    {error}.
+                  </p>
+                </div>
+              )}
+              <button
+                className="flex items-center gap-3 font-bold rounded-lg justify-center w-[14rem] p-4 rounded-tl-[2.3rem] bg-[linear-gradient(90deg,_rgb(0,_237,_164)_0%,_rgb(106,_125,_241)_100%)] text-white hover:shadow-xl hover:scale-105 duration-300 hover:rounded-md"
+                onClick={handleSubmit}
+              >
                 Complete Sign Up
               </button>
             </form>
@@ -93,6 +190,7 @@ const Register = () => {
                 name="name"
                 className="w-full border-[1px] px-5 py-2 bg-[#fafafa]  rounded-tl-3xl outline-none border-[#b71717] shadow-sm mt-2 rounded-md text-[#b4aab4] font-body  focus:shadow-lg duration-300 focus:border-[#0000002e]"
                 required
+                onChange={handleChange}
               />
               <p className="font-light italic text-[#737373] text-sm my-2">
                 This field may be seen by:{" "}

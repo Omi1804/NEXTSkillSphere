@@ -9,6 +9,11 @@
   box-sizing: border-box;
 }
 
+html,
+body {
+  overscroll-behavior: none;
+}
+
 a {
   text-decoration: none;
   color: inherit;

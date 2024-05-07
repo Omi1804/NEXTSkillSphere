@@ -166,10 +166,19 @@
 // export default Header;
 
 import React, { useState } from "react";
+import {
+  faFacebookF,
+  faTwitter,
+  faInstagram,
+  faVimeoV,
+  faGooglePlusG,
+  faGoogle,
+} from "@fortawesome/free-brands-svg-icons";
 import styles from "@/styles/home.module.css";
 import { usePathname } from "next/navigation";
 import Login from "./Login";
 import Link from "next/link";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Header = () => {
   const [userDetails, setUserDetails] = useState<any>(null);
@@ -187,136 +196,174 @@ const Header = () => {
   console.log(userDetails);
 
   return (
-    <div className={`w-full px-[4rem] py-6 bg-[#222222] flex justify-between`}>
-      <div className=" w-[8rem] h-auto object-contain">
-        <Link href={"/"}>
-          <img src="/icons/logo.webp" alt="" className="w-full h-full" />
-        </Link>
-      </div>
+    <div className="px-[5rem] py-2 bg-[#222222]">
+      <div className="border-b-[.1px] border-[#969696] py-3 flex items-center justify-between">
+        <div className=" flex items-center gap-5">
+          <FontAwesomeIcon
+            icon={faGoogle}
+            className="w-5 h-5  text-[#969696] hover:text-[#00ECA3] cursor-pointer duration-500 hover:scale-105"
+          />
 
-      <ul
-        className={`flex gap-1 items-center justify-center ${styles.navbar} relative left-14`}
-      >
-        <li
-          className={`text-white font-body font-medium text-base  tracking-wide mx-3 hover:text-[#00eda4] cursor-pointer duration-300 ${
-            path === "/" && styles.active
-          }`}
-        >
-          <p className="duration-300">
-            <Link href={"/"}>Home</Link>
-          </p>
-        </li>
-        <li
-          className={`text-white font-body font-medium text-base  tracking-wide mx-3 hover:text-[#00eda4] cursor-pointer duration-300 ${
-            path === "/about" && styles.active
-          }`}
-        >
-          <p className="duration-300">
-            <Link href={"/about"}>About</Link>
-          </p>
-        </li>
-        <li
-          className={`text-white font-body font-medium text-base  tracking-wide mx-3 hover:text-[#00eda4] cursor-pointer duration-300 ${
-            path === "/services" && styles.active
-          }`}
-        >
-          <p className="duration-300">
-            <Link href={"/services"}>Services</Link>
-          </p>
-        </li>
-        {/* <li
-          className={`text-white font-body font-medium text-base  tracking-wide mx-3 hover:text-[#00eda4] cursor-pointer duration-300 ${
-            path === "/students" && styles.active
-          }`}
-        >
-          <p className="duration-300">
-            <Link href={"/students"}>Students</Link>
-          </p>
-        </li>
-        <li
-          className={`text-white font-body font-medium text-base  tracking-wide mx-3 hover:text-[#00eda4] cursor-pointer duration-300 ${
-            path === "/whyus" && styles.active
-          }`}
-        >
-          <p className="duration-300">
-            <Link href={"/whyus"}>Why Us</Link>
-          </p>
-        </li> */}
-        <li
-          className={`text-white font-body font-medium text-base  tracking-wide mx-3 hover:text-[#00eda4] cursor-pointer duration-300 ${
-            path === "/courses" && styles.active
-          }`}
-        >
-          <p className="duration-300">
-            <Link href={"/courses"}>Courses</Link>
-          </p>
-        </li>
-        <li
-          className={`text-white font-body font-medium text-base  tracking-wide mx-3 hover:text-[#00eda4] cursor-pointer duration-300 ${
-            path === "/contact" && styles.active
-          }`}
-        >
-          <p className="duration-300">
-            <Link href={"/contact"}>Contact</Link>
-          </p>
-        </li>
-      </ul>
-      {userDetails == null ? (
-        <div className="flex gap-5">
-          <button
-            className="flex items-center justify-center text-[#969696] gap-1 hover:text-[#00eda4] hover:shadow-md  duration-200"
-            onClick={openLoginModal}
-          >
-            <span className="material-symbols-outlined text-xl  transition">
-              lock_open
-            </span>
-            <p className="font-body font-light text-base transition">Login</p>
-          </button>
-          <button className="flex items-center justify-center text-[#969696] gap-1 hover:text-[#00eda4] hover:shadow-md  duration-200">
-            <span className="material-symbols-outlined text-xl transition">
-              person
-            </span>
-            <p className="font-body font-light text-base transition">
-              <Link href={"/register"}>Register</Link>
-            </p>
-          </button>
+          <FontAwesomeIcon
+            icon={faFacebookF}
+            className="w-5 h-5  text-[#969696] hover:text-[#00ECA3] cursor-pointer duration-500 hover:scale-105"
+          />
+
+          <FontAwesomeIcon
+            icon={faTwitter}
+            className="w-5 h-5  text-[#969696] hover:text-[#00ECA3] cursor-pointer duration-500 hover:scale-105"
+          />
+
+          <FontAwesomeIcon
+            icon={faVimeoV}
+            className="w-5 h-5  text-[#969696] hover:text-[#00ECA3] cursor-pointer duration-500 hover:scale-105"
+          />
         </div>
-      ) : (
-        <div className="relative ">
-          <button
-            className="flex items-center justify-center text-[#969696] gap-1 hover:text-[#00eda4] hover:shadow-md  duration-200"
-            onClick={logoutHandle}
-          >
-            <span className="material-symbols-outlined text-2xl transition">
-              person
-            </span>
-            <p className="font-body font-light text-lg transition">
-              {userDetails.name}
-            </p>
-          </button>
-          {loggedOut && (
-            <div className="w-full absolute top-[3.5rem] bg-[#222] z-50 flex justify-center items-center p-2 rounded-b-xl shadow-lg border-t-2 border-[#1b1b1b]">
-              <p
-                className="text-white font-body text-base font-medium mb-1 cursor-pointer hover:text-[#00ECA3] duration-300"
-                onClick={() => {
-                  setUserDetails(null);
-                  setLoggedOut(false);
-                  localStorage.removeItem("eLearniToken");
-                }}
-              >
-                Logout
+        {userDetails == null ? (
+          <div className="flex gap-5">
+            <button
+              className="flex items-center justify-center text-[#969696] gap-1 hover:text-[#00eda4] hover:shadow-md  duration-200"
+              onClick={openLoginModal}
+            >
+              <span className="material-symbols-outlined text-xl  transition">
+                lock_open
+              </span>
+              <p className="font-body font-light text-base transition">Login</p>
+            </button>
+            <button className="flex items-center justify-center text-[#969696] gap-1 hover:text-[#00eda4] hover:shadow-md  duration-200">
+              <span className="material-symbols-outlined text-xl transition">
+                person
+              </span>
+              <p className="font-body font-light text-base transition">
+                <Link href={"/register"}>Register</Link>
               </p>
-            </div>
-          )}
+            </button>
+          </div>
+        ) : (
+          <div className="relative ">
+            <button
+              className="flex items-center justify-center text-[#969696] gap-1 hover:text-[#00eda4] hover:shadow-md  duration-200"
+              onClick={logoutHandle}
+            >
+              <span className="material-symbols-outlined text-2xl transition">
+                person
+              </span>
+              <p className="font-body font-light text-lg transition">
+                {userDetails.name}
+              </p>
+            </button>
+            {loggedOut && (
+              <div className="w-full absolute top-[3.5rem] bg-[#222] z-50 flex justify-center items-center p-2 rounded-b-xl shadow-lg border-t-2 border-[#1b1b1b]">
+                <p
+                  className="text-white font-body text-base font-medium mb-1 cursor-pointer hover:text-[#00ECA3] duration-300"
+                  onClick={() => {
+                    setUserDetails(null);
+                    setLoggedOut(false);
+                    localStorage.removeItem("eLearniToken");
+                  }}
+                >
+                  Logout
+                </p>
+              </div>
+            )}
+          </div>
+        )}
+      </div>
+      <div className="w-full flex justify-between py-3">
+        <div className=" w-[8rem] h-auto object-contain object-center flex items-center justify-center">
+          <Link href={"/"}>
+            <img src="/icons/logo.webp" alt="" className="" />
+          </Link>
         </div>
-      )}
 
-      {/* @ts-ignore */}
-      <Login
-        isOpen={isLoginOpen}
-        onClose={closeLoginModal}
-        setUserDetails={setUserDetails}
-      />
+        <ul
+          className={`flex gap-1 items-center justify-center ${styles.navbar} relative left-10`}
+        >
+          <li
+            className={`text-white font-body font-medium text-base  tracking-wide mx-3 hover:text-[#00eda4] cursor-pointer duration-300 ${
+              path === "/" && styles.active
+            }`}
+          >
+            <p className="duration-300">
+              <Link href={"/"}>Home</Link>
+            </p>
+          </li>
+          <li
+            className={`text-white font-body font-medium text-base  tracking-wide mx-3 hover:text-[#00eda4] cursor-pointer duration-300 ${
+              path === "/about" && styles.active
+            }`}
+          >
+            <p className="duration-300">
+              <Link href={"/about"}>About</Link>
+            </p>
+          </li>
+          <li
+            className={`text-white font-body font-medium text-base  tracking-wide mx-3 hover:text-[#00eda4] cursor-pointer duration-300 ${
+              path === "/services" && styles.active
+            }`}
+          >
+            <p className="duration-300">
+              <Link href={"/services"}>Services</Link>
+            </p>
+          </li>
+          <li
+            className={`text-white font-body font-medium text-base  tracking-wide mx-3 hover:text-[#00eda4] cursor-pointer duration-300 ${
+              path === "/students" && styles.active
+            }`}
+          >
+            <p className="duration-300">
+              <Link href={"/students"}>Students</Link>
+            </p>
+          </li>
+          {/* <li
+            className={`text-white font-body font-medium text-base  tracking-wide mx-3 hover:text-[#00eda4] cursor-pointer duration-300 ${
+              path === "/whyus" && styles.active
+            }`}
+          >
+            <p className="duration-300">
+              <Link href={"/whyus"}>Why Us</Link>
+            </p>
+          </li> */}
+          <li
+            className={`text-white font-body font-medium text-base  tracking-wide mx-3 hover:text-[#00eda4] cursor-pointer duration-300 ${
+              path === "/courses" && styles.active
+            }`}
+          >
+            <p className="duration-300">
+              <Link href={"/courses"}>Courses</Link>
+            </p>
+          </li>
+          <li
+            className={`text-white font-body font-medium text-base  tracking-wide mx-3 hover:text-[#00eda4] cursor-pointer duration-300 ${
+              path === "/contact" && styles.active
+            }`}
+          >
+            <p className="duration-300">
+              <Link href={"/contact"}>Contact</Link>
+            </p>
+          </li>
+        </ul>
+        <div
+          className="w-[172px] border p-2 border-[#4a4a4a] rounded-tl-[2.5rem] rounded-lg flex items-center justify-center relative focus-within:border-[#00ECA3] duration-300"
+          style={{ padding: "10px 15px 10px 53px" }}
+        >
+          <span className="absolute top-[4px] left-[18px] material-symbols-outlined text-white font-bold text-2xl">
+            search
+          </span>
+          <input
+            type="text"
+            className="w-full h-full bg-transparent border-none outline-none text-white font-body text-sm placeholder:text-white placeholder:text-base"
+            placeholder="Search"
+          />
+        </div>
+
+        {/* @ts-ignore */}
+        <Login
+          isOpen={isLoginOpen}
+          onClose={closeLoginModal}
+          setUserDetails={setUserDetails}
+        />
+      </div>
     </div>
   );
 };
