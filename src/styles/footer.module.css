@@ -16,7 +16,7 @@
 
 /* White underline setup */
 .custom::before {
-  width: 100%; /* Start with a full underline */
+  width: 100%;
   left: 0;
   background-color: white; /* White underline color */
 }

@@ -15,7 +15,7 @@ const HeroPage1 = () => {
     <Carousel
       showStatus={false}
       showArrows={false}
-      autoPlay={true}
+      autoPlay={false}
       showThumbs={false}
       interval={2000}
       infiniteLoop={true}
@@ -44,8 +44,8 @@ const HeroPage1 = () => {
         );
       }}
     >
-      <div className=" w-full h-[100vh] object-contain bg-[url('/bg3.jpg')] bg-no-repeat bg-center bg-cover text-center py-10">
-        <div className="w-24 h-24 rounded-full mx-auto flex items-center justify-center bg-[linear-gradient(rgb(255,_219,_79)_0%,_rgb(255,_174,_79)_35%,_rgb(255,_42,_117)_100%)]">
+      <div className=" w-full h-[100vh] object-contain bg-[url('/bg3.jpg')] bg-no-repeat bg-center bg-cover text-center py-10 animate-fade-in">
+        <div className="w-24 h-24 rounded-full mx-auto flex items-center justify-center bg-[linear-gradient(rgb(255,_219,_79)_0%,_rgb(255,_174,_79)_35%,_rgb(255,_42,_117)_100%)] animate-slide-in-from-bottom">
           <span className="material-symbols-outlined text-white font-extrabold text-[4.5rem] ">
             deployed_code
           </span>
@@ -57,20 +57,20 @@ const HeroPage1 = () => {
             WebkitBackgroundClip: "text",
             WebkitTextFillColor: "transparent",
           }}
-          className="text-[4.3rem] font-bold font-body "
+          className="text-[4.3rem] font-bold font-body animate-slide-in-from-bottom opacity-0 animate-delay-250"
         >
           Education Everywhere
         </h1>
-        <h3 className="text-[2.7rem] font-light font-heading">
+        <h3 className="text-[2.7rem] font-light font-heading animate-slide-in-from-bottom opacity-0 animate-delay-500">
           Over 1900 online courses
         </h3>
-        <div className="my-10 flex items-center justify-center gap-10">
-          <button className="flex items-center gap-3 rounded-lg justify-center w-[11rem] p-4 rounded-tl-[2.3rem] bg-[linear-gradient(90deg,_rgb(255,_94,_58)_0%,_rgb(255,_42,_104)_100%)] text-white shadow-md hover:shadow-xl hover:scale-105 duration-300">
+        <div className="my-10 flex items-center justify-center gap-10 ">
+          <button className="flex items-center gap-3 rounded-lg justify-center w-[11rem] p-4 rounded-tl-[2.3rem] bg-[linear-gradient(90deg,_rgb(255,_94,_58)_0%,_rgb(255,_42,_104)_100%)] text-white shadow-md hover:shadow-xl hover:scale-105 duration-300 animate-slide-in-from-bottom opacity-0 animate-delay-750">
             <span className="material-symbols-outlined ">edit</span>
             <p className="font-heading text-base">Learn Now</p>
           </button>
 
-          <button className="flex items-center gap-3 rounded-lg justify-center w-[13rem] p-4 rounded-tl-[2.3rem] bg-[linear-gradient(90deg,_rgb(0,_237,_164)_0%,_rgb(106,_125,_241)_100%)] text-white shadow-md hover:shadow-xl hover:scale-105 duration-300">
+          <button className="flex items-center gap-3 rounded-lg justify-center w-[13rem] p-4 rounded-tl-[2.3rem] bg-[linear-gradient(90deg,_rgb(0,_237,_164)_0%,_rgb(106,_125,_241)_100%)] text-white shadow-md hover:shadow-xl hover:scale-105 duration-300 animate-slide-in-from-bottom opacity-0 animate-delay-750">
             <span className="material-symbols-outlined">adjust</span>
             <p className="font-heading text-base">Explore eLearny</p>
           </button>

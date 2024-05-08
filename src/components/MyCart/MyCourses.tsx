@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { BASE_URL } from "@/config";
 
 const MyCourses = () => {
-  const [purchasedCourses, setPurchasedCourses] = useState(null);
+  const [purchasedCourses, setPurchasedCourses] = useState<any>(null);
 
   useEffect(() => {
     const fetchPurchasedCourses = async () => {
@@ -154,7 +154,7 @@ const MyCourses = () => {
       </div>
       <div className="w-full my-5 gap-8 mx-2 grid grid-cols-3 px-[8rem] py-[4rem]">
         {purchasedCourses ? (
-          purchasedCourses.map((course) => (
+          purchasedCourses.map((course: any) => (
             <CourseCard
               key={course.id}
               image={course.imageLink}
