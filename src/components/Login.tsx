@@ -1,7 +1,7 @@
 import { BASE_URL } from "@/config";
 import styles from "@/styles/login.module.css";
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const Login = ({ isOpen, onClose, setUserDetails }: any) => {
   if (!isOpen) return null;

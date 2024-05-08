@@ -1,25 +1,38 @@
+import axios from "axios";
 import CourseCard from "../CourseCard";
-import courses from "@/coursesData.json";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { BASE_URL } from "@/config";
 
-const ITEMS_PER_PAGE = 6;
+const MyCourses = () => {
+  const [purchasedCourses, setPurchasedCourses] = useState(null);
 
-const AllCoursesList = () => {
-  const [currentPage, setCurrentPage] = useState(1);
-  const totalPages = Math.ceil(courses.length / ITEMS_PER_PAGE);
+  useEffect(() => {
+    const fetchPurchasedCourses = async () => {
+      try {
+        const response = await axios.get(`${BASE_URL}/user/courses/purchased`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("eLearniToken")}`,
+          },
+        });
 
-  const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
-  const selectedCourses = courses.slice(
-    startIndex,
-    startIndex + ITEMS_PER_PAGE
-  );
+        const responseData = response.data;
+        if (responseData.Courses.length > 0) {
+          setPurchasedCourses(responseData.Courses);
+        }
+      } catch (error: any) {
+        console.error("Error fetching purchased courses:", error);
+      }
+    };
 
-  const changePage = (pageNumber: number) => {
-    setCurrentPage(pageNumber);
-  };
+    if (localStorage.getItem("eLearniToken")) {
+      fetchPurchasedCourses();
+    }
+  }, []);
+
+  console.log(purchasedCourses);
 
   return (
-    <div className="border-2">
+    <div className="">
       <div className="flex bg-[#F8F8FC] px-[6rem] py-8 items-center justify-between">
         <div className="flex items-center mx-6">
           <span className="material-symbols-outlined mx-2 text-[#00ECA3] text-2xl">
@@ -139,16 +152,12 @@ const AllCoursesList = () => {
           </div>
         </div>
       </div>
-      <div className=" px-[8rem] py-[4rem]">
-        <p className="mx-4 font-heading  text-lg">
-          Showing {startIndex + 1}-{startIndex + selectedCourses.length} of{" "}
-          {courses.length} results:
-        </p>
-        <div className="w-full my-5 gap-8 mx-2 grid grid-cols-3">
-          {selectedCourses.map((course) => (
+      <div className="w-full my-5 gap-8 mx-2 grid grid-cols-3 px-[8rem] py-[4rem]">
+        {purchasedCourses ? (
+          purchasedCourses.map((course) => (
             <CourseCard
               key={course.id}
-              image={course.image}
+              image={course.imageLink}
               price={course.price}
               time={course.time}
               level={course.level}
@@ -156,26 +165,13 @@ const AllCoursesList = () => {
               category={course.category}
               instructor={course.instructor}
             />
-          ))}
-        </div>
-        <div className="flex justify-center space-x-2">
-          {Array.from({ length: totalPages }, (_, i) => (
-            <button
-              key={i + 1}
-              className={`px-4 py-2 rounded-full ${
-                currentPage === i + 1
-                  ? "bg-[#00ECA3] text-white"
-                  : "bg-white text-black border"
-              }`}
-              onClick={() => changePage(i + 1)}
-            >
-              {i + 1}
-            </button>
-          ))}
-        </div>
+          ))
+        ) : (
+          <div></div>
+        )}
       </div>
     </div>
   );
 };
 
-export default AllCoursesList;
+export default MyCourses;
