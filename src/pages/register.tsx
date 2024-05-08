@@ -54,12 +54,21 @@ const Register = () => {
   const handleSubmit = async (e: any) => {
     try {
       e.preventDefault();
-      const response = await axios.post(`${BASE_URL}/user/signup`, {
-        email: email,
-        password: password,
-        username: username,
-        name: name,
-      });
+      const response = await axios.post(
+        `${BASE_URL}/user/signup`,
+        {
+          email: email,
+          password: password,
+          username: username,
+          name: name,
+        },
+        {
+          headers: {
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS",
+          },
+        }
+      );
       const responseData = response.data;
       if (responseData.message === "User created successfully") {
         const token = responseData.token;

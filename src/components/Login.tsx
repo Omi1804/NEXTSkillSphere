@@ -20,10 +20,19 @@ const Login = ({ isOpen, onClose, setUserDetails }: any) => {
     e.preventDefault();
 
     try {
-      const response = await axios.post(`${BASE_URL}/user/login`, {
-        email: email,
-        password: password,
-      });
+      const response = await axios.post(
+        `${BASE_URL}/user/login`,
+        {
+          email: email,
+          password: password,
+        },
+        {
+          headers: {
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS",
+          },
+        }
+      );
       const responseData = response.data;
 
       if (responseData.token) {
