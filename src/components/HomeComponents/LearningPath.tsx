@@ -1,8 +1,12 @@
 import styles from "@/styles/home.module.css";
-import Link from "next/link";
 import { useState } from "react";
+import { useInView } from "react-intersection-observer";
 
 const LearningPath = () => {
+  const { ref, inView } = useInView({
+    triggerOnce: true, // Only trigger once the element comes into view
+    threshold: 0.5, // Trigger when 50% of the element is visible
+  });
   const [active, setActive] = useState(1);
 
   interface Component2 {
@@ -23,19 +27,31 @@ const LearningPath = () => {
             quis nostrud exercitation.
           </p>
           <ul>
-            <li className="flex items-center my-6">
+            <li
+              className={`opacity-0 flex items-center my-6 ${
+                inView && "animate-slide-in-from-left"
+              } animate-delay-250`}
+            >
               <img className="w-8 h-8 mr-5" src="/icons/bulb.webp" alt="" />
               <span className="text-base font-light font-heading">
                 Creative Study Pattern
               </span>
             </li>
-            <li className="flex items-center my-6">
+            <li
+              className={`opacity-0 flex items-center my-6 ${
+                inView && "animate-slide-in-from-left"
+              } animate-delay-500`}
+            >
               <img className="w-8 h-8 mr-5" src="/icons/rocket.webp" alt="" />
               <span className="text-base font-light font-heading">
                 Quick Crash Courses
               </span>
             </li>
-            <li className="flex items-center my-6">
+            <li
+              className={`opacity-0 flex items-center my-6 ${
+                inView && "animate-slide-in-from-left"
+              } animate-delay-750`}
+            >
               <img
                 className="w-8 h-8 mr-5"
                 src="icons/protractor.webp"
@@ -45,7 +61,11 @@ const LearningPath = () => {
                 Provided with Experimental Examples
               </span>
             </li>
-            <li className="flex items-center mt-6">
+            <li
+              className={`opacity-0 flex items-center mt-6 ${
+                inView && "animate-slide-in-from-left"
+              } animate-delay-1000`}
+            >
               <img
                 className="w-8 h-8 mr-5"
                 src="/icons/certificate-icon.webp"
@@ -56,7 +76,11 @@ const LearningPath = () => {
               </span>
             </li>
           </ul>
-          <button className={`${styles.homebtn} relative bottom-5`}>
+          <button
+            className={`${styles.homebtn} relative bottom-5 ${
+              inView && "animate-slide-in-from-bottom"
+            }`}
+          >
             Discover New Courses
           </button>
         </div>
@@ -70,7 +94,9 @@ const LearningPath = () => {
         <div className={`${styles.figure1}`}>
           <div className={`${styles.blueFigure}`}></div>
           <div
-            className={`h-[30rem] object-contain rounded-xl overflow-hidden shadow-lg ${styles.learningImgContainer1}`}
+            className={`h-[30rem] object-contain rounded-xl overflow-hidden shadow-lg ${
+              styles.learningImgContainer1
+            } ${inView && "animate-slide-in-from-top"}`}
           >
             <img src={path1} className="w-full h-full" alt="" />
           </div>
@@ -78,7 +104,9 @@ const LearningPath = () => {
         <div className={`mt-10 mx-7 ${styles.figure2}`}>
           <div className={`${styles.blueFigure2}`}></div>
           <div
-            className={`h-[30rem] object-contain rounded-xl overflow-hidden shadow-lg ${styles.learningImgContainer2}`}
+            className={`h-[30rem] object-contain rounded-xl overflow-hidden shadow-lg ${
+              styles.learningImgContainer2
+            } ${inView && "animate-slide-in-from-bottom"}`}
           >
             <img src={path2} className="w-full h-full" alt="" />
           </div>
@@ -127,11 +155,22 @@ const LearningPath = () => {
   };
 
   return (
-    <div className=" py-20 text-center bg-[#fffff]">
-      <h1 className="font-body font-extrabold text-[2.5rem]">
+    <div
+      ref={ref}
+      className={`py-20 text-center bg-[#fffff] ${inView ? "" : "opacity-0"}`}
+    >
+      <h1
+        className={`font-body font-extrabold text-[2.5rem] ${
+          inView && "animate-slide-in-from-bottom"
+        }`}
+      >
         Know why we are best
       </h1>
-      <p className="font-body font-extralight text-lg">
+      <p
+        className={`font-body font-extralight text-lg ${
+          inView && "animate-slide-in-from-bottom"
+        }`}
+      >
         LEARNING VIA APP NEVER GETS EASIER
       </p>
       <ul className={`mt-10  w-[50%] m-auto flex ${styles.learningAllList}`}>

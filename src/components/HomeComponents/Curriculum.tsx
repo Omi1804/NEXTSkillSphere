@@ -1,19 +1,37 @@
 import { useState } from "react";
+import { useInView } from "react-intersection-observer";
 
 const Curriculum = () => {
   const [toshow, setToshow] = useState(1);
+  const { ref, inView } = useInView({
+    triggerOnce: true, // Only trigger once the element comes into view
+    threshold: 0.5, // Trigger when 50% of the element is visible
+  });
 
   const handleClick = (value: number) => {
     setToshow(value);
   };
 
   return (
-    <div className="w-full h-[92vh] bg-[url('/fw2.jpg')] bg-center bg-no-repeat bg-cover p-24 ">
+    <div
+      ref={ref}
+      className={`w-full h-[92vh] bg-[url('/fw2.jpg')] bg-center bg-no-repeat bg-cover p-24 ${
+        !inView && "opacity-0"
+      }`}
+    >
       <div className=" w-[40%] float-right mb-7">
-        <p className="font-body font-bold text-3xl w-[90%]">
+        <p
+          className={`font-body font-bold text-3xl w-[90%] opacity-0 ${
+            inView && "animate-slide-in-from-left"
+          }`}
+        >
           Learn with these award winning courses
         </p>
-        <div>
+        <div
+          className={`opacity-0 ${
+            inView && "animate-slide-in-from-bottom"
+          } animate-delay-500`}
+        >
           <div
             className={`my-8 overflow-hidden  duration-500 ${
               toshow == 1 ? "h-[10rem]" : "h-[4rem]"
