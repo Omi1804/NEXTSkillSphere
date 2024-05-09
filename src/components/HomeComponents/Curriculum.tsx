@@ -15,7 +15,7 @@ const Curriculum = () => {
   return (
     <div
       ref={ref}
-      className={`w-full h-[92vh] bg-[url('/fw2.jpg')] bg-center bg-no-repeat bg-cover p-24 ${
+      className={`w-full h-[92vh] bg-[url('/fw2.jpg')] bg-center bg-no-repeat bg-cover p-24 overflow-hidden${
         !inView && "opacity-0"
       }`}
     >

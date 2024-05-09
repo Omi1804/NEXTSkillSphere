@@ -1,13 +1,29 @@
 import styles from "@/styles/home.module.css";
+import { useInView } from "react-intersection-observer";
 
 const Authors = () => {
+  const { ref, inView } = useInView({
+    triggerOnce: true, // Only trigger once the element comes into view
+    threshold: 0.5, // Trigger when 50% of the element is visible
+  });
   return (
-    <div className="flex  p-16">
+    <div
+      ref={ref}
+      className={`flex p-16 ${!inView && "opacity-0"} duration-500`}
+    >
       <div className="w-[40%] ">
-        <p className="font-light font-heading tracking-wide text-base mb-2">
+        <p
+          className={`opacity-0 font-light font-heading tracking-wide text-base mb-2 ${
+            inView && "opacity-0 animate-slide-in-from-left"
+          }`}
+        >
           KNOW YOUR AUTHOR
         </p>
-        <h1 className="font-bold text-3xl font-body mb-4">
+        <h1
+          className={`opacity-0 font-bold text-3xl font-body mb-4 ${
+            inView && "opacity-0 animate-slide-in-from-left"
+          } animate-delay-250`}
+        >
           Each course you undertake are designed by these authors
         </h1>
         <p className="w-[7rem] my-2 h-[3px] bg-[#00ECA3]"></p>
@@ -22,13 +38,19 @@ const Authors = () => {
             rejects, dislikes, or avoids pleasure itself, because it is
           </p>
         </div>
-        <button className={`${styles.homebtn} relative bottom-5`}>
+        <button
+          className={`opacity-0 ${styles.homebtn} relative bottom-5 ${
+            inView && "animate-slide-in-from-bottom"
+          } animate-delay-1000`}
+        >
           How to Become an Author?
         </button>
       </div>
-      <div className="w-[60%] grid grid-cols-3 grid-rows-2 ">
+      <div className="w-[60%] grid grid-cols-3 grid-rows-2 overflow-hidden">
         <div
-          className={`flex flex-col items-center justify-center ${styles.teamProfile}`}
+          className={`opacity-0 flex flex-col items-center justify-center ${
+            styles.teamProfile
+          } ${inView && "animate-slide-in-from-left"} animate-delay-250`}
         >
           <div
             className={`rounded-full  w-[143px] h-[143px] object-contain mb-1 ${styles.teamProfileImg}`}
@@ -49,7 +71,9 @@ const Authors = () => {
           <p className="font-heading font-light text-base">Consultant</p>
         </div>
         <div
-          className={`flex flex-col items-center justify-center ${styles.teamProfile}`}
+          className={`opacity-0 flex flex-col items-center justify-center ${
+            styles.teamProfile
+          } ${inView && "animate-slide-in-from-top"} animate-delay-500`}
         >
           <div
             className={`rounded-full  w-[143px] h-[143px] object-contain mb-1 ${styles.teamProfileImg}`}
@@ -70,7 +94,9 @@ const Authors = () => {
           <p className="font-heading font-light text-base">Consultant</p>
         </div>
         <div
-          className={`flex flex-col items-center justify-center ${styles.teamProfile}`}
+          className={`opacity-0 flex flex-col items-center justify-center ${
+            styles.teamProfile
+          } ${inView && "animate-slide-in-from-right"} animate-delay-250`}
         >
           <div
             className={`rounded-full  w-[143px] h-[143px] object-contain mb-1 ${styles.teamProfileImg}`}
@@ -93,7 +119,9 @@ const Authors = () => {
           <p className="font-heading font-light text-base">Consultant</p>
         </div>
         <div
-          className={`flex flex-col items-center justify-center ${styles.teamProfile}`}
+          className={`opacity-0 flex flex-col items-center justify-center ${
+            styles.teamProfile
+          } ${inView && "animate-slide-in-from-left"} animate-delay-750`}
         >
           <div
             className={`rounded-full  w-[143px] h-[143px] object-contain mb-1 ${styles.teamProfileImg}`}
@@ -114,7 +142,9 @@ const Authors = () => {
           <p className="font-heading font-light text-base">Consultant</p>
         </div>
         <div
-          className={`flex flex-col items-center justify-center ${styles.teamProfile}`}
+          className={`opacity-0 flex flex-col items-center justify-center ${
+            styles.teamProfile
+          } ${inView && "animate-slide-in-from-bottom"} animate-delay-1000`}
         >
           <div
             className={`rounded-full  w-[143px] h-[143px] object-contain mb-1 ${styles.teamProfileImg}`}
@@ -134,7 +164,11 @@ const Authors = () => {
           </a>
           <p className="font-heading font-light text-base">Consultant</p>
         </div>
-        <div className={`flex flex-col items-center justify-center`}>
+        <div
+          className={`opacity-0 flex flex-col items-center justify-center ${
+            inView && "animate-slide-in-from-right"
+          } animate-delay-750`}
+        >
           <div
             className={`rounded-full  w-[143px] h-[143px] object-contain mb-1 flex flex-col items-center cursor-pointer justify-center bg-[#00ECA3]`}
           >

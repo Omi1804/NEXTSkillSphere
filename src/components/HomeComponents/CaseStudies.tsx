@@ -1,8 +1,13 @@
 import styles from "@/styles/home.module.css";
+import { useInView } from "react-intersection-observer";
 
 const CaseStudies = () => {
+  const { ref, inView } = useInView({
+    triggerOnce: true, // Only trigger once the element comes into view
+    threshold: 0.5, // Trigger when 50% of the element is visible
+  });
   return (
-    <div className="relative w-full border-b pb-[4rem]">
+    <div ref={ref} className="relative w-full border-b pb-[4rem]">
       <div className="grid grid-cols-2">
         <div className="bg-[#6A7CF0] flex flex-col justify-center items-end px-[5rem] py-[3rem]">
           <p className="text-white font-bold text-xl tracking-wide">
@@ -19,7 +24,7 @@ const CaseStudies = () => {
         <div></div>
       </div>
       <div>
-        <div className=" py-16 text-center">
+        <div className=" py-16 text-center overflow-hidden">
           <h1 className="text-4xl font-extrabold mt-3 mb-5">
             A New Era in Online Education
           </h1>
@@ -28,7 +33,9 @@ const CaseStudies = () => {
           </p>
         </div>
         <div className="grid grid-cols-2 justify-items-center">
-          <div>
+          <div
+            className={`${inView && "animate-slide-in-from-bottom"} opacity-0`}
+          >
             <div className="w-[35rem] h-[20rem] rounded-lg flex justify-center items-center bg-center bg-cover relative bg-[url('https://img.youtube.com/vi/2JroEREiBLw/maxresdefault.jpg')] overflow-hidden">
               <div className="flex-col cursor-default  w-full h-full bg-black bg-opacity-50  flex justify-center items-center">
                 <a
@@ -52,7 +59,9 @@ const CaseStudies = () => {
               View Case Study
             </button>
           </div>
-          <div>
+          <div
+            className={`${inView && "animate-slide-in-from-bottom"} opacity-0`}
+          >
             <div className=" w-[35rem] h-[20rem] rounded-lg flex justify-center items-center bg-center bg-cover relative bg-[url('https://img.youtube.com/vi/tz82ola3oy0/maxresdefault.jpg')] overflow-hidden">
               <div className="flex-col  w-full h-full bg-black bg-opacity-50  flex justify-center items-center">
                 <a

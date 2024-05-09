@@ -1,18 +1,30 @@
-import styles from "@/styles/home.module.css";
+import { useInView } from "react-intersection-observer";
 
 const CourseList = () => {
+  const { ref, inView } = useInView({
+    triggerOnce: true, // Only trigger once the element comes into view
+    threshold: 0.5, // Trigger when 50% of the element is visible
+  });
+
   return (
-    <div className="relative ">
+    <div
+      ref={ref}
+      className={`relative ${!inView && "opacity-0"} duration-500`}
+    >
       <div className="text-center w-full h-[33rem] bg-[url('/group-image.jpg')] bg-center bg-cover bg-no-repeat pt-16">
-        <h1 className="text-white font-extrabold text-[2.5rem] mt-5">
+        <h1 className="text-white font-extrabold text-[2.5rem] mt-5 animate-slide-in-from-bottom">
           Become a Pro with these Course
         </h1>
-        <p className="text-white font-light text-base mt-2">
+        <p className="text-white font-light text-base mt-2 animate-slide-in-from-bottom">
           JUST PICK WHAT YOU NEED TO LEARN
         </p>
       </div>
       <div className=" absolute flex gap-8 justify-items-center w-full px-20 top-[20.74%]">
-        <div className="overflow-hidden rounded-xl hover:rounded-tl-[3rem] shadow-md hover:shadow-2xl duration-300">
+        <div
+          className={`overflow-hidden rounded-xl hover:rounded-tl-[3rem] shadow-md hover:shadow-2xl duration-300 animate-delay-500 opacity-0 ${
+            inView && "animate-slide-in-from-left"
+          }`}
+        >
           <div className="relative h-[16.81rem]">
             <img
               src="/homeCourses2.jpg"
@@ -36,7 +48,11 @@ const CourseList = () => {
             </p>
           </div>
         </div>
-        <div className="overflow-hidden h-[90%] rounded-xl hover:rounded-tl-[3rem] shadow-md hover:shadow-2xl duration-300">
+        <div
+          className={`overflow-hidden h-[90%] rounded-xl hover:rounded-tl-[3rem] shadow-md hover:shadow-2xl duration-300 animate-delay-500 opacity-0 ${
+            inView && "animate-slide-in-from-bottom"
+          }`}
+        >
           <div className="relative h-[16.81rem]">
             <img
               src="/homeCourses3.jpg"
@@ -60,7 +76,11 @@ const CourseList = () => {
             </p>
           </div>
         </div>
-        <div className=" overflow-hidden rounded-xl hover:rounded-tl-[3rem] shadow-md hover:shadow-2xl duration-300">
+        <div
+          className={` overflow-hidden rounded-xl hover:rounded-tl-[3rem] shadow-md hover:shadow-2xl duration-300 animate-delay-500 opacity-0 ${
+            inView && "animate-slide-in-from-right"
+          }`}
+        >
           <div className="relative h-[16.81rem]">
             <img
               src="/homeCourses1.jpg"
@@ -87,14 +107,26 @@ const CourseList = () => {
         </div>
       </div>
       <div className="flex flex-col items-center pb-24 px-10 justify-end text-center w-full h-[45rem] bg-[url('/doodle-shape2.webp')] bg-center bg-contain bg-no-repeat">
-        <h1 className="font-extrabold text-[2.5rem] my-1  ">
+        <h1
+          className={`font-extrabold text-[2.5rem] my-1 ${
+            inView && "animate-slide-in-from-bottom"
+          } opacity-0 animate-delay-1000`}
+        >
           Start Learning Online
         </h1>
 
-        <p className="font-extralight text-base tracking-wider">
+        <p
+          className={`font-extralight text-base tracking-wider ${
+            inView && "animate-slide-in-from-bottom"
+          } opacity-0 animate-delay-1000`}
+        >
           FOR FREE. HOW TO ELEARN
         </p>
-        <p className="mt-12 w-[55%] text-lg font-extralight">
+        <p
+          className={`mt-12 w-[55%] text-lg font-extralight ${
+            inView && "animate-slide-in-from-bottom"
+          } opacity-0 animate-delay-1000`}
+        >
           Dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
           incididunt. ut labore et dolore magna aliqua. Ut enim ad minim veniam,
           quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
