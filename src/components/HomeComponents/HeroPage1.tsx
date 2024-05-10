@@ -44,7 +44,7 @@ const HeroPage1 = () => {
         );
       }}
     >
-      <div className=" w-full h-[100vh] object-contain bg-[url('/bg3.jpg')] bg-no-repeat bg-center bg-cover text-center py-10 animate-fade-in">
+      <div className="w-full h-[100vh] object-contain bg-[url('/bg3.jpg')] bg-no-repeat bg-center bg-cover text-center py-10 animate-fade-in">
         <div className="w-24 h-24 rounded-full mx-auto flex items-center justify-center bg-[linear-gradient(rgb(255,_219,_79)_0%,_rgb(255,_174,_79)_35%,_rgb(255,_42,_117)_100%)] animate-slide-in-from-bottom text-[4.5rem]">
           <span className="material-symbols-outlined text-white font-extrabold text-[4.5rem] ">
             deployed_code

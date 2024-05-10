@@ -15,11 +15,11 @@ const Curriculum = () => {
   return (
     <div
       ref={ref}
-      className={`w-full h-[92vh] bg-[url('/fw2.jpg')] bg-center bg-no-repeat bg-cover p-24 overflow-hidden${
+      className={`w-full relative flex items-center justify-end bg-[url('/fw2.jpg')] bg-center bg-no-repeat bg-cover p-24 overflow-hidden${
         !inView && "opacity-0"
       }`}
     >
-      <div className=" w-[40%] float-right mb-7">
+      <div className="w-[40%] mb-7">
         <p
           className={`font-body font-bold text-3xl w-[90%] opacity-0 ${
             inView && "animate-slide-in-from-left"

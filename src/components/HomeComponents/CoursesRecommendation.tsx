@@ -10,7 +10,7 @@ const CoursesRecommendation = () => {
       ref={ref}
       className={`${!inView && "opacity-0"} opacity-100 duration-500`}
     >
-      <div className="py-16 px-20 bg-[url('/violet-pista-curve.webp')] bg-[#fafafa] bg-no-repeat bg-center bg-contain grid gap-10 grid-cols-4 justify-items-center">
+      <div className="py-16 px-20 bg-[url('/violet-pista-curve.webp')] bg-[#fafafa] bg-no-repeat bg-center bg-cover grid gap-10 grid-cols-4 justify-items-center">
         <div
           className={`opacity-0 w-full py-14 flex flex-col justify-center items-center hover:bg-[#6a7df1] hover:text-white rounded-2xl rounded-tl-[3rem] duration-500 hover:shadow-xl cursor-pointer ${
             inView && "animate-slide-in-from-left"

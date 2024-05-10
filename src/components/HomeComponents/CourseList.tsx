@@ -3,7 +3,7 @@ import { useInView } from "react-intersection-observer";
 const CourseList = () => {
   const { ref, inView } = useInView({
     triggerOnce: true, // Only trigger once the element comes into view
-    threshold: 0.5, // Trigger when 50% of the element is visible
+    threshold: 0.2, // Trigger when 50% of the element is visible
   });
 
   return (

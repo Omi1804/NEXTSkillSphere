@@ -5,8 +5,9 @@ import { useInView } from "react-intersection-observer";
 const LearningPath = () => {
   const { ref, inView } = useInView({
     triggerOnce: true, // Only trigger once the element comes into view
-    threshold: 0.5, // Trigger when 50% of the element is visible
+    threshold: 0.2, // Trigger when 50% of the element is visible
   });
+
   const [active, setActive] = useState(1);
 
   interface Component2 {
@@ -154,10 +155,14 @@ const LearningPath = () => {
     }
   };
 
+  console.log(inView);
+
   return (
     <div
       ref={ref}
-      className={`py-20 text-center bg-[#fffff] ${inView ? "" : "opacity-0"}`}
+      className={`w-full py-20 text-center bg-[#fffff] ${
+        !inView && "opacity-0"
+      }`}
     >
       <h1
         className={`font-body font-extrabold text-[2.5rem] ${
