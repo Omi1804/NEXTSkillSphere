@@ -1,3 +1,4 @@
+"use client";
 import Authors from "@/components/HomeComponents/Authors";
 import CaseStudies from "@/components/HomeComponents/CaseStudies";
 import CourseList from "@/components/HomeComponents/CourseList";

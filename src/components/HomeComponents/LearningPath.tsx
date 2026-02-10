@@ -1,4 +1,6 @@
-import styles from "@/styles/home.module.css";
+"use client";
+
+import styles from "@/app/styles/home.module.css";
 import { useState } from "react";
 import { useInView } from "react-intersection-observer";
 

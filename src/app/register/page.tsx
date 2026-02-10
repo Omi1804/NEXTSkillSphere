@@ -1,3 +1,4 @@
+"use client";
 import CommonHero from "@/components/CommonHero";
 import { useRouter } from "next/navigation";
 import { BASE_URL } from "@/config";
@@ -67,7 +68,7 @@ const Register = () => {
             "Access-Control-Allow-Origin": "*",
             "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS",
           },
-        }
+        },
       );
       const responseData = response.data;
       if (responseData.message === "User created successfully") {
@@ -154,15 +155,15 @@ const Register = () => {
                     passwordStrength === "weak"
                       ? "bg-[#E53E3E]"
                       : passwordStrength === "medium"
-                      ? "bg-[#F7CF1F]"
-                      : "bg-[#65D56D]"
+                        ? "bg-[#F7CF1F]"
+                        : "bg-[#65D56D]"
                   } my-3 border border-black rounded-sm font-body text-base font-semibold`}
                 >
                   {passwordStrength === "strong"
                     ? "Strong"
                     : passwordStrength === "medium"
-                    ? "Medium"
-                    : "Weak"}
+                      ? "Medium"
+                      : "Weak"}
                 </p>
               </div>
               <p className="bg-[#fafafa] p-1 font-heading text-[#737373] font-light text-[.9rem] tracking-wide mb-2">

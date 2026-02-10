@@ -1,5 +1,6 @@
+"use client";
 import { BASE_URL } from "@/config";
-import styles from "@/styles/login.module.css";
+import styles from "@/app/styles/login.module.css";
 import axios from "axios";
 import { useEffect, useState } from "react";
 
@@ -31,7 +32,7 @@ const Login = ({ isOpen, onClose, setUserDetails }: any) => {
             "Access-Control-Allow-Origin": "*",
             "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS",
           },
-        }
+        },
       );
       const responseData = response.data;
 

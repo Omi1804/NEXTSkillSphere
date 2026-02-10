@@ -1,8 +1,8 @@
+"use client";
 import CommonHero from "@/components/CommonHero";
 import Details from "@/components/ContactUs/Details";
 import GetInTouch from "@/components/ContactUs/GetInTouch";
 import MyGoogleMap from "@/components/ContactUs/MyGoogleMap";
-import styles from "@/styles/contact.module.css";
 
 const Contact = () => {
   return (

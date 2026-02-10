@@ -11,7 +11,7 @@ const AllCoursesList = () => {
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
   const selectedCourses = courses.slice(
     startIndex,
-    startIndex + ITEMS_PER_PAGE
+    startIndex + ITEMS_PER_PAGE,
   );
 
   const changePage = (pageNumber: number) => {
@@ -34,7 +34,7 @@ const AllCoursesList = () => {
             id="priceSelect"
             className="h-full appearance-none outline-none border-none rounded-lg text-black bg-white py-3 px-5  pr-10 tracking-wide font-heading shadow-sm w-full cursor-pointer"
           >
-            <option value="All Categories" selected>
+            <option value="All Categories" defaultChecked>
               All Categories
             </option>
 
@@ -71,7 +71,7 @@ const AllCoursesList = () => {
             id="languagesSelect"
             className="h-full appearance-none outline-none border-none rounded-lg text-black bg-white py-3 px-5 pr-10 tracking-wide font-heading shadow-sm w-full cursor-pointer"
           >
-            <option value="All Languages" selected>
+            <option value="All Languages" defaultChecked>
               All Languages
             </option>
             <option value="English">English</option>
@@ -96,7 +96,7 @@ const AllCoursesList = () => {
             id="priceSelect"
             className="h-full appearance-none outline-none border-none rounded-lg text-black bg-white py-3 px-5 pr-10 tracking-wide font-heading shadow-sm w-full cursor-pointer"
           >
-            <option value="All Prices" selected>
+            <option value="All Prices" defaultChecked>
               All Prices
             </option>
             <option value="Free">Free</option>
@@ -121,7 +121,7 @@ const AllCoursesList = () => {
             id="levelSelect"
             className="h-full appearance-none outline-none border-none rounded-lg text-black bg-white py-3 px-5 pr-10 tracking-wide font-heading shadow-sm w-full cursor-pointer"
           >
-            <option value="All Skills" selected>
+            <option value="All Skills" defaultChecked>
               All Skills
             </option>
             <option value="Beginner">Beginner</option>

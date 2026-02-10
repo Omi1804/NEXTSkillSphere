@@ -1,4 +1,3 @@
-import "react-responsive-carousel/lib/styles/carousel.min.css";
 import Image from "next/image";
 import { Carousel } from "react-responsive-carousel";
 import { useState } from "react";

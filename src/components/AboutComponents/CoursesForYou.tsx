@@ -1,4 +1,4 @@
-import styles from "@/styles/about.module.css";
+import styles from "@/app/styles/about.module.css";
 import { useState } from "react";
 
 export const CoursesForYou = () => {

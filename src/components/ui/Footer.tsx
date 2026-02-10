@@ -1,3 +1,5 @@
+"use client";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faFacebookF,
@@ -7,7 +9,7 @@ import {
   faGooglePlusG,
 } from "@fortawesome/free-brands-svg-icons";
 import React from "react";
-import styles from "@/styles/footer.module.css";
+import styles from "@/app/styles/footer.module.css";
 
 const Footer = () => {
   return (

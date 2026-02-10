@@ -1,3 +1,4 @@
+"use client";
 import { useInView } from "react-intersection-observer";
 
 const CoursesRecommendation = () => {

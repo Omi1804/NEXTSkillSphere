@@ -1,3 +1,4 @@
+"use client";
 import CommonHero from "@/components/CommonHero";
 import MyCourses from "@/components/MyCart/MyCourses";
 import React from "react";

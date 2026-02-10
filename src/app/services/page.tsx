@@ -1,5 +1,5 @@
+"use client";
 import CommonHero from "@/components/CommonHero";
-
 import JoinCourse from "@/components/HomeComponents/JoinCourse";
 import AllServices from "@/components/ServicesComponents/AllServices";
 import ModernTechniques from "@/components/ServicesComponents/ModernTechniques";

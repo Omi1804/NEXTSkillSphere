@@ -1,5 +1,6 @@
+"use client";
 import React from "react";
-import style from "@/styles/home.module.css";
+import style from "@/app/styles/home.module.css";
 import { useInView } from "react-intersection-observer";
 
 const JoinCourse = () => {

@@ -1,4 +1,4 @@
-import styles from "@/styles/about.module.css";
+import styles from "@/app/styles/about.module.css";
 
 export const Educations = () => {
   return (

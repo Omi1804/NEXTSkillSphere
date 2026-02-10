@@ -1,4 +1,4 @@
-import style from "@/styles/register.module.css";
+import style from "@/app/styles/register.module.css";
 
 interface CommonHeroInput {
   Image: string;

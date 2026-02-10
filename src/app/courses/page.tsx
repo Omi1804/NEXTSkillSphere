@@ -1,3 +1,4 @@
+"use client";
 import CommonHero from "@/components/CommonHero";
 import GetInTouch from "@/components/ContactUs/GetInTouch";
 import AllCoursesList from "@/components/CoursesComponents/AllCoursesList";

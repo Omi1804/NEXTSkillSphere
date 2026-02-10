@@ -1,4 +1,4 @@
-import styles from "@/styles/services.module.css";
+import styles from "@/app/styles/services.module.css";
 
 const ModernTechniques = () => {
   return (
