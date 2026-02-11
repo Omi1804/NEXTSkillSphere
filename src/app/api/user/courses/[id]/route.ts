@@ -1,15 +1,15 @@
 import { authenticateUser } from "@/lib";
 import { prisma } from "@/lib/prisma";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(
-  req: Request,
-  { params }: { params: { id: string } },
+  req: NextRequest,
+  context: { params: Promise<{ id: string }> },
 ) {
   try {
     const user = await authenticateUser(req);
 
-    const courseId: any = params.id;
+    const courseId: any = (await context.params).id;
     const userEmail: any = user?.email;
 
     const existingCourse = await prisma.course.findUnique({

@@ -1,15 +1,15 @@
 import { authenticateAdmin } from "@/lib";
 import { prisma } from "@/lib/prisma";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
 export async function PUT(
-  req: Request,
-  { params }: { params: { id: string } }, // to grab the id from the route URL [id]
+  req: NextRequest,
+  context: { params: Promise<{ id: string }> }, // to grab the id from the route URL [id]
 ) {
   try {
     await authenticateAdmin(req);
 
-    const courseId = params.id;
+    const courseId = (await context.params).id;
     const newCourseData = await req.json();
 
     if (!newCourseData || !courseId) {
@@ -67,14 +67,13 @@ export async function PUT(
 }
 
 export async function DELETE(
-  req: Request,
-  { params }: { params: { id: string } },
+  req: NextRequest,
+  context: { params: Promise<{ id: string }> }, // to grab the id from the route URL [id]
 ) {
-  await authenticateAdmin(req);
-
-  const courseId = params.id;
-
   try {
+    await authenticateAdmin(req);
+    const courseId = (await context.params).id;
+
     const deleteCourse = await prisma.course.delete({
       where: {
         id: courseId,
