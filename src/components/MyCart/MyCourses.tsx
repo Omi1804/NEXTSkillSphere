@@ -1,7 +1,6 @@
 import axios from "axios";
 import CourseCard from "../CourseCard";
 import { useEffect, useState } from "react";
-import { BASE_URL } from "@/config";
 
 const MyCourses = () => {
   const [purchasedCourses, setPurchasedCourses] = useState<any>(null);
@@ -9,7 +8,7 @@ const MyCourses = () => {
   useEffect(() => {
     const fetchPurchasedCourses = async () => {
       try {
-        const response = await axios.get(`${BASE_URL}/user/courses/purchased`, {
+        const response = await axios.get("/api/user/courses/purchased", {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("eLearniToken")}`,
           },

@@ -1,5 +1,4 @@
 "use client";
-import { BASE_URL } from "@/config";
 import styles from "@/app/styles/login.module.css";
 import axios from "axios";
 import { useEffect, useState } from "react";
@@ -22,7 +21,7 @@ const Login = ({ isOpen, onClose, setUserDetails }: any) => {
 
     try {
       const response = await axios.post(
-        `${BASE_URL}/user/login`,
+        "/api/user/login",
         {
           email: email,
           password: password,

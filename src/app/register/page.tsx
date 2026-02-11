@@ -1,7 +1,6 @@
 "use client";
 import CommonHero from "@/components/CommonHero";
 import { useRouter } from "next/navigation";
-import { BASE_URL } from "@/config";
 import axios from "axios";
 import { useState } from "react";
 
@@ -56,7 +55,7 @@ const Register = () => {
     try {
       e.preventDefault();
       const response = await axios.post(
-        `${BASE_URL}/user/signup`,
+        "/api/user/signup",
         {
           email: email,
           password: password,

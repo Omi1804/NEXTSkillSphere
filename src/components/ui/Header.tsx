@@ -14,7 +14,6 @@ import Login from "../Login";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
-import { BASE_URL } from "@/config";
 
 const Header = () => {
   const [userDetails, setUserDetails] = useState<any>(null);
@@ -29,7 +28,7 @@ const Header = () => {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const response = await axios.get(`${BASE_URL}/user/me`, {
+        const response = await axios.get("/api/user/me", {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("eLearniToken")}`,
           },
