@@ -1,21 +1,11 @@
-import { NextApiRequest, NextApiResponse } from "next";
 import { authenticateUser } from "@/lib";
-import { PrismaClient } from "@prisma/client";
+import { NextResponse } from "next/server";
+import { prisma } from "@/lib/prisma";
 
-const prisma = new PrismaClient();
-
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse
-) {
-  if (req.method !== "GET") {
-    return res.status(405).end();
-  }
-
+export async function GET(req: Request) {
   try {
-    await authenticateUser(req, res);
-
-    const userEmail: any = req.headers.userEmail;
+    const user = await authenticateUser(req);
+    const userEmail = user?.email;
 
     const userCourses = await prisma.user.findUnique({
       where: {
@@ -39,12 +29,16 @@ export default async function handler(
     });
 
     if (userCourses) {
-      res.status(200).json({ Courses: userCourses.courses });
+      return NextResponse.json(
+        { Courses: userCourses.courses },
+        { status: 200 },
+      );
     }
   } catch (error) {
     console.error("Error finding course:", error);
-    res.status(500).send({ message: "Internal Server Error" });
-  } finally {
-    await prisma.$disconnect();
+    return NextResponse.json(
+      { message: "Internal Server Error" },
+      { status: 500 },
+    );
   }
 }
