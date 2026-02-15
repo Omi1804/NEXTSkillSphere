@@ -1,40 +1,82 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# NEXTSkillSphere
 
-## Getting Started
+NEXTSkillSphere is a course-selling platform that showcases curated learning paths, enables secure checkout for premium programs, and exposes API routes for both learners and administrators. The app combines server-rendered marketing pages with interactive components (animated learning sections, carousels, cart management) so prospective students can explore offerings and purchase seamlessly.
 
-First, run the development server:
+## Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+- Dynamic home, course catalog, services, students, and contact pages powered by the Next.js App Router.
+- Protected admin APIs for course creation, updates, and user management using JWT authentication.
+- User APIs for browsing catalog data, managing carts, and tracking purchased courses.
+- Prisma-backed data layer for relational storage with PostgreSQL (or any Prisma-supported database).
+- Tailwind CSS styling with reusable components, animations, and CSS modules for page-specific layouts.
+
+## Tech Stack
+
+- Next.js 14 (App Router, SSR/ISR)
+- React 18 + TypeScript
+- Tailwind CSS + CSS Modules
+- Prisma ORM + PostgreSQL
+- JWT authentication (admins and learners)
+- Docker (optional containerized runtime)
+
+## Prerequisites
+
+- Node.js 18+
+- npm (examples below use npm, but pnpm/yarn also work)
+- PostgreSQL database and a valid `DATABASE_URL`
+- `SECRET_KEY` for JWT signing
+
+## Environment Variables
+
+Create a `.env` (or `.env.local`) file with at least:
+
+```
+DATABASE_URL="postgresql://USER:PASSWORD@HOST:PORT/DB"
+SECRET_KEY="replace-with-secure-random-string"
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Add any other provider keys (email, storage, analytics) your deployment requires.
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+## Local Development (npm)
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+1. Install dependencies
+   ```bash
+   npm install
+   ```
+2. Generate the Prisma client and apply migrations
+   ```bash
+   npx prisma migrate dev
+   ```
+3. Start the dev server
+   ```bash
+   npm run dev
+   ```
+4. Visit http://localhost:3000 to browse the marketing site, hit `/api` routes, and iterate on components.
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+### Useful Scripts
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+- `npm run dev` – start Next.js in development mode
+- `npm run build` – compile for production
+- `npm run start` – run the production server
+- `npx prisma studio` – inspect and edit the database via Prisma Studio
 
-## Learn More
+## Docker Workflow
 
-To learn more about Next.js, take a look at the following resources:
+A standard Next.js production Dockerfile lets you containerize the app.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. Build the image
+   ```bash
+   docker build -t nextskillsphere .
+   ```
+2. Run the container (ensure `.env` contains all required variables)
+   ```bash
+   docker run --env-file .env -p 3000:3000 nextskillsphere
+   ```
+3. Access the app at http://localhost:3000.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+> Tip: For local databases, share network access (`--network host` on Linux or `--add-host host.docker.internal:host-gateway` on macOS/Windows) so the container can reach your DB.
 
-## Deploy on Vercel
+## Deployment
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- Deploy to Vercel, AWS, Render, or any platform that supports Node.js or Docker.
+- Run `npx prisma migrate deploy` before starting the app in production to keep the schema in sync.
