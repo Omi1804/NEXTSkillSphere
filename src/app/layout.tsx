@@ -57,6 +57,11 @@ export default function RootLayout({
         />
         <meta property="og:type" content="website" />
         <meta property="og:site_name" content="Next Skill Sphere" />
+
+        <meta
+          name="google-site-verification"
+          content="eTWlqZ5dSSO4G_6WfFaPlVYaB7S6M_0zCXTkeIrQMxg"
+        />
       </head>
       <body className="antialiased">
         <Header />
