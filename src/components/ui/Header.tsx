@@ -39,7 +39,13 @@ const Header = () => {
           setUserDetails(responseData.user);
         }
       } catch (error: any) {
-        console.error("Error fetching purchased courses:", error);
+        if (error.response && error.response.status === 401) {
+          // Token is invalid or expired, remove it from localStorage
+          localStorage.removeItem("eLearniToken");
+          setUserDetails(null);
+        } else {
+          console.error("Error fetching purchased courses:", error);
+        }
       }
     };
     if (localStorage.getItem("eLearniToken")) {

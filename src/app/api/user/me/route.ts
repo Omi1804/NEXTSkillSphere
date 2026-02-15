@@ -20,6 +20,9 @@ export async function GET(req: Request) {
       return NextResponse.json({ message: "User expired" }, { status: 404 });
     }
   } catch (error: any) {
+    if (error.message.includes("Token expired")) {
+      return NextResponse.json({ message: error.message }, { status: 401 });
+    }
     return NextResponse.json({ message: error.message }, { status: 400 });
   }
 }

@@ -1,6 +1,4 @@
 import jwt from "jsonwebtoken";
-import { PrismaClient } from "@prisma/client";
-import { NextApiResponse, NextApiRequest } from "next";
 import { prisma } from "./prisma";
 
 const secretKey = process.env.SECRET_KEY as string;
@@ -14,6 +12,17 @@ interface DecodedToken {
   id: string;
 }
 
+const verifyToken = (token: string): DecodedToken => {
+  try {
+    return jwt.verify(token, secretKey) as DecodedToken;
+  } catch (error) {
+    if (error instanceof jwt.TokenExpiredError) {
+      throw new Error("Token expired! Please login again.");
+    }
+    throw new Error("Invalid or malformed token!");
+  }
+};
+
 export const authenticateAdmin = async (req: Request) => {
   const authHeader = req.headers.get("authorization");
 
@@ -26,7 +35,7 @@ export const authenticateAdmin = async (req: Request) => {
     throw new Error("Token missing or malformed!");
   }
 
-  const decoded = jwt.verify(token, secretKey) as DecodedToken;
+  const decoded = verifyToken(token);
 
   const admin = await prisma.admins.findUnique({
     where: {
@@ -53,7 +62,7 @@ export const authenticateUser = async (req: Request) => {
     throw new Error("Token missing or malformed!");
   }
 
-  const decoded = jwt.verify(token, secretKey) as DecodedToken;
+  const decoded = verifyToken(token);
 
   // const existingUser = await Users.findOne({ _id: id });
   const existingUser = await prisma.user.findUnique({
