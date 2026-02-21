@@ -1,16 +1,18 @@
-import { prisma } from "@/lib/prisma";
-import jwt from "jsonwebtoken";
 import { NextResponse } from "next/server";
+import {
+  signupAdmin,
+  type AdminCredentials,
+} from "@/services/adminAuth.service";
+import { AuthError } from "@/config/authTokens";
+import {
+  ADMIN_COOKIE_MAX_AGE,
+  ADMIN_COOKIE_SAME_SITE,
+  ADMIN_SESSION_COOKIE,
+} from "@/constants/adminAuth.constants";
 
-interface UserInput {
-  email: string;
-  password: string;
-}
-
-//signup for the admin
 export async function POST(req: Request) {
   try {
-    const { email, password }: UserInput = await req.json();
+    const { email, password }: AdminCredentials = await req.json();
 
     if (!email || !password) {
       return NextResponse.json(
@@ -19,44 +21,34 @@ export async function POST(req: Request) {
       );
     }
 
-    const existingUser = await prisma.admins.findUnique({
-      where: {
-        email: email,
-      },
-    });
+    const { admin, token } = await signupAdmin({ email, password });
 
-    if (existingUser) {
-      return NextResponse.json(
-        { message: "Admin already exists!" },
-        { status: 400 },
-      );
-    }
-
-    const newUser = await prisma.admins.create({
-      data: { email, password },
-    });
-
-    if (!process.env.SECRET_KEY) {
-      console.log("Secret key for token generation is missing.");
-      return NextResponse.json(
-        { message: "Internal server error." },
-        { status: 500 },
-      );
-    }
-
-    const token = jwt.sign({ id: newUser.id }, process.env.SECRET_KEY, {
-      expiresIn: "1d",
-    });
-
-    return NextResponse.json(
+    const response = NextResponse.json(
       {
         message: "Admin created successfully",
-        token,
-        adminDetails: newUser,
+        adminDetails: admin,
       },
       { status: 200 },
     );
+
+    response.cookies.set({
+      name: ADMIN_SESSION_COOKIE,
+      value: token,
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: ADMIN_COOKIE_SAME_SITE,
+      path: "/",
+      maxAge: ADMIN_COOKIE_MAX_AGE,
+    });
+
+    return response;
   } catch (err) {
+    if (err instanceof AuthError) {
+      return NextResponse.json(
+        { message: err.message },
+        { status: err.status },
+      );
+    }
     console.error("Server Error:", err);
     return NextResponse.json(
       { message: "Internal server error" },

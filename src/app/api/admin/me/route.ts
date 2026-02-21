@@ -1,6 +1,7 @@
-import { authenticateAdmin } from "@/lib";
+import { authenticateAdmin } from "@/middlewares/adminAuth.middleware";
+import { NextRequest } from "next/server";
 
-export async function GET(req: Request) {
+export async function GET(req: NextRequest) {
   try {
     const user = await authenticateAdmin(req);
     const userEmail = user?.email;

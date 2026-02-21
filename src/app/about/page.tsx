@@ -1,5 +1,3 @@
-"use client";
-
 import {
   CoursesForYou,
   Educations,
@@ -7,7 +5,6 @@ import {
 } from "@/components/AboutComponents";
 import CommonHero from "@/components/CommonHero";
 import JoinCourse from "@/components/HomeComponents/JoinCourse";
-import React from "react";
 
 const about = () => {
   return (

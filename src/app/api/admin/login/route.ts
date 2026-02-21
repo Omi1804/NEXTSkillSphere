@@ -1,11 +1,18 @@
-import jwt from "jsonwebtoken";
 import { NextResponse } from "next/server";
-import { prisma } from "@/lib/prisma";
+import {
+  loginAdmin,
+  type AdminCredentials,
+} from "@/services/adminAuth.service";
+import { AuthError } from "@/config/authTokens";
+import {
+  ADMIN_COOKIE_MAX_AGE,
+  ADMIN_COOKIE_SAME_SITE,
+  ADMIN_SESSION_COOKIE,
+} from "@/constants/adminAuth.constants";
 
 export async function POST(req: Request) {
   try {
-    const { email, password }: { email: string; password: string } =
-      await req.json();
+    const { email, password }: AdminCredentials = await req.json();
 
     if (!email || !password) {
       return NextResponse.json(
@@ -14,50 +21,38 @@ export async function POST(req: Request) {
       );
     }
 
-    const existingUser = await prisma.admins.findUnique({
-      where: {
-        email: email,
-        password: password,
-      },
-    });
+    const { admin, token } = await loginAdmin({ email, password });
 
-    if (!existingUser || existingUser.password !== password) {
-      // Ensure to use hashed password comparison in real app
-      return NextResponse.json(
-        {
-          message: "Invalid credentials or user does not exist",
-        },
-        { status: 401 },
-      );
-    }
-
-    if (!process.env.SECRET_KEY) {
-      console.log("Secret key for token generation is missing.");
-      return NextResponse.json(
-        { message: "Internal server error." },
-        { status: 500 },
-      );
-    }
-
-    const token = jwt.sign({ id: existingUser.id }, process.env.SECRET_KEY, {
-      expiresIn: "1d",
-    });
-
-    return NextResponse.json(
+    const response = NextResponse.json(
       {
         message: "Logged in successfully",
-        token,
-        adminDetails: existingUser,
+        adminDetails: admin,
       },
       { status: 200 },
     );
+
+    response.cookies.set({
+      name: ADMIN_SESSION_COOKIE,
+      value: token,
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: ADMIN_COOKIE_SAME_SITE,
+      path: "/",
+      maxAge: ADMIN_COOKIE_MAX_AGE,
+    });
+
+    return response;
   } catch (err) {
+    if (err instanceof AuthError) {
+      return NextResponse.json(
+        { message: err.message },
+        { status: err.status },
+      );
+    }
     console.error("Server Error:", err);
     return NextResponse.json(
       { message: "Internal server error." },
       { status: 500 },
     );
-  } finally {
-    await prisma.$disconnect();
   }
 }

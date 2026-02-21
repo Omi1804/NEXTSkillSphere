@@ -4,8 +4,6 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 
 const Login = ({ isOpen, onClose, setUserDetails }: any) => {
-  if (!isOpen) return null;
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
@@ -46,6 +44,8 @@ const Login = ({ isOpen, onClose, setUserDetails }: any) => {
       console.log(e);
     }
   };
+
+  if (!isOpen) return null;
 
   return (
     <div className={`${styles.modalBackdrop}`}>

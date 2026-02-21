@@ -21,6 +21,7 @@
     "@prisma/client": "^5.13.0",
     "@react-google-maps/api": "^2.20.8",
     "axios": "^1.6.5",
+    "bcryptjs": "^3.0.3",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.0.4",
     "next": "^16.1.6",

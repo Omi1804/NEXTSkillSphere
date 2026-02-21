@@ -38,7 +38,7 @@ const MetaTags = () => {
       <meta property="og:title" content="Next-Skill Sphere" />
       <meta
         property="og:description"
-        content="NextSkill Sphere a Robust Education and Online Learning Website featuring Online Teaching, Online Courses, Learning materials, elearning services."
+        content="Skill Sphere is a course platform to learn modern tech skills with practical projects."
       />
       <meta
         name="google-site-verification"
