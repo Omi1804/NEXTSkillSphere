@@ -1,5 +1,10 @@
-import { prisma } from "@/lib/prisma";
-import jwt from "jsonwebtoken";
+import { AuthError } from "@/config/authTokens";
+import {
+  USER_COOKIE_MAX_AGE,
+  USER_COOKIE_SAME_SITE,
+  USER_SESSION_COOKIE,
+} from "@/constants/userAuth.constants";
+import { loginUser } from "@/services/userAuth.service";
 import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
@@ -13,46 +18,35 @@ export async function POST(req: Request) {
       );
     }
 
-    const existingUser = await prisma.user.findUnique({
-      where: {
-        email,
-        password,
-      },
-      include: {
-        courses: true,
-      },
+    const { user, token } = await loginUser({ email, password });
+
+    const response = NextResponse.json({
+      message: `Logged in successfully ${user.name}`,
+      userDetails: user,
     });
 
-    if (!existingUser || existingUser.password !== password) {
-      // Ensure to use hashed password comparison in real app
-      return NextResponse.json(
-        { message: "Invalid credentials or user does not exist" },
-        { status: 401 },
-      );
-    }
-
-    if (!process.env.SECRET_KEY) {
-      console.log("Secret key for token generation is missing.");
-      return NextResponse.json(
-        { message: "Internal server error." },
-        { status: 500 },
-      );
-    }
-
-    const token = jwt.sign({ id: existingUser.id }, process.env.SECRET_KEY, {
-      expiresIn: "1d",
+    response.cookies.set({
+      name: USER_SESSION_COOKIE,
+      value: token,
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: USER_COOKIE_SAME_SITE,
+      path: "/", // browser will send this cookie only for this path and its subpaths
+      maxAge: USER_COOKIE_MAX_AGE,
     });
 
-    return NextResponse.json({
-      message: `Logged in successfully ${existingUser.name}`,
-      token,
-      userDetails: existingUser,
-    });
+    return response;
   } catch (error) {
-    console.log(error);
+    if (error instanceof AuthError) {
+      return NextResponse.json(
+        { message: error.message },
+        { status: error.status },
+      );
+    }
+    console.error("Server Error:", error);
     return NextResponse.json(
-      { message: "Invalid credentials or user does not exist" },
-      { status: 404 },
+      { message: "Internal server error." },
+      { status: 500 },
     );
   }
 }

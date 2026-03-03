@@ -1,5 +1,9 @@
 import jwt from "jsonwebtoken";
 
+interface DecodedToken {
+  id: string;
+}
+
 export class AuthError extends Error {
   status: number;
 
@@ -23,4 +27,15 @@ export function getSecretKey() {
 
 export function createToken(adminId: number | string) {
   return jwt.sign({ id: adminId }, getSecretKey(), { expiresIn: "1d" });
+}
+
+export function verifyToken(token: string) {
+  try {
+    return jwt.verify(token, getSecretKey()) as DecodedToken;
+  } catch (error) {
+    if (error instanceof jwt.TokenExpiredError) {
+      throw new AuthError("Token expired! Please login again.", 401);
+    }
+    throw new AuthError("Invalid or malformed token!", 401);
+  }
 }

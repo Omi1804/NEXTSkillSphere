@@ -9,12 +9,14 @@ export interface UserCreateInput {
 }
 
 export async function findUserByEmail(email: string) {
+  // for authentication mainly, we need to check if user exists and also compare password
   return prisma.user.findUnique({
     where: { email },
   });
 }
 
 export async function findUserById(id: string) {
+  // for middlewares mainly
   return prisma.user.findUnique({
     where: { id },
   });

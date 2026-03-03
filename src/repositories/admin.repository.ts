@@ -1,6 +1,6 @@
 // repository for admin related database operations --> this is where we interact with the database for admin data
 import { prisma } from "@/lib/prisma";
-import { Course } from "@/types/admin";
+import { Course } from "@/types/adminApis";
 
 export interface AdminCreateInput {
   email: string;

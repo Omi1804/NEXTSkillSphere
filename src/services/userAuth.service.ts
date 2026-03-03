@@ -26,6 +26,7 @@ export const loginUser = async (credentials: {
 }) => {
   const user = await findUserByEmail(credentials.email);
 
+  // password comparison should be done using hashed passwords in a real application
   if (!user || user.password !== credentials.password) {
     throw new AuthError("Invalid credentials!", 401);
   }

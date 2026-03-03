@@ -35,6 +35,7 @@ const Header = () => {
         });
 
         const responseData = response.data;
+        console.log("🚀 ~ fetchUser ~ responseData:", responseData);
         if (responseData.user) {
           setUserDetails(responseData.user);
         }

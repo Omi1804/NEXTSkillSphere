@@ -1,13 +1,12 @@
-import { prisma } from "@/lib/prisma";
-import jwt from "jsonwebtoken";
+import { AuthError } from "@/config/authTokens";
+import {
+  USER_COOKIE_MAX_AGE,
+  USER_COOKIE_SAME_SITE,
+  USER_SESSION_COOKIE,
+} from "@/constants/userAuth.constants";
+import { signupUser } from "@/services/userAuth.service";
+import { UserInput } from "@/types/userApis";
 import { NextResponse } from "next/server";
-
-interface UserInput {
-  username: string;
-  name: string;
-  email: string;
-  password: string;
-}
 
 export async function POST(req: Request) {
   try {
@@ -20,49 +19,40 @@ export async function POST(req: Request) {
       );
     }
 
-    const existingUser = await prisma.user.findUnique({
-      where: {
-        email,
-        password,
-      },
+    const { user, token } = await signupUser({
+      email,
+      password,
+      username,
+      name,
     });
 
-    if (existingUser) {
-      return NextResponse.json(
-        { message: "User already exists!" },
-        { status: 400 },
-      );
-    }
-
-    const newUser = await prisma.user.create({
-      data: {
-        email,
-        password,
-        username,
-        name,
-      },
-    });
-
-    if (!process.env.SECRET_KEY) {
-      console.log("Secret key for token generation is missing.");
-      return NextResponse.json(
-        { message: "Internal server error." },
-        { status: 500 },
-      );
-    }
-
-    const token = jwt.sign({ id: newUser.id }, process.env.SECRET_KEY, {
-      expiresIn: "1d",
-    });
-
-    return NextResponse.json(
-      { message: "User created successfully", token, newUser },
+    const response = NextResponse.json(
+      { message: "User created successfully", user },
       { status: 200 },
     );
+
+    response.cookies.set({
+      name: USER_SESSION_COOKIE,
+      value: token,
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: USER_COOKIE_SAME_SITE,
+      path: "/", // browser will send this cookie only for this path and its subpaths
+      maxAge: USER_COOKIE_MAX_AGE,
+    });
+
+    return response;
   } catch (error) {
-    console.log(error);
+    if (error instanceof AuthError) {
+      return NextResponse.json(
+        { message: error.message },
+        { status: error.status },
+      );
+    }
+
+    console.error("Server Error:", error);
     return NextResponse.json(
-      { message: "An error occurred during signup", error },
+      { message: "Internal server error" },
       { status: 500 },
     );
   }
