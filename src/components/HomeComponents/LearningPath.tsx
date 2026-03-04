@@ -157,8 +157,6 @@ const LearningPath = () => {
     }
   };
 
-  console.log(inView);
-
   return (
     <div
       ref={ref}

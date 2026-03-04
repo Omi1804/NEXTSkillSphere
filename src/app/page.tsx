@@ -10,7 +10,7 @@ import LearningPath from "@/components/HomeComponents/LearningPath";
 
 const index = () => {
   return (
-    <main>
+    <section>
       <HeroPage1 />
       <LearningPath />
       <CoursesRecommendation />
@@ -19,7 +19,7 @@ const index = () => {
       <CourseList />
       <CaseStudies />
       <JoinCourse />
-    </main>
+    </section>
   );
 };
 

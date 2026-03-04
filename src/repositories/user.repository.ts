@@ -19,6 +19,9 @@ export async function findUserById(id: string) {
   // for middlewares mainly
   return prisma.user.findUnique({
     where: { id },
+    include: {
+      courses: true,
+    },
   });
 }
 

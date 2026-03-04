@@ -11,7 +11,7 @@ const organizationSchema = {
   logo: "https://next-skill-sphere.vercel.app/favicon_io/android-chrome-192x192.png",
 };
 
-const MetaTags = () => {
+export const MetaTags = () => {
   return (
     <head>
       {/* Favicon Icons */}
@@ -90,5 +90,3 @@ const MetaTags = () => {
     </head>
   );
 };
-
-export default MetaTags;

@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import "@/app/styles/global.css";
-import Header from "@/components/ui/Header";
+import Header from "@/components/Header/Header";
 import Footer from "@/components/ui/Footer";
-import MetaTags from "./meta";
+import { MetaTags } from "./meta";
 
 export const metadata: Metadata = {
   title: "Skill Sphere",
@@ -13,9 +13,9 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
     <html lang="en">
       <MetaTags />
