@@ -34,3 +34,30 @@ export async function createUser(data: UserCreateInput) {
 export async function getAllCourses() {
   return prisma.course.findMany();
 }
+
+export async function addCourseToUser(userEmail: string, courseId: string) {
+  return prisma.user.update({
+    where: {
+      email: userEmail,
+    },
+    data: {
+      courses: {
+        connect: { id: courseId },
+      },
+    },
+    include: {
+      courses: true,
+    },
+  });
+}
+
+export async function findCoursesByUserEmail(email: string) {
+  return prisma.user.findUnique({
+    where: {
+      email,
+    },
+    select: {
+      courses: true,
+    },
+  });
+}

@@ -1,43 +1,27 @@
-import { authenticateUser } from "@/lib";
-import { NextResponse } from "next/server";
-import { prisma } from "@/lib/prisma";
+import { authenticateUser } from "@/middlewares/userAuth.middleware";
+import { NextRequest, NextResponse } from "next/server";
+import { getUserPurchasedCourses } from "@/services/userProfile.service";
+import { AuthError } from "@/config/authTokens";
 
-export async function GET(req: Request) {
+export async function GET(req: NextRequest) {
   try {
     const user = await authenticateUser(req);
-    const userEmail = user?.email;
 
-    const userCourses = await prisma.user.findUnique({
-      where: {
-        email: userEmail,
-      },
-      select: {
-        courses: {
-          select: {
-            id: true,
-            imageLink: true,
-            price: true,
-            time: true,
-            level: true,
-            heading: true,
-            description: true,
-            category: true,
-            instructor: true,
-          },
-        },
-      },
-    });
+    const userCourses = await getUserPurchasedCourses(user);
 
-    if (userCourses) {
+    return NextResponse.json({ Courses: userCourses.courses }, { status: 200 });
+  } catch (error: any) {
+    console.error("Error finding course:", error);
+
+    if (error instanceof AuthError) {
       return NextResponse.json(
-        { Courses: userCourses.courses },
-        { status: 200 },
+        { message: error.message },
+        { status: error.status },
       );
     }
-  } catch (error) {
-    console.error("Error finding course:", error);
+
     return NextResponse.json(
-      { message: "Internal Server Error" },
+      { message: error.message || "Internal Server Error" },
       { status: 500 },
     );
   }
