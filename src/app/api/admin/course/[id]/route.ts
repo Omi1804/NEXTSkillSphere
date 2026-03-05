@@ -1,5 +1,5 @@
-import { authenticateAdmin } from "@/lib";
 import { prisma } from "@/lib/prisma";
+import { authenticateAdmin } from "@/middlewares/adminAuth.middleware";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function PUT(
