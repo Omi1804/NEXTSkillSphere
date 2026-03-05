@@ -1,5 +1,6 @@
-import { prisma } from "@/lib/prisma";
+import { AuthError } from "@/config/authTokens";
 import { authenticateAdmin } from "@/middlewares/adminAuth.middleware";
+import { deleteCourseById, updateCourseById } from "@/services/admin.service";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function PUT(
@@ -9,34 +10,10 @@ export async function PUT(
   try {
     await authenticateAdmin(req);
 
-    const courseId = (await context.params).id;
+    const courseId = (await context.params)?.id;
     const newCourseData = await req.json();
 
-    if (!newCourseData || !courseId) {
-      return NextResponse.json(
-        { message: "Invalid course ID format" },
-        { status: 400 },
-      );
-    }
-
-    const existingCourse = await prisma.course.findUnique({
-      where: {
-        id: courseId,
-      },
-    });
-    if (!existingCourse) {
-      return NextResponse.json(
-        { message: "Course not found!" },
-        { status: 404 },
-      );
-    }
-
-    const updatedCourse = await prisma.course.update({
-      where: {
-        id: courseId,
-      },
-      data: newCourseData,
-    });
+    const updatedCourse = await updateCourseById(courseId, newCourseData);
 
     return NextResponse.json({
       message: "Course Updated successfully",
@@ -45,22 +22,15 @@ export async function PUT(
   } catch (err: any) {
     console.error("Error finding course:", err);
 
-    if (err.message === "AUTH_HEADER_MISSING") {
+    if (err instanceof AuthError) {
       return NextResponse.json(
-        { message: "Authorization header missing!" },
-        { status: 401 },
-      );
-    }
-
-    if (err.message === "ADMIN_NOT_FOUND") {
-      return NextResponse.json(
-        { message: "Admin not found!" },
-        { status: 403 },
+        { message: err.message },
+        { status: err.status },
       );
     }
 
     return NextResponse.json(
-      { message: "Internal Server Error" },
+      { message: err.message || "Internal Server Error" },
       { status: 500 },
     );
   }
@@ -74,18 +44,22 @@ export async function DELETE(
     await authenticateAdmin(req);
     const courseId = (await context.params).id;
 
-    const deleteCourse = await prisma.course.delete({
-      where: {
-        id: courseId,
-      },
-    });
+    const deletedCourse = await deleteCourseById(courseId);
 
     return NextResponse.json({
       message: "Course successfully deleted.",
-      deleteCourse,
+      course: deletedCourse,
     });
   } catch (error) {
     console.error(error);
+
+    if (error instanceof AuthError) {
+      return NextResponse.json(
+        { message: error.message },
+        { status: error.status },
+      );
+    }
+
     return NextResponse.json(
       { message: "Record to delete does not exist.", error },
       { status: 500 },

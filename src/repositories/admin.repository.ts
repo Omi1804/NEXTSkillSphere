@@ -34,3 +34,25 @@ export async function createCourse(courseData: Course) {
     data: courseData,
   });
 }
+
+export async function getCourseById(courseId: string) {
+  return prisma.course.findUnique({
+    where: { id: courseId },
+  });
+}
+
+export async function updateCourse(
+  courseId: string,
+  courseData: Partial<Course>,
+) {
+  return prisma.course.update({
+    where: { id: courseId },
+    data: courseData,
+  });
+}
+
+export async function deleteCourse(courseId: string) {
+  return prisma.course.delete({
+    where: { id: courseId },
+  });
+}
