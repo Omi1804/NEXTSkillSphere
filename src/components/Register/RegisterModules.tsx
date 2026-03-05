@@ -1,8 +1,4 @@
-import {
-  PasswordStrength,
-  StatusMessageProps,
-  TextFieldProps,
-} from "@/types/register";
+import { PasswordStrength, StatusMessageProps, TextFieldProps } from "@/types/register";
 import { strengthStyles } from "@/utils/evaluatePassword";
 
 export const StatusMessage = ({ variant, children }: StatusMessageProps) => {
@@ -29,10 +25,7 @@ export const TextField = ({
   disabled,
 }: TextFieldProps) => (
   <div className="my-8">
-    <label
-      htmlFor={name}
-      className="w-full font-body block text-[1rem] font-normal text-black"
-    >
+    <label htmlFor={name} className="w-full font-body block text-[1rem] font-normal text-black">
       {label}
     </label>
     <input
@@ -49,11 +42,7 @@ export const TextField = ({
   </div>
 );
 
-export const PasswordStrengthIndicator = ({
-  level,
-}: {
-  level: PasswordStrength;
-}) => (
+export const PasswordStrengthIndicator = ({ level }: { level: PasswordStrength }) => (
   <p
     className={`py-3 px-12 w-[9.5rem] text-center my-3 border border-black rounded-sm font-body text-base font-semibold text-white ${strengthStyles[level].className}`}
   >
@@ -67,8 +56,8 @@ export const InfoBanner = () => (
       info
     </span>
     <p className="py-2 px-1 font-body font-extralight text-[#333]">
-      Registering for this site is easy. Just fill in the fields below, and
-      we’ll get a new account set up for you in no time.
+      Registering for this site is easy. Just fill in the fields below, and we’ll get a new account
+      set up for you in no time.
     </p>
   </div>
 );

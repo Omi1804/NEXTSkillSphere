@@ -18,9 +18,8 @@ const CommonComponent1 = ({ inView }: { inView: boolean }) => {
       <p className="w-[5rem] my-2 h-[3px] bg-[#00ECA3]"></p>
       <div className="my-6">
         <p className="font-body text-base font-light tracking-wide leading-8 my-8">
-          Sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-          incididunt. Labore et dolore magna aliqua. Ut enim ad minim veniam,
-          quis nostrud exercitation.
+          Sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt. Labore et dolore
+          magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.
         </p>
         <ul>
           <li
@@ -29,9 +28,7 @@ const CommonComponent1 = ({ inView }: { inView: boolean }) => {
             } animate-delay-250`}
           >
             <img className="w-8 h-8 mr-5" src="/icons/bulb.webp" alt="" />
-            <span className="text-base font-light font-heading">
-              Creative Study Pattern
-            </span>
+            <span className="text-base font-light font-heading">Creative Study Pattern</span>
           </li>
           <li
             className={`opacity-0 flex items-center my-6 ${
@@ -39,9 +36,7 @@ const CommonComponent1 = ({ inView }: { inView: boolean }) => {
             } animate-delay-500`}
           >
             <img className="w-8 h-8 mr-5" src="/icons/rocket.webp" alt="" />
-            <span className="text-base font-light font-heading">
-              Quick Crash Courses
-            </span>
+            <span className="text-base font-light font-heading">Quick Crash Courses</span>
           </li>
           <li
             className={`opacity-0 flex items-center my-6 ${
@@ -58,14 +53,8 @@ const CommonComponent1 = ({ inView }: { inView: boolean }) => {
               inView && "animate-slide-in-from-left"
             } animate-delay-1000`}
           >
-            <img
-              className="w-8 h-8 mr-5"
-              src="/icons/certificate-icon.webp"
-              alt=""
-            />
-            <span className="text-base font-light font-heading">
-              Certification Awarded
-            </span>
+            <img className="w-8 h-8 mr-5" src="/icons/certificate-icon.webp" alt="" />
+            <span className="text-base font-light font-heading">Certification Awarded</span>
           </li>
         </ul>
         <button
@@ -134,11 +123,7 @@ const LearningPath = () => {
         return (
           <div className="flex w-full justify-center items-center px-16">
             {<CommonComponent1 inView={inView} />}
-            <CommonComponent2
-              path1={"/home-tab-2.jpg"}
-              path2={"/home-tab-4.jpg"}
-              inView={inView}
-            />
+            <CommonComponent2 path1={"/home-tab-2.jpg"} path2={"/home-tab-4.jpg"} inView={inView} />
           </div>
         );
       case 3:
@@ -158,12 +143,7 @@ const LearningPath = () => {
   };
 
   return (
-    <div
-      ref={ref}
-      className={`w-full py-20 text-center bg-[#fffff] ${
-        !inView && "opacity-0"
-      }`}
-    >
+    <div ref={ref} className={`w-full py-20 text-center bg-[#fffff] ${!inView && "opacity-0"}`}>
       <h1
         className={`font-body font-extrabold text-[2.5rem] ${
           inView && "animate-slide-in-from-bottom"
@@ -172,46 +152,23 @@ const LearningPath = () => {
         Know why we are best
       </h1>
       <p
-        className={`font-body font-extralight text-lg ${
-          inView && "animate-slide-in-from-bottom"
-        }`}
+        className={`font-body font-extralight text-lg ${inView && "animate-slide-in-from-bottom"}`}
       >
         LEARNING VIA APP NEVER GETS EASIER
       </p>
       <ul className={`mt-10  w-[50%] m-auto flex ${styles.learningAllList}`}>
-        <li
-          className={`${styles.learningList} ${styles.firstLink}`}
-          onClick={() => setActive(1)}
-        >
-          <p
-            className={`${styles.learningLink} ${
-              active === 1 && styles.currentLink
-            } `}
-          >
+        <li className={`${styles.learningList} ${styles.firstLink}`} onClick={() => setActive(1)}>
+          <p className={`${styles.learningLink} ${active === 1 && styles.currentLink} `}>
             Creating a Better Future For you
           </p>
         </li>
-        <li
-          className={`${styles.learningList} ${styles.secondLink}`}
-          onClick={() => setActive(2)}
-        >
-          <p
-            className={`${styles.learningLink} ${
-              active === 2 && styles.currentLink
-            } `}
-          >
+        <li className={`${styles.learningList} ${styles.secondLink}`} onClick={() => setActive(2)}>
+          <p className={`${styles.learningLink} ${active === 2 && styles.currentLink} `}>
             Learn why eLearny is Best
           </p>
         </li>
-        <li
-          className={`${styles.learningList} ${styles.thirdLink}`}
-          onClick={() => setActive(3)}
-        >
-          <p
-            className={`${styles.learningLink} ${
-              active === 3 && styles.currentLink
-            } `}
-          >
+        <li className={`${styles.learningList} ${styles.thirdLink}`} onClick={() => setActive(3)}>
+          <p className={`${styles.learningLink} ${active === 3 && styles.currentLink} `}>
             Our Simple & Effective process
           </p>
         </li>

@@ -47,11 +47,7 @@
 
 .allServices:hover > button {
   /* bg-[linear-gradient(90deg,_rgb(0,_237,_164)_0%,_rgb(106,_125,_241)_100%)] */
-  background-image: linear-gradient(
-    90deg,
-    rgb(0, 237, 164) 0%,
-    rgb(106, 125, 241) 100%
-  );
+  background-image: linear-gradient(90deg, rgb(0, 237, 164) 0%, rgb(106, 125, 241) 100%);
   color: white;
 }
 
@@ -147,11 +143,7 @@
   top: 0;
   left: -100%;
   height: 100%;
-  background-image: linear-gradient(
-    to right,
-    #009977,
-    #4757f1
-  ); /* Darker gradient */
+  background-image: linear-gradient(to right, #009977, #4757f1); /* Darker gradient */
 
   opacity: 0.3;
 }

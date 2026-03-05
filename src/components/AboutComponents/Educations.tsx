@@ -9,10 +9,9 @@ export const Educations = () => {
         </h1>
         <p className="w-[8rem] h-[3px] bg-[#00ECA3] rounded-xl my-5"></p>
         <p className="my-8 text-base text-justify font-extralight tracking-wide font-body">
-          Sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-          incididunt. Labore et dolore magna aliqua. Ut enim ad minim veniam,
-          quis nostrud exercitation ullamco laboris nisi ut aliquip commodo
-          consequat.
+          Sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt. Labore et dolore
+          magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+          aliquip commodo consequat.
         </p>
         <div className="flex items-center justify-between my-10">
           <div className="w-[10rem] h-[7rem] p-9 bg-[#fafafa] flex items-center justify-center object-contain">

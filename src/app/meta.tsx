@@ -15,23 +15,9 @@ export const MetaTags = () => {
   return (
     <head>
       {/* Favicon Icons */}
-      <link
-        rel="apple-touch-icon"
-        sizes="180x180"
-        href="/favicon_io/apple-touch-icon.png"
-      />
-      <link
-        rel="icon"
-        type="image/png"
-        sizes="32x32"
-        href="/favicon_io/favicon-32x32.png"
-      />
-      <link
-        rel="icon"
-        type="image/png"
-        sizes="16x16"
-        href="/favicon_io/favicon-16x16.png"
-      />
+      <link rel="apple-touch-icon" sizes="180x180" href="/favicon_io/apple-touch-icon.png" />
+      <link rel="icon" type="image/png" sizes="32x32" href="/favicon_io/favicon-32x32.png" />
+      <link rel="icon" type="image/png" sizes="16x16" href="/favicon_io/favicon-16x16.png" />
       <link rel="manifest" href="/favicon_io/site.webmanifest" />
 
       {/* Og Meta tags */}
@@ -40,10 +26,7 @@ export const MetaTags = () => {
         property="og:description"
         content="Skill Sphere is a course platform to learn modern tech skills with practical projects."
       />
-      <meta
-        name="google-site-verification"
-        content="eTWlqZ5dSSO4G_6WfFaPlVYaB7S6M_0zCXTkeIrQMxg"
-      />
+      <meta name="google-site-verification" content="eTWlqZ5dSSO4G_6WfFaPlVYaB7S6M_0zCXTkeIrQMxg" />
 
       <meta property="og:url" content="https://next-skill-sphere.vercel.app/" />
       <meta property="og:type" content="website" />

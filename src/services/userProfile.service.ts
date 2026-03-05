@@ -25,9 +25,7 @@ export async function purchaseCourse(user: any, id: string) {
     throw new AuthError("User expired", 404);
   }
 
-  const isCoursePurchased = user.courses.find(
-    (course: any) => course.id === id,
-  );
+  const isCoursePurchased = user.courses.find((course: any) => course.id === id);
 
   if (isCoursePurchased) {
     return isCoursePurchased;

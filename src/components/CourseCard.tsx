@@ -34,21 +34,15 @@ const CourseCard = ({
             <p className="font-body font-light text-base">{level}</p>
           </div>
           <div className="flex items-center gap-1">
-            <span className="material-symbols-outlined text-[#00ECA3] text-xl">
-              schedule
-            </span>
+            <span className="material-symbols-outlined text-[#00ECA3] text-xl">schedule</span>
             <p className="font-body font-medium text-base">{time}</p>
           </div>
         </div>
         <hr />
         <h2 className="font-heading font-bold text-xl my-4">{heading}</h2>
         <div className="flex items-center gap-2 my-4">
-          <span className="font-body font-semibold text-sm text-[#00ECA3]">
-            Category :
-          </span>
-          <p className="font-heading font-light text-sm tracking-wide">
-            {category}
-          </p>
+          <span className="font-body font-semibold text-sm text-[#00ECA3]">Category :</span>
+          <p className="font-heading font-light text-sm tracking-wide">{category}</p>
         </div>
         <hr />
         <div className="flex items-center justify-between my-5">

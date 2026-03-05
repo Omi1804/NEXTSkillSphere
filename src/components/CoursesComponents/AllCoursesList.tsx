@@ -9,10 +9,7 @@ const AllCoursesList = () => {
   const totalPages = Math.ceil(courses.length / ITEMS_PER_PAGE);
 
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
-  const selectedCourses = courses.slice(
-    startIndex,
-    startIndex + ITEMS_PER_PAGE,
-  );
+  const selectedCourses = courses.slice(startIndex, startIndex + ITEMS_PER_PAGE);
 
   const changePage = (pageNumber: number) => {
     setCurrentPage(pageNumber);
@@ -22,9 +19,7 @@ const AllCoursesList = () => {
     <div className="border-2">
       <div className="flex bg-[#F8F8FC] px-[6rem] py-8 items-center justify-between">
         <div className="flex items-center mx-6">
-          <span className="material-symbols-outlined mx-2 text-[#00ECA3] text-2xl">
-            tune
-          </span>
+          <span className="material-symbols-outlined mx-2 text-[#00ECA3] text-2xl">tune</span>
           <p className="font-body text-lg font-semibold">Filters</p>
         </div>
 
@@ -38,14 +33,9 @@ const AllCoursesList = () => {
               All Categories
             </option>
 
-            <option value="https://demo-themewinter.com/courselog/courses/">
-              {" "}
-              All Categories
-            </option>
+            <option value="https://demo-themewinter.com/courselog/courses/"> All Categories</option>
             <option value="ai">Artificial Intelligence</option>
-            <option value="bussinessManagement">
-              Business &amp; Management
-            </option>
+            <option value="bussinessManagement">Business &amp; Management</option>
             <option>Business Analysis</option>
             <option>Computer Science</option>
             <option>Data Science &amp; Analytics</option>
@@ -141,8 +131,8 @@ const AllCoursesList = () => {
       </div>
       <div className=" px-[8rem] py-[4rem]">
         <p className="mx-4 font-heading  text-lg">
-          Showing {startIndex + 1}-{startIndex + selectedCourses.length} of{" "}
-          {courses.length} results:
+          Showing {startIndex + 1}-{startIndex + selectedCourses.length} of {courses.length}{" "}
+          results:
         </p>
         <div className="w-full my-5 gap-8 mx-2 grid grid-cols-3">
           {selectedCourses.map((course) => (
@@ -163,9 +153,7 @@ const AllCoursesList = () => {
             <button
               key={i + 1}
               className={`px-4 py-2 rounded-full ${
-                currentPage === i + 1
-                  ? "bg-[#00ECA3] text-white"
-                  : "bg-white text-black border"
+                currentPage === i + 1 ? "bg-[#00ECA3] text-white" : "bg-white text-black border"
               }`}
               onClick={() => changePage(i + 1)}
             >

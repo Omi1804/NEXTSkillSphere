@@ -23,16 +23,10 @@ export async function PUT(
     console.error("Error finding course:", err);
 
     if (err instanceof AuthError) {
-      return NextResponse.json(
-        { message: err.message },
-        { status: err.status },
-      );
+      return NextResponse.json({ message: err.message }, { status: err.status });
     }
 
-    return NextResponse.json(
-      { message: err.message || "Internal Server Error" },
-      { status: 500 },
-    );
+    return NextResponse.json({ message: err.message || "Internal Server Error" }, { status: 500 });
   }
 }
 
@@ -54,10 +48,7 @@ export async function DELETE(
     console.error(error);
 
     if (error instanceof AuthError) {
-      return NextResponse.json(
-        { message: error.message },
-        { status: error.status },
-      );
+      return NextResponse.json({ message: error.message }, { status: error.status });
     }
 
     return NextResponse.json(

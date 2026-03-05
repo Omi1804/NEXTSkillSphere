@@ -1,14 +1,7 @@
-import {
-  deleteCourse,
-  getCourseById,
-  updateCourse,
-} from "@/repositories/admin.repository";
+import { deleteCourse, getCourseById, updateCourse } from "@/repositories/admin.repository";
 import { Course } from "@/types/adminApis";
 
-export const updateCourseById = async (
-  courseId: string,
-  newCourseData: Course,
-) => {
+export const updateCourseById = async (courseId: string, newCourseData: Course) => {
   if (!courseId || !newCourseData) {
     throw new Error("Course ID and new course data must be provided.");
   }

@@ -3,10 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { AuthError } from "@/config/authTokens";
 import { purchaseCourse } from "@/services/userProfile.service";
 
-export async function POST(
-  req: NextRequest,
-  context: { params: Promise<{ id: string }> },
-) {
+export async function POST(req: NextRequest, context: { params: Promise<{ id: string }> }) {
   try {
     const user = await authenticateUser(req);
     const courseId: any = (await context.params).id;
@@ -24,15 +21,9 @@ export async function POST(
     console.log(err);
 
     if (err instanceof AuthError) {
-      return NextResponse.json(
-        { message: err.message },
-        { status: err.status },
-      );
+      return NextResponse.json({ message: err.message }, { status: err.status });
     }
 
-    return NextResponse.json(
-      { message: "Internal Server Error", err },
-      { status: 500 },
-    );
+    return NextResponse.json({ message: "Internal Server Error", err }, { status: 500 });
   }
 }

@@ -11,16 +11,10 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ user }, { status: 200 });
   } catch (error) {
     if (error instanceof AuthError) {
-      return NextResponse.json(
-        { message: error.message },
-        { status: error.status },
-      );
+      return NextResponse.json({ message: error.message }, { status: error.status });
     }
 
     console.error("Server Error:", error);
-    return NextResponse.json(
-      { message: "Internal server error" },
-      { status: 500 },
-    );
+    return NextResponse.json({ message: "Internal server error" }, { status: 500 });
   }
 }

@@ -10,7 +10,9 @@
   position: absolute;
   bottom: 0;
   height: 3px; /* Thickness of the underline */
-  transition: width 0.4s ease, left 0.4s ease; /* Adjust timing to your preference */
+  transition:
+    width 0.4s ease,
+    left 0.4s ease; /* Adjust timing to your preference */
   border-radius: 15px;
 }
 

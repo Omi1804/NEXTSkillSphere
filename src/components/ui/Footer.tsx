@@ -79,23 +79,17 @@ const Footer = () => {
           <p className="font-extrabold text-xl my-5">Contact Us</p>
           <ul>
             <li className="font-extralight my-5 flex items-center  text-[1.1rem]">
-              <span className="material-symbols-outlined mr-2 text-lg opacity-50">
-                location_on
-              </span>
+              <span className="material-symbols-outlined mr-2 text-lg opacity-50">location_on</span>
               <span className="font-bold mr-3 text-base">Address : </span>
               <p className="text-base">77 Indian St. Baltimore, MD 21206</p>
             </li>
             <li className="font-extralight my-5 flex items-center text-[1.1rem]">
-              <span className="material-symbols-outlined mr-2 text-lg opacity-50">
-                call
-              </span>
+              <span className="material-symbols-outlined mr-2 text-lg opacity-50">call</span>
               <span className="font-bold mr-3 text-base">Phone : </span>
               <p className="text-base">+3233-332-334</p>
             </li>
             <li className="font-extralight my-5 flex items-center text-[1.1rem]">
-              <span className="material-symbols-outlined mr-2 text-lg opacity-50">
-                mail
-              </span>
+              <span className="material-symbols-outlined mr-2 text-lg opacity-50">mail</span>
               <span className="font-bold mr-3 text-base">Email : </span>
               <p className="text-base cursor-pointer hover:text-[#00ECA3] duration-500">
                 elearny@example.com

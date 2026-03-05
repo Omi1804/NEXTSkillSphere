@@ -93,17 +93,13 @@ const DetailRow = ({
       className="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"
       style={{ background: "linear-gradient(135deg, #00eda4, #6a7df1)" }}
     >
-      <span className="material-symbols-outlined text-white text-base">
-        {icon}
-      </span>
+      <span className="material-symbols-outlined text-white text-base">{icon}</span>
     </div>
     <div className="flex-1 min-w-0 border-b border-gray-100 pb-3">
       <span className="text-[10px] uppercase tracking-[0.18em] text-gray-400 font-semibold block mb-0.5">
         {label}
       </span>
-      <span className="text-base text-gray-800 font-body font-medium truncate block">
-        {value}
-      </span>
+      <span className="text-base text-gray-800 font-body font-medium truncate block">{value}</span>
     </div>
   </motion.div>
 );
@@ -160,8 +156,7 @@ export function ProfileClient({
           <div
             className="absolute top-0 left-0 right-0 h-28 opacity-20"
             style={{
-              backgroundImage:
-                "radial-gradient(circle, white 1px, transparent 1px)",
+              backgroundImage: "radial-gradient(circle, white 1px, transparent 1px)",
               backgroundSize: "18px 18px",
             }}
           />
@@ -211,9 +206,7 @@ export function ProfileClient({
                 whileHover={{ scale: 1.04 }}
                 whileTap={{ scale: 0.96 }}
               >
-                <span className="material-symbols-outlined text-base">
-                  edit
-                </span>
+                <span className="material-symbols-outlined text-base">edit</span>
                 Edit Profile
               </motion.button>
             </div>
@@ -225,14 +218,10 @@ export function ProfileClient({
               <p className="text-[10px] uppercase tracking-[0.3em] text-gray-400 font-semibold mb-1">
                 Member
               </p>
-              <h1 className="text-3xl font-bold text-gray-900 font-body leading-tight">
-                {name}
-              </h1>
+              <h1 className="text-3xl font-bold text-gray-900 font-body leading-tight">{name}</h1>
               <div className="flex flex-wrap items-center gap-3 mt-2">
                 <span className="flex items-center gap-1 text-sm text-gray-500 font-body">
-                  <span className="material-symbols-outlined text-base text-gray-400">
-                    mail
-                  </span>
+                  <span className="material-symbols-outlined text-base text-gray-400">mail</span>
                   {email}
                 </span>
                 <span className="w-1 h-1 rounded-full bg-gray-300" />
@@ -267,13 +256,7 @@ export function ProfileClient({
             delay={0.32}
             accent="indigo"
           />
-          <StatCard
-            title="Account Tag"
-            value={accountTag}
-            icon="tag"
-            delay={0.39}
-            accent="mixed"
-          />
+          <StatCard title="Account Tag" value={accountTag} icon="tag" delay={0.39} accent="mixed" />
         </div>
 
         {/* ── Account Overview ── */}
@@ -294,15 +277,12 @@ export function ProfileClient({
                 manage_accounts
               </span>
             </div>
-            <h2 className="text-lg font-bold text-gray-800 font-body">
-              Account Overview
-            </h2>
+            <h2 className="text-lg font-bold text-gray-800 font-body">Account Overview</h2>
             {/* Gradient accent line */}
             <motion.div
               className="flex-1 h-px ml-2"
               style={{
-                background:
-                  "linear-gradient(90deg, #00eda4, #6a7df1, transparent)",
+                background: "linear-gradient(90deg, #00eda4, #6a7df1, transparent)",
               }}
               initial={{ scaleX: 0, originX: 0 }}
               animate={{ scaleX: 1 }}
@@ -311,36 +291,21 @@ export function ProfileClient({
           </div>
 
           <div className="px-4 py-4 grid md:grid-cols-2 gap-1">
-            <DetailRow
-              label="Full Name"
-              value={name}
-              icon="person"
-              delay={0.5}
-            />
+            <DetailRow label="Full Name" value={name} icon="person" delay={0.5} />
             <DetailRow
               label="Username"
               value={`@${username}`}
               icon="alternate_email"
               delay={0.55}
             />
-            <DetailRow
-              label="Email Address"
-              value={email}
-              icon="mail"
-              delay={0.6}
-            />
+            <DetailRow label="Email Address" value={email} icon="mail" delay={0.6} />
             <DetailRow
               label="Courses Enrolled"
               value={`${enrolledCount} course${enrolledCount !== 1 ? "s" : ""}`}
               icon="school"
               delay={0.65}
             />
-            <DetailRow
-              label="Account Tag"
-              value={accountTag}
-              icon="tag"
-              delay={0.7}
-            />
+            <DetailRow label="Account Tag" value={accountTag} icon="tag" delay={0.7} />
           </div>
         </motion.div>
       </div>

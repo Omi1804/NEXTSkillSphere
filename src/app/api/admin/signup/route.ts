@@ -1,8 +1,5 @@
 import { NextResponse } from "next/server";
-import {
-  signupAdmin,
-  type AdminCredentials,
-} from "@/services/adminAuth.service";
+import { signupAdmin, type AdminCredentials } from "@/services/adminAuth.service";
 import { AuthError } from "@/config/authTokens";
 import {
   ADMIN_COOKIE_MAX_AGE,
@@ -15,10 +12,7 @@ export async function POST(req: Request) {
     const { email, password }: AdminCredentials = await req.json();
 
     if (!email || !password) {
-      return NextResponse.json(
-        { message: "Invalid email or password" },
-        { status: 400 },
-      );
+      return NextResponse.json({ message: "Invalid email or password" }, { status: 400 });
     }
 
     const { admin, token } = await signupAdmin({ email, password });
@@ -44,15 +38,9 @@ export async function POST(req: Request) {
     return response;
   } catch (err) {
     if (err instanceof AuthError) {
-      return NextResponse.json(
-        { message: err.message },
-        { status: err.status },
-      );
+      return NextResponse.json({ message: err.message }, { status: err.status });
     }
     console.error("Server Error:", err);
-    return NextResponse.json(
-      { message: "Internal server error" },
-      { status: 500 },
-    );
+    return NextResponse.json({ message: "Internal server error" }, { status: 500 });
   }
 }

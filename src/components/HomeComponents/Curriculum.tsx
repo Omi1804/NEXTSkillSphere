@@ -29,11 +29,7 @@ const Curriculum = () => {
         >
           Learn with these award winning courses
         </p>
-        <div
-          className={`opacity-0 ${
-            inView && "animate-slide-in-from-bottom"
-          } animate-delay-500`}
-        >
+        <div className={`opacity-0 ${inView && "animate-slide-in-from-bottom"} animate-delay-500`}>
           <div
             className={`my-8 overflow-hidden  duration-500 ${
               toshow == 1 ? "h-[10rem]" : "h-[4rem]"
@@ -42,14 +38,10 @@ const Curriculum = () => {
           >
             <div
               className={` px-8 py-4 rounded-lg justify-between cursor-pointer rounded-tl-3xl text-white flex items-center ${
-                toshow == 1
-                  ? "bg-gradient-to-r from-[#00eda4] to-[#6a7df1]"
-                  : "bg-[#222222]"
+                toshow == 1 ? "bg-gradient-to-r from-[#00eda4] to-[#6a7df1]" : "bg-[#222222]"
               }`}
             >
-              <p className="font-heading font-bold tracking-wide">
-                01. Great Online Instructors
-              </p>
+              <p className="font-heading font-bold tracking-wide">01. Great Online Instructors</p>
               {toshow == 1 ? (
                 <span className="material-symbols-outlined">remove</span>
               ) : (
@@ -57,9 +49,8 @@ const Curriculum = () => {
               )}
             </div>
             <p className={`mx-8 my-4 w-[80%] font-light text-base font-body`}>
-              Dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-              incididunt. Ut labore et dolore magna aliqua. Ut enim ad minim
-              veniam
+              Dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt. Ut
+              labore et dolore magna aliqua. Ut enim ad minim veniam
             </p>
           </div>
           <div
@@ -70,9 +61,7 @@ const Curriculum = () => {
           >
             <div
               className={` px-8 py-4 rounded-lg justify-between cursor-pointer rounded-tl-3xl text-white flex items-center ${
-                toshow == 2
-                  ? "bg-gradient-to-r from-[#00eda4] to-[#6a7df1]"
-                  : "bg-[#222222]"
+                toshow == 2 ? "bg-gradient-to-r from-[#00eda4] to-[#6a7df1]" : "bg-[#222222]"
               }`}
             >
               <p className="font-heading font-bold tracking-wide">
@@ -85,9 +74,8 @@ const Curriculum = () => {
               )}
             </div>
             <p className={`mx-8 my-4 w-[80%] font-light text-base font-body `}>
-              Dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-              incididunt. Ut labore et dolore magna aliqua. Ut enim ad minim
-              veniam
+              Dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt. Ut
+              labore et dolore magna aliqua. Ut enim ad minim veniam
             </p>
           </div>
           <div
@@ -98,14 +86,10 @@ const Curriculum = () => {
           >
             <div
               className={` px-8 py-4 rounded-lg justify-between cursor-pointer rounded-tl-3xl text-white flex items-center ${
-                toshow == 3
-                  ? "bg-gradient-to-r from-[#00eda4] to-[#6a7df1]"
-                  : "bg-[#222222]"
+                toshow == 3 ? "bg-gradient-to-r from-[#00eda4] to-[#6a7df1]" : "bg-[#222222]"
               }`}
             >
-              <p className="font-heading font-bold tracking-wide">
-                03. Exclusive Course Materials
-              </p>
+              <p className="font-heading font-bold tracking-wide">03. Exclusive Course Materials</p>
               {toshow == 3 ? (
                 <span className="material-symbols-outlined">remove</span>
               ) : (
@@ -113,9 +97,8 @@ const Curriculum = () => {
               )}
             </div>
             <p className={`mx-8 my-4 w-[80%] font-light text-base font-body`}>
-              Dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-              incididunt. Ut labore et dolore magna aliqua. Ut enim ad minim
-              veniam
+              Dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt. Ut
+              labore et dolore magna aliqua. Ut enim ad minim veniam
             </p>
           </div>
           <div
@@ -126,14 +109,10 @@ const Curriculum = () => {
           >
             <div
               className={` px-8 py-4 rounded-lg justify-between cursor-pointer rounded-tl-3xl text-white flex items-center ${
-                toshow == 4
-                  ? "bg-gradient-to-r from-[#00eda4] to-[#6a7df1]"
-                  : "bg-[#222222]"
+                toshow == 4 ? "bg-gradient-to-r from-[#00eda4] to-[#6a7df1]" : "bg-[#222222]"
               }`}
             >
-              <p className="font-heading font-bold tracking-wide">
-                04. In - depth Course Analysis
-              </p>
+              <p className="font-heading font-bold tracking-wide">04. In - depth Course Analysis</p>
               {toshow == 4 ? (
                 <span className="material-symbols-outlined">remove</span>
               ) : (
@@ -141,9 +120,8 @@ const Curriculum = () => {
               )}
             </div>
             <p className={`mx-8 my-4 w-[80%] font-light text-base font-body `}>
-              Dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-              incididunt. Ut labore et dolore magna aliqua. Ut enim ad minim
-              veniam
+              Dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt. Ut
+              labore et dolore magna aliqua. Ut enim ad minim veniam
             </p>
           </div>
         </div>

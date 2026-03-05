@@ -34,9 +34,7 @@ const MyCourses = () => {
     <div className="">
       <div className="flex bg-[#F8F8FC] px-[6rem] py-8 items-center justify-between">
         <div className="flex items-center mx-6">
-          <span className="material-symbols-outlined mx-2 text-[#00ECA3] text-2xl">
-            tune
-          </span>
+          <span className="material-symbols-outlined mx-2 text-[#00ECA3] text-2xl">tune</span>
           <p className="font-body text-lg font-semibold">Filters</p>
         </div>
 
@@ -50,14 +48,9 @@ const MyCourses = () => {
               All Categories
             </option>
 
-            <option value="https://demo-themewinter.com/courselog/courses/">
-              {" "}
-              All Categories
-            </option>
+            <option value="https://demo-themewinter.com/courselog/courses/"> All Categories</option>
             <option value="ai">Artificial Intelligence</option>
-            <option value="bussinessManagement">
-              Business &amp; Management
-            </option>
+            <option value="bussinessManagement">Business &amp; Management</option>
             <option>Business Analysis</option>
             <option>Computer Science</option>
             <option>Data Science &amp; Analytics</option>

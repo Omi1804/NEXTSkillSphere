@@ -58,30 +58,26 @@ export const LoginModal = ({ isOpen, onClose, setUserDetails }: LoginProps) => {
               <div
                 className="h-1 w-full"
                 style={{
-                  background:
-                    "linear-gradient(90deg, #00eda4 0%, #6a7df1 100%)",
+                  background: "linear-gradient(90deg, #00eda4 0%, #6a7df1 100%)",
                 }}
               />
               <div
                 className="w-1 h-full absolute top-0 left-0"
                 style={{
-                  background:
-                    "linear-gradient(45deg, #00eda4 0%, #6a7df1 100%)",
+                  background: "linear-gradient(45deg, #00eda4 0%, #6a7df1 100%)",
                 }}
               />
 
               <div
                 className="absolute top-0 right-0 w-48 h-48 rounded-full opacity-[0.07] -translate-y-1/2 translate-x-1/2"
                 style={{
-                  background:
-                    "radial-gradient(circle, #00eda4, transparent 70%)",
+                  background: "radial-gradient(circle, #00eda4, transparent 70%)",
                 }}
               />
               <div
                 className="absolute bottom-0 left-0 w-56 h-56 rounded-full opacity-[0.06] translate-y-1/2 -translate-x-1/2"
                 style={{
-                  background:
-                    "radial-gradient(circle, #6a7df1, transparent 70%)",
+                  background: "radial-gradient(circle, #6a7df1, transparent 70%)",
                 }}
               />
 
@@ -90,9 +86,7 @@ export const LoginModal = ({ isOpen, onClose, setUserDetails }: LoginProps) => {
                   onClick={onClose}
                   className="absolute top-5 right-5 w-6 h-6 flex items-center justify-center rounded-full bg-gray-100 text-gray-500 hover:bg-gray-200 transition-colors"
                 >
-                  <span className="material-symbols-outlined !text-[1.1rem]">
-                    close
-                  </span>
+                  <span className="material-symbols-outlined !text-[1.1rem]">close</span>
                 </motion.button>
 
                 <motion.div
@@ -104,13 +98,10 @@ export const LoginModal = ({ isOpen, onClose, setUserDetails }: LoginProps) => {
                   <div
                     className="inline-flex items-center justify-center w-14 h-14 rounded-2xl mb-4 shadow-lg"
                     style={{
-                      background:
-                        "linear-gradient(135deg, #00eda4 0%, #6a7df1 100%)",
+                      background: "linear-gradient(135deg, #00eda4 0%, #6a7df1 100%)",
                     }}
                   >
-                    <span className="material-symbols-outlined text-white text-2xl">
-                      lock_open
-                    </span>
+                    <span className="material-symbols-outlined text-white text-2xl">lock_open</span>
                   </div>
 
                   <h2 className="font-body text-3xl font-bold text-gray-800 tracking-tight">
@@ -150,8 +141,7 @@ export const LoginModal = ({ isOpen, onClose, setUserDetails }: LoginProps) => {
                       <span
                         className="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-[1.1rem] transition-colors duration-300"
                         style={{
-                          color:
-                            focusedField === "email" ? "#6a7df1" : "#c4b5c4",
+                          color: focusedField === "email" ? "#6a7df1" : "#c4b5c4",
                         }}
                       >
                         mail
@@ -166,8 +156,7 @@ export const LoginModal = ({ isOpen, onClose, setUserDetails }: LoginProps) => {
                         onBlur={() => setFocusedField(null)}
                         className="w-full pl-11 pr-4 py-3 rounded-xl border font-body text-sm text-gray-700 placeholder-gray-300 outline-none transition-all duration-300"
                         style={{
-                          borderColor:
-                            focusedField === "email" ? "#6a7df1" : "#e5e7eb",
+                          borderColor: focusedField === "email" ? "#6a7df1" : "#e5e7eb",
                           boxShadow:
                             focusedField === "email"
                               ? "0 0 0 3px rgba(106,125,241,0.12)"
@@ -193,8 +182,7 @@ export const LoginModal = ({ isOpen, onClose, setUserDetails }: LoginProps) => {
                       <span
                         className="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-[1.1rem] transition-colors duration-300"
                         style={{
-                          color:
-                            focusedField === "password" ? "#6a7df1" : "#c4b5c4",
+                          color: focusedField === "password" ? "#6a7df1" : "#c4b5c4",
                         }}
                       >
                         key
@@ -209,8 +197,7 @@ export const LoginModal = ({ isOpen, onClose, setUserDetails }: LoginProps) => {
                         onBlur={() => setFocusedField(null)}
                         className="w-full pl-11 pr-4 py-3 rounded-xl border font-body text-sm text-gray-700 placeholder-gray-300 outline-none transition-all duration-300"
                         style={{
-                          borderColor:
-                            focusedField === "password" ? "#6a7df1" : "#e5e7eb",
+                          borderColor: focusedField === "password" ? "#6a7df1" : "#e5e7eb",
                           boxShadow:
                             focusedField === "password"
                               ? "0 0 0 3px rgba(106,125,241,0.12)"
@@ -258,9 +245,7 @@ export const LoginModal = ({ isOpen, onClose, setUserDetails }: LoginProps) => {
                         <span className="material-symbols-outlined text-red-400 text-[1rem]">
                           error
                         </span>
-                        <p className="font-body text-sm text-red-500">
-                          {error}
-                        </p>
+                        <p className="font-body text-sm text-red-500">{error}</p>
                       </motion.div>
                     )}
                   </AnimatePresence>
@@ -275,8 +260,7 @@ export const LoginModal = ({ isOpen, onClose, setUserDetails }: LoginProps) => {
                       disabled={loading}
                       className="relative w-full py-3.5 rounded-2xl rounded-tl-[1.8rem] font-body font-semibold text-white text-sm tracking-wide overflow-hidden"
                       style={{
-                        background:
-                          "linear-gradient(90deg, #00eda4 0%, #6a7df1 100%)",
+                        background: "linear-gradient(90deg, #00eda4 0%, #6a7df1 100%)",
                       }}
                       whileHover={{
                         scale: 1.02,

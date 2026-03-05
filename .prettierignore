@@ -1,0 +1,12 @@
+.next
+out
+build
+node_modules
+generated
+prisma/migrations
+.next/**
+out/**
+build/**
+node_modules/**
+generated/**
+prisma/migrations/**

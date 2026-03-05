@@ -8,10 +8,7 @@ const CourseList = () => {
   });
 
   return (
-    <div
-      ref={ref}
-      className={`relative ${!inView && "opacity-0"} duration-500`}
-    >
+    <div ref={ref} className={`relative ${!inView && "opacity-0"} duration-500`}>
       <div className="text-center w-full h-[33rem] bg-[url('/group-image.jpg')] bg-center bg-cover bg-no-repeat pt-16">
         <h1 className="text-white font-extrabold text-[2.5rem] mt-5 animate-slide-in-from-bottom">
           Become a Pro with these Course
@@ -27,16 +24,10 @@ const CourseList = () => {
           }`}
         >
           <div className="relative h-[16.81rem]">
-            <img
-              src="/homeCourses2.jpg"
-              className="w-full h-full object-cover"
-              alt=""
-            />
+            <img src="/homeCourses2.jpg" className="w-full h-full object-cover" alt="" />
             <div className="absolute top-0 left-0 flex hover:bg-[#00ECA3] w-full h-full items-center justify-center cursor-pointer duration-500 opacity-0 hover:opacity-95 ">
               <p className="text-white font-bold">View Details</p>
-              <span className="material-symbols-outlined text-white">
-                visibility
-              </span>
+              <span className="material-symbols-outlined text-white">visibility</span>
             </div>
           </div>
           <div className="px-10 py-14 text-center bg-white">
@@ -55,16 +46,10 @@ const CourseList = () => {
           }`}
         >
           <div className="relative h-[16.81rem]">
-            <img
-              src="/homeCourses3.jpg"
-              className="w-full h-full object-cover"
-              alt=""
-            />
+            <img src="/homeCourses3.jpg" className="w-full h-full object-cover" alt="" />
             <div className="absolute top-0 left-0 flex hover:bg-[#00ECA3] w-full h-full items-center justify-center cursor-pointer duration-500 opacity-0 hover:opacity-95  ">
               <p className="text-white font-bold">View Details</p>
-              <span className="material-symbols-outlined text-white">
-                visibility
-              </span>
+              <span className="material-symbols-outlined text-white">visibility</span>
             </div>
           </div>
           <div className="relative px-10 py-8 text-center  bg-white">
@@ -83,16 +68,10 @@ const CourseList = () => {
           }`}
         >
           <div className="relative h-[16.81rem]">
-            <img
-              src="/homeCourses1.jpg"
-              className="w-full h-full object-cover"
-              alt=""
-            />
+            <img src="/homeCourses1.jpg" className="w-full h-full object-cover" alt="" />
             <div className="absolute top-0 left-0 flex hover:bg-[#00ECA3] w-full h-full items-center justify-center cursor-pointer duration-500 opacity-0 hover:opacity-95 ">
               <p className="text-white font-bold ">View Details</p>
-              <span className="material-symbols-outlined text-white">
-                visibility
-              </span>
+              <span className="material-symbols-outlined text-white">visibility</span>
             </div>
           </div>
           <div className="px-10 py-14 text-center bg-white">
@@ -101,8 +80,7 @@ const CourseList = () => {
               BETTER FOR GROUP STUDIES
             </h1>
             <p className="font-extralight text-base w-[90%] leading-6 tracking-wide">
-              Amet, consectetur adipiscing elit, sed do eiusmod tempor
-              incididunt.
+              Amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.
             </p>
           </div>
         </div>
@@ -128,10 +106,9 @@ const CourseList = () => {
             inView && "animate-slide-in-from-bottom"
           } opacity-0 animate-delay-1000`}
         >
-          Dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-          incididunt. ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-          quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-          commodo consequat.
+          Dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt. ut labore
+          et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+          nisi ut aliquip ex ea commodo consequat.
         </p>
       </div>
     </div>

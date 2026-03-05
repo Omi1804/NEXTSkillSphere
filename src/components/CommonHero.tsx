@@ -14,12 +14,8 @@ const CommonHero = ({ Image, heroHeading, subHeading }: CommonHeroInput) => {
     >
       <div className="text-white">
         <h1 className="text-[4rem] font-extrabold ">{heroHeading}</h1>
-        <p
-          className={`w-full h-[3px] bg-white rounded-md ${style.registerLine}`}
-        ></p>
-        <p className="font-extralight tracking-widest mt-6">
-          HOME / {subHeading}
-        </p>
+        <p className={`w-full h-[3px] bg-white rounded-md ${style.registerLine}`}></p>
+        <p className="font-extralight tracking-widest mt-6">HOME / {subHeading}</p>
       </div>
     </div>
   );

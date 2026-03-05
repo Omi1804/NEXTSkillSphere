@@ -51,8 +51,7 @@ const HeroPage1 = () => {
         </div>
         <h1
           style={{
-            background:
-              "-webkit-linear-gradient(left, #ff2a73 0%, #ffd514 100%)",
+            background: "-webkit-linear-gradient(left, #ff2a73 0%, #ffd514 100%)",
             WebkitBackgroundClip: "text",
             WebkitTextFillColor: "transparent",
           }}
@@ -114,35 +113,23 @@ const HeroPage1 = () => {
         </div>
         <div className=" relative  w-[60%] h-full py-[10rem] pl-[5rem] z-10">
           <div className="w-16 h-16 rounded-full bg-[linear-gradient(rgb(0,_237,_164)_0%,_rgb(106,_125,_241)_100%)] mx-auto flex items-center justify-center mb-2">
-            <span className="material-symbols-outlined text-3xl text-white">
-              mouse
-            </span>
+            <span className="material-symbols-outlined text-3xl text-white">mouse</span>
           </div>
           <h1 className="bg-clip-text text-[4rem] font-bold w-full font-body text-transparent bg-gradient-to-r from-[#687bec] to-[#ff0e67]">
             eLearning for all
           </h1>
           <ul className="mt-6 mb-14">
             <li className="flex items-center justify-center gap-3 my-4 cursor-pointer hover:text-[#00ECA3] duration-300">
-              <span className="material-symbols-outlined text-4xl ">
-                public
-              </span>
-              <p className="text-3xl font-light tracking-wide">
-                Online Lessons
-              </p>
+              <span className="material-symbols-outlined text-4xl ">public</span>
+              <p className="text-3xl font-light tracking-wide">Online Lessons</p>
             </li>
             <li className="flex items-center justify-center gap-3 my-7 cursor-pointer hover:text-[#00ECA3] duration-300">
-              <span className="material-symbols-outlined text-4xl ">
-                menu_book
-              </span>
+              <span className="material-symbols-outlined text-4xl ">menu_book</span>
               <p className="text-3xl font-light tracking-wide">Live Courses</p>
             </li>
             <li className="flex items-center justify-center gap-3 my-4 cursor-pointer hover:text-[#00ECA3] duration-300">
-              <span className="material-symbols-outlined text-4xl ">
-                brightness_empty
-              </span>
-              <p className="text-3xl font-light tracking-wide">
-                Certified Lessons
-              </p>
+              <span className="material-symbols-outlined text-4xl ">brightness_empty</span>
+              <p className="text-3xl font-light tracking-wide">Certified Lessons</p>
             </li>
           </ul>
           <button className="flex items-center gap-3 mx-auto rounded-lg justify-center w-[13rem] p-4 rounded-tl-[2.3rem] shadow-md bg-[linear-gradient(90deg,_rgb(0,_237,_164)_0%,_rgb(106,_125,_241)_100%)] text-white hover:shadow-xl hover:scale-105 duration-300">
@@ -155,9 +142,7 @@ const HeroPage1 = () => {
       <div className=" w-full h-[100vh] bg-[url('/bg1.jpg')] bg-cover bg-no-repeat bg-center object-contain  py-10">
         <div className=" w-[50%] h-full flex flex-col justify-center text-left items-center">
           <div className="pl-[8rem] pr-6">
-            <h1 className="text-6xl font-body font-bold tracking-wide mb-4">
-              Learn Anything
-            </h1>
+            <h1 className="text-6xl font-body font-bold tracking-wide mb-4">Learn Anything</h1>
             <p className="w-[13rem] my-2 h-[3px] bg-[linear-gradient(90deg,_rgb(0,_237,_164)_0%,_rgb(106,_125,_241)_100%)] mb-14"></p>
             <p className="text-[2.5rem] my-8 font-light font-heading tracking-wide leading-normal bg-clip-text text-transparent bg-[linear-gradient(90deg,_rgb(0,_237,_164)_0%,_rgb(106,_125,_241)_100%)]">
               Get Access for Award Winning Online Courses{" "}

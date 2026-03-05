@@ -15,10 +15,7 @@ export async function GET(req: NextRequest) {
     console.error(error);
 
     if (error instanceof AuthError) {
-      return NextResponse.json(
-        { message: error.message },
-        { status: error.status },
-      );
+      return NextResponse.json({ message: error.message }, { status: error.status });
     }
     return NextResponse.json({ message: error.message }, { status: 400 });
   }
@@ -39,10 +36,7 @@ export async function POST(req: NextRequest) {
     console.error(error);
 
     if (error instanceof AuthError) {
-      return NextResponse.json(
-        { message: error.message },
-        { status: error.status },
-      );
+      return NextResponse.json({ message: error.message }, { status: error.status });
     }
 
     return NextResponse.json({ message: error.message }, { status: 400 });

@@ -1,12 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import {
-  faFacebookF,
-  faTwitter,
-  faVimeoV,
-  faGoogle,
-} from "@fortawesome/free-brands-svg-icons";
+import { faFacebookF, faTwitter, faVimeoV, faGoogle } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
@@ -20,9 +15,7 @@ interface HeaderClientProps {
 }
 
 export function HeaderClient({ initialUser }: HeaderClientProps) {
-  const [userDetails, setUserDetails] = useState<HeaderUser | null>(
-    initialUser,
-  );
+  const [userDetails, setUserDetails] = useState<HeaderUser | null>(initialUser);
   const [isLoginOpen, setIsLoginOpen] = useState(false);
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
   const path = usePathname();
@@ -90,9 +83,7 @@ export function HeaderClient({ initialUser }: HeaderClientProps) {
               className="flex items-center justify-center text-[#969696] gap-1 hover:text-[#00eda4] hover:shadow-md  duration-200"
               onClick={openLoginModal}
             >
-              <span className="material-symbols-outlined !text-lg transition">
-                lock_open
-              </span>
+              <span className="material-symbols-outlined !text-lg transition">lock_open</span>
               <p className="font-body font-light text-base transition">Login</p>
             </button>
             <button
@@ -100,9 +91,7 @@ export function HeaderClient({ initialUser }: HeaderClientProps) {
                 path === "/register" ? "text-[#00eda4]" : "text-[#969696]"
               }`}
             >
-              <span className="material-symbols-outlined !text-xl transition">
-                person
-              </span>
+              <span className="material-symbols-outlined !text-xl transition">person</span>
               <p className="font-body font-light text-base transition">
                 <Link href={"/register"}>Register</Link>
               </p>
@@ -114,19 +103,13 @@ export function HeaderClient({ initialUser }: HeaderClientProps) {
               className="flex items-center justify-center text-[#969696] gap-1 hover:text-[#00eda4] hover:shadow-md  duration-200"
               onClick={toggleUserMenu}
             >
-              <span className="material-symbols-outlined text-2xl transition">
-                person
-              </span>
-              <p className="font-body font-light text-lg transition">
-                {userDetails.name}
-              </p>
+              <span className="material-symbols-outlined text-2xl transition">person</span>
+              <p className="font-body font-light text-lg transition">{userDetails.name}</p>
             </button>
             {isUserMenuOpen && (
               <div className="absolute right-0 mt-3 w-56 rounded-2xl bg-[#1c1c1c] border border-[#2c2c2c] shadow-2xl z-50 p-3 animate-in fade-in slide-in-from-top-2">
                 <div className="px-3 py-2 border-b border-[#2f2f2f]">
-                  <p className="font-body text-sm text-[#b0b0b0]">
-                    Signed in as
-                  </p>
+                  <p className="font-body text-sm text-[#b0b0b0]">Signed in as</p>
                   <p className="font-body text-base text-white font-medium truncate">
                     {userDetails.email}
                   </p>
@@ -135,18 +118,14 @@ export function HeaderClient({ initialUser }: HeaderClientProps) {
                   className="w-full flex items-center gap-2 px-3 py-2 mt-2 rounded-xl text-left text-white font-body text-sm hover:bg-[#00eda4]/20 duration-200"
                   onClick={goToProfile}
                 >
-                  <span className="material-symbols-outlined text-base">
-                    account_circle
-                  </span>
+                  <span className="material-symbols-outlined text-base">account_circle</span>
                   View Profile
                 </button>
                 <p
                   className="w-full flex items-center gap-2 px-3 py-2 rounded-xl text-left text-[#ffb4b4] font-body text-sm hover:bg-[#ff4d4d]/10 duration-200"
                   onClick={handleLogout}
                 >
-                  <span className="material-symbols-outlined text-base">
-                    logout
-                  </span>
+                  <span className="material-symbols-outlined text-base">logout</span>
                   Logout
                 </p>
               </div>
@@ -161,9 +140,7 @@ export function HeaderClient({ initialUser }: HeaderClientProps) {
           </Link>
         </div>
 
-        <ul
-          className={`flex gap-1 items-center justify-center ${styles.navbar} `}
-        >
+        <ul className={`flex gap-1 items-center justify-center ${styles.navbar} `}>
           <li
             className={`text-white font-body font-medium text-base  tracking-wide mx-3 hover:text-[#00eda4] cursor-pointer duration-300 ${
               path === "/" && styles.active
@@ -227,9 +204,7 @@ export function HeaderClient({ initialUser }: HeaderClientProps) {
               }`}
               onClick={navigateToCart}
             >
-              <span className="material-symbols-outlined  text-xl">
-                shopping_cart
-              </span>
+              <span className="material-symbols-outlined  text-xl">shopping_cart</span>
               <p className=" font-body text-base">My Courses</p>
             </div>
           )}

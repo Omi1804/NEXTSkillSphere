@@ -1,7 +1,4 @@
-import {
-  USER_COOKIE_SAME_SITE,
-  USER_SESSION_COOKIE,
-} from "@/constants/userAuth.constants";
+import { USER_COOKIE_SAME_SITE, USER_SESSION_COOKIE } from "@/constants/userAuth.constants";
 import { NextResponse } from "next/server";
 
 export async function POST() {

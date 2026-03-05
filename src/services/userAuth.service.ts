@@ -1,9 +1,5 @@
 import { AuthError, createToken } from "@/config/authTokens";
-import {
-  createUser,
-  findUserByEmail,
-  type UserCreateInput,
-} from "@/repositories/user.repository";
+import { createUser, findUserByEmail, type UserCreateInput } from "@/repositories/user.repository";
 
 export type UserCredentials = UserCreateInput;
 
@@ -20,10 +16,7 @@ export const signupUser = async (credentials: UserCredentials) => {
   return { user, token };
 };
 
-export const loginUser = async (credentials: {
-  email: string;
-  password: string;
-}) => {
+export const loginUser = async (credentials: { email: string; password: string }) => {
   const user = await findUserByEmail(credentials.email);
 
   // password comparison should be done using hashed passwords in a real application

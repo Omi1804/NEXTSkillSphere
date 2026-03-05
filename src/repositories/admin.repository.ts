@@ -41,10 +41,7 @@ export async function getCourseById(courseId: string) {
   });
 }
 
-export async function updateCourse(
-  courseId: string,
-  courseData: Partial<Course>,
-) {
+export async function updateCourse(courseId: string, courseData: Partial<Course>) {
   return prisma.course.update({
     where: { id: courseId },
     data: courseData,

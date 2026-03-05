@@ -9,10 +9,7 @@ const Authors = () => {
     threshold: 0.5, // Trigger when 50% of the element is visible
   });
   return (
-    <div
-      ref={ref}
-      className={`flex p-16 ${!inView && "opacity-0"} duration-500`}
-    >
+    <div ref={ref} className={`flex p-16 ${!inView && "opacity-0"} duration-500`}>
       <div className="w-[40%] ">
         <p
           className={`opacity-0 font-light font-heading tracking-wide text-base mb-2 ${
@@ -31,13 +28,12 @@ const Authors = () => {
         <p className="w-[7rem] my-2 h-[3px] bg-[#00ECA3]"></p>
         <div className="mt-10">
           <p className="font-body font-light text-base my-12 tracking-wide leading-7 text-[#474747]">
-            But I must explain to you how all this mistaken idea of denouncing
-            pleasure and praising pain was born and I will give you a complete
-            account of the system.
+            But I must explain to you how all this mistaken idea of denouncing pleasure and praising
+            pain was born and I will give you a complete account of the system.
           </p>
           <p className="font-body font-light text-base tracking-wide leading-7 text-[#474747]">
-            Explorer of the truth, the master-builder of human happiness. No one
-            rejects, dislikes, or avoids pleasure itself, because it is
+            Explorer of the truth, the master-builder of human happiness. No one rejects, dislikes,
+            or avoids pleasure itself, because it is
           </p>
         </div>
         <button
@@ -57,17 +53,10 @@ const Authors = () => {
           <div
             className={`rounded-full  w-[143px] h-[143px] object-contain mb-1 ${styles.teamProfileImg}`}
           >
-            <img
-              src="/lauren.jpg"
-              className="w-full h-full rounded-full"
-              alt=""
-            />
+            <img src="/lauren.jpg" className="w-full h-full rounded-full" alt="" />
           </div>
           <h3 className="font-heading font-bold text-xl my-1">Lauren Ralph</h3>
-          <a
-            className="font-body hover:text-blue-700 text-white text-sm"
-            href="#"
-          >
+          <a className="font-body hover:text-blue-700 text-white text-sm" href="#">
             View Profile
           </a>
           <p className="font-heading font-light text-base">Consultant</p>
@@ -80,17 +69,10 @@ const Authors = () => {
           <div
             className={`rounded-full  w-[143px] h-[143px] object-contain mb-1 ${styles.teamProfileImg}`}
           >
-            <img
-              src="/stanlee-team.jpg"
-              className="w-full h-full rounded-full"
-              alt=""
-            />
+            <img src="/stanlee-team.jpg" className="w-full h-full rounded-full" alt="" />
           </div>
           <h3 className="font-heading font-bold text-xl my-1">Stan Lee</h3>
-          <a
-            className="font-body hover:text-blue-700 text-white text-sm"
-            href="#"
-          >
+          <a className="font-body hover:text-blue-700 text-white text-sm" href="#">
             View Profile
           </a>
           <p className="font-heading font-light text-base">Consultant</p>
@@ -103,19 +85,10 @@ const Authors = () => {
           <div
             className={`rounded-full  w-[143px] h-[143px] object-contain mb-1 ${styles.teamProfileImg}`}
           >
-            <img
-              src="/jason-stateman.jpg"
-              className="w-full h-full rounded-full"
-              alt=""
-            />
+            <img src="/jason-stateman.jpg" className="w-full h-full rounded-full" alt="" />
           </div>
-          <h3 className="font-heading font-bold text-xl my-1">
-            Jason Stateman
-          </h3>
-          <a
-            className="font-body hover:text-blue-700 text-white text-sm"
-            href="#"
-          >
+          <h3 className="font-heading font-bold text-xl my-1">Jason Stateman</h3>
+          <a className="font-body hover:text-blue-700 text-white text-sm" href="#">
             View Profile
           </a>
           <p className="font-heading font-light text-base">Consultant</p>
@@ -128,17 +101,10 @@ const Authors = () => {
           <div
             className={`rounded-full  w-[143px] h-[143px] object-contain mb-1 ${styles.teamProfileImg}`}
           >
-            <img
-              src="/steve-matt.jpg"
-              className="w-full h-full rounded-full"
-              alt=""
-            />
+            <img src="/steve-matt.jpg" className="w-full h-full rounded-full" alt="" />
           </div>
           <h3 className="font-heading font-bold text-xl my-1">Steve Matt</h3>
-          <a
-            className="font-body hover:text-blue-700 text-white text-sm"
-            href="#"
-          >
+          <a className="font-body hover:text-blue-700 text-white text-sm" href="#">
             View Profile
           </a>
           <p className="font-heading font-light text-base">Consultant</p>
@@ -151,17 +117,10 @@ const Authors = () => {
           <div
             className={`rounded-full  w-[143px] h-[143px] object-contain mb-1 ${styles.teamProfileImg}`}
           >
-            <img
-              src="/jenny-smith.jpg"
-              className="w-full h-full rounded-full"
-              alt=""
-            />
+            <img src="/jenny-smith.jpg" className="w-full h-full rounded-full" alt="" />
           </div>
           <h3 className="font-heading font-bold text-xl my-1">Jenny Smith</h3>
-          <a
-            className="font-body hover:text-blue-700 text-white text-sm"
-            href="#"
-          >
+          <a className="font-body hover:text-blue-700 text-white text-sm" href="#">
             View Profile
           </a>
           <p className="font-heading font-light text-base">Consultant</p>
@@ -174,9 +133,7 @@ const Authors = () => {
           <div
             className={`rounded-full  w-[143px] h-[143px] object-contain mb-1 flex flex-col items-center cursor-pointer justify-center bg-[#00ECA3]`}
           >
-            <span className="material-symbols-outlined text-2xl font-bold text-white">
-              add
-            </span>
+            <span className="material-symbols-outlined text-2xl font-bold text-white">add</span>
             <p className="text-white text-lg font-bold font-heading hover:text-[#6A7CF0] duration-300">
               Join Us
             </p>

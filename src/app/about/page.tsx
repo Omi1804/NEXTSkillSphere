@@ -1,8 +1,4 @@
-import {
-  CoursesForYou,
-  Educations,
-  Options,
-} from "@/components/AboutComponents";
+import { CoursesForYou, Educations, Options } from "@/components/AboutComponents";
 import CommonHero from "@/components/CommonHero";
 import JoinCourse from "@/components/HomeComponents/JoinCourse";
 

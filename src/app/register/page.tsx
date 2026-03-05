@@ -12,12 +12,7 @@ import { FormValues, PasswordStrength } from "@/types/register";
 import { evaluatePasswordStrength } from "@/utils/evaluatePassword";
 import { handleSignupSubmit } from "@/utils/handleAuthSubmit";
 import { useRouter } from "next/navigation";
-import {
-  startTransition,
-  useState,
-  type ChangeEvent,
-  type FormEvent,
-} from "react";
+import { startTransition, useState, type ChangeEvent, type FormEvent } from "react";
 
 const initialFormValues: FormValues = {
   email: "",
@@ -29,8 +24,7 @@ const initialFormValues: FormValues = {
 const Register = () => {
   const router = useRouter();
   const [formValues, setFormValues] = useState<FormValues>(initialFormValues);
-  const [passwordStrength, setPasswordStrength] =
-    useState<PasswordStrength>("weak");
+  const [passwordStrength, setPasswordStrength] = useState<PasswordStrength>("weak");
   const [error, setError] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -63,9 +57,7 @@ const Register = () => {
         router.replace("/");
       });
     } catch (err) {
-      setError(
-        err instanceof Error ? err.message : "An unexpected error occurred",
-      );
+      setError(err instanceof Error ? err.message : "An unexpected error occurred");
     } finally {
       setIsSubmitting(false);
     }
@@ -125,18 +117,13 @@ const Register = () => {
               <PasswordStrengthIndicator level={passwordStrength} />
             </div>
             <p className="bg-[#fafafa] p-3 font-heading text-[#737373] font-light text-[.9rem] tracking-wide mb-4">
-              Hint: The password should be at least twelve characters long. To
-              make it stronger, use upper and lower case letters, numbers, and
-              symbols like ! " ? $ % ^ & .
+              Hint: The password should be at least twelve characters long. To make it stronger, use
+              upper and lower case letters, numbers, and symbols like ! " ? $ % ^ & .
             </p>
 
             <div className="space-y-3">
               {error && <StatusMessage variant="error">{error}</StatusMessage>}
-              {successMessage && (
-                <StatusMessage variant="success">
-                  {successMessage}
-                </StatusMessage>
-              )}
+              {successMessage && <StatusMessage variant="success">{successMessage}</StatusMessage>}
             </div>
 
             <div className="mt-6">
@@ -155,8 +142,7 @@ const Register = () => {
               disabled={isSubmitting}
             />
             <p className="font-light italic text-[#737373] text-sm my-2">
-              This field may be seen by:{" "}
-              <span className="font-semibold">Everyone</span>
+              This field may be seen by: <span className="font-semibold">Everyone</span>
             </p>
           </div>
         </div>
