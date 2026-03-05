@@ -8,7 +8,7 @@ const MyCourses = () => {
   useEffect(() => {
     const fetchPurchasedCourses = async () => {
       try {
-        const response = await axios.get("/api/user/courses/purchased", {
+        const response = await axios.get("/api/v1/user/courses/purchased", {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("eLearniToken")}`,
           },

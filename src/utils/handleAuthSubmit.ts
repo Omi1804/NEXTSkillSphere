@@ -13,7 +13,7 @@ export const handleLoginSubmit = async (
   setLoading(true);
 
   try {
-    const response = await fetch("/api/user/login", {
+    const response = await fetch("/api/v1/user/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       credentials: "same-origin",
@@ -63,7 +63,7 @@ export const handleSignupSubmit = async ({
 }: {
   payload: SignupPayload;
 }): Promise<SignupResponse> => {
-  const response = await fetch("/api/user/signup", {
+  const response = await fetch("/api/v1/user/signup", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     credentials: "same-origin",

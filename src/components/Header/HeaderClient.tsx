@@ -34,7 +34,7 @@ export function HeaderClient({ initialUser }: HeaderClientProps) {
 
   const handleLogout = async () => {
     try {
-      await fetch("/api/logout", { method: "POST" });
+      await fetch("/api/v1/logout", { method: "POST" });
     } catch (error) {
       console.error("Failed to logout", error);
     } finally {
