@@ -1,4 +1,4 @@
-import { AuthError } from "@/config/authTokens";
+import { handleApiError } from "@/errors/apiErrorHandler";
 import { authenticateUser } from "@/middlewares/userAuth.middleware";
 import { getUserProfileByEmail } from "@/services/userProfile.service";
 import { NextRequest, NextResponse } from "next/server";
@@ -10,11 +10,7 @@ export async function GET(req: NextRequest) {
 
     return NextResponse.json({ user }, { status: 200 });
   } catch (error) {
-    if (error instanceof AuthError) {
-      return NextResponse.json({ message: error.message }, { status: error.status });
-    }
-
     console.error("Server Error:", error);
-    return NextResponse.json({ message: "Internal server error" }, { status: 500 });
+    return handleApiError(error, "Internal server error");
   }
 }

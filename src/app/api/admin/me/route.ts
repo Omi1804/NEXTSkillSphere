@@ -1,5 +1,6 @@
 import { authenticateAdmin } from "@/middlewares/adminAuth.middleware";
 import { NextRequest } from "next/server";
+import { handleApiError } from "@/errors/apiErrorHandler";
 
 export async function GET(req: NextRequest) {
   try {
@@ -15,9 +16,7 @@ export async function GET(req: NextRequest) {
         status: 404,
       });
     }
-  } catch (error: any) {
-    return new Response(JSON.stringify({ message: error.message }), {
-      status: 400,
-    });
+  } catch (error) {
+    return handleApiError(error, "Internal server error");
   }
 }

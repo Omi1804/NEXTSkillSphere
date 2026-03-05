@@ -1,17 +1,8 @@
 import jwt from "jsonwebtoken";
+import { AuthError, InternalServerError } from "@/errors";
 
 interface DecodedToken {
   id: string;
-}
-
-export class AuthError extends Error {
-  status: number;
-
-  constructor(message: string, status: number) {
-    super(message);
-    this.name = "AuthError";
-    this.status = status;
-  }
 }
 
 export function getSecretKey() {
@@ -19,7 +10,7 @@ export function getSecretKey() {
 
   if (!secret) {
     console.error("Secret key for token generation is missing.");
-    throw new AuthError("Internal server error.", 500);
+    throw new InternalServerError("Internal server error.");
   }
 
   return secret;
@@ -34,8 +25,8 @@ export function verifyToken(token: string) {
     return jwt.verify(token, getSecretKey()) as DecodedToken;
   } catch (error) {
     if (error instanceof jwt.TokenExpiredError) {
-      throw new AuthError("Token expired! Please login again.", 401);
+      throw new AuthError("Token expired! Please login again.");
     }
-    throw new AuthError("Invalid or malformed token!", 401);
+    throw new AuthError("Invalid or malformed token!");
   }
 }

@@ -117,8 +117,8 @@ const Register = () => {
               <PasswordStrengthIndicator level={passwordStrength} />
             </div>
             <p className="bg-[#fafafa] p-3 font-heading text-[#737373] font-light text-[.9rem] tracking-wide mb-4">
-              Hint: The password should be at least twelve characters long. To make it stronger, use
-              upper and lower case letters, numbers, and symbols like ! " ? $ % ^ & .
+              {`Hint: The password should be at least twelve characters long. To make it stronger, use
+              upper and lower case letters, numbers, and symbols like ! " ? $ % ^ & .`}
             </p>
 
             <div className="space-y-3">

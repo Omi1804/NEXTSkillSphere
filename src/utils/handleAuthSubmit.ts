@@ -1,4 +1,5 @@
 import { HeaderUser } from "@/types/header";
+import { getApiErrorMessage, getClientErrorMessage } from "@/errors/clientError";
 
 export const handleLoginSubmit = async (
   setError: any,
@@ -22,7 +23,7 @@ export const handleLoginSubmit = async (
     const responseData = await response.json();
 
     if (!response.ok) {
-      throw new Error(responseData?.message || "Unable to login");
+      throw new Error(getApiErrorMessage(responseData, "Unable to login"));
     }
 
     const userDetails: HeaderUser | undefined = responseData?.userDetails
@@ -39,7 +40,7 @@ export const handleLoginSubmit = async (
     setUserDetails?.(userDetails);
     onClose();
   } catch (err: any) {
-    setError(err.message || "Something went wrong");
+    setError(getClientErrorMessage(err, "Something went wrong"));
   } finally {
     setLoading(false);
   }
@@ -72,7 +73,7 @@ export const handleSignupSubmit = async ({
   const responseData = await response.json();
 
   if (!response.ok) {
-    throw new Error(responseData?.message || "Unable to create account");
+    throw new Error(getApiErrorMessage(responseData, "Unable to create account"));
   }
 
   return responseData as SignupResponse;

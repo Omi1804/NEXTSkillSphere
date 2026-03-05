@@ -1,6 +1,6 @@
 import { authenticateUser } from "@/middlewares/userAuth.middleware";
 import { NextRequest, NextResponse } from "next/server";
-import { AuthError } from "@/config/authTokens";
+import { handleApiError } from "@/errors/apiErrorHandler";
 import { purchaseCourse } from "@/services/userProfile.service";
 
 export async function POST(req: NextRequest, context: { params: Promise<{ id: string }> }) {
@@ -19,11 +19,6 @@ export async function POST(req: NextRequest, context: { params: Promise<{ id: st
     );
   } catch (err) {
     console.log(err);
-
-    if (err instanceof AuthError) {
-      return NextResponse.json({ message: err.message }, { status: err.status });
-    }
-
-    return NextResponse.json({ message: "Internal Server Error", err }, { status: 500 });
+    return handleApiError(err, "Internal Server Error");
   }
 }

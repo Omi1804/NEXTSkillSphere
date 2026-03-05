@@ -25,6 +25,11 @@ export const LoginModal = ({ isOpen, onClose, setUserDetails }: LoginProps) => {
     setPassword(e.target.value);
   };
 
+  const handleSubmit = (e: FormEvent) => {
+    e.preventDefault();
+    handleLoginSubmit(setError, setLoading, setUserDetails, onClose, email, password);
+  };
+
   return (
     <AnimatePresence>
       {isOpen && (
@@ -112,20 +117,7 @@ export const LoginModal = ({ isOpen, onClose, setUserDetails }: LoginProps) => {
                   </p>
                 </motion.div>
 
-                <form
-                  onSubmit={(e) => {
-                    e.preventDefault();
-                    handleLoginSubmit(
-                      setError,
-                      setLoading,
-                      setUserDetails,
-                      onClose,
-                      email,
-                      password,
-                    );
-                  }}
-                  className="space-y-5"
-                >
+                <form onSubmit={handleSubmit} className="space-y-5">
                   <motion.div
                     initial={{ opacity: 0, x: -12 }}
                     animate={{ opacity: 1, x: 0 }}

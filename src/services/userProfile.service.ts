@@ -1,4 +1,4 @@
-import { AuthError } from "@/config/authTokens";
+import { AuthError, NotFoundError } from "@/errors";
 import { getCourseById } from "@/repositories/admin.repository";
 import {
   addCourseToUser,
@@ -8,13 +8,13 @@ import {
 
 export async function getUserProfileByEmail(email?: string | null) {
   if (!email) {
-    throw new AuthError("User expired", 404);
+    throw new AuthError("User expired");
   }
 
   const user = await findUserByEmail(email);
 
   if (!user) {
-    throw new AuthError("Auth expired, Please login again", 404);
+    throw new AuthError("Auth expired, Please login again");
   }
 
   return user;
@@ -22,7 +22,7 @@ export async function getUserProfileByEmail(email?: string | null) {
 
 export async function purchaseCourse(user: any, id: string) {
   if (!user) {
-    throw new AuthError("User expired", 404);
+    throw new AuthError("User expired");
   }
 
   const isCoursePurchased = user.courses.find((course: any) => course.id === id);
@@ -33,7 +33,7 @@ export async function purchaseCourse(user: any, id: string) {
 
   const existingCourse = await getCourseById(id);
   if (!existingCourse) {
-    throw new AuthError("Course not found", 404);
+    throw new NotFoundError("Course not found");
   }
 
   const updatedUser = await addCourseToUser(user.email, id);
@@ -43,14 +43,14 @@ export async function purchaseCourse(user: any, id: string) {
 
 export async function getUserPurchasedCourses(user: any) {
   if (!user) {
-    throw new AuthError("User expired", 404);
+    throw new AuthError("User expired");
   }
 
   const userEmail = user.email;
 
   const userCourses = await findCoursesByUserEmail(userEmail);
   if (!userCourses) {
-    throw new AuthError("No courses found for the user", 404);
+    throw new NotFoundError("No courses found for the user");
   }
 
   return userCourses;

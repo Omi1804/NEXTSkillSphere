@@ -1,15 +1,16 @@
 import { deleteCourse, getCourseById, updateCourse } from "@/repositories/admin.repository";
+import { BadRequestError, NotFoundError } from "@/errors";
 import { Course } from "@/types/adminApis";
 
 export const updateCourseById = async (courseId: string, newCourseData: Course) => {
   if (!courseId || !newCourseData) {
-    throw new Error("Course ID and new course data must be provided.");
+    throw new BadRequestError("Course ID and new course data must be provided.");
   }
 
   const existingCourse = await getCourseById(courseId);
 
   if (!existingCourse) {
-    throw new Error("Course not found!");
+    throw new NotFoundError("Course not found!");
   }
 
   const updatedCourse = await updateCourse(courseId, newCourseData);
@@ -19,13 +20,13 @@ export const updateCourseById = async (courseId: string, newCourseData: Course) 
 
 export const deleteCourseById = async (courseId: string) => {
   if (!courseId) {
-    throw new Error("Course Id must be provided");
+    throw new BadRequestError("Course Id must be provided");
   }
 
   const existingCourse = await getCourseById(courseId);
 
   if (!existingCourse) {
-    throw new Error("Course not found!");
+    throw new NotFoundError("Course not found!");
   }
 
   const deletedCourse = await deleteCourse(courseId);

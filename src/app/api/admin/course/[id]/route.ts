@@ -1,4 +1,4 @@
-import { AuthError } from "@/config/authTokens";
+import { handleApiError } from "@/errors/apiErrorHandler";
 import { authenticateAdmin } from "@/middlewares/adminAuth.middleware";
 import { deleteCourseById, updateCourseById } from "@/services/admin.service";
 import { NextRequest, NextResponse } from "next/server";
@@ -21,12 +21,7 @@ export async function PUT(
     });
   } catch (err: any) {
     console.error("Error finding course:", err);
-
-    if (err instanceof AuthError) {
-      return NextResponse.json({ message: err.message }, { status: err.status });
-    }
-
-    return NextResponse.json({ message: err.message || "Internal Server Error" }, { status: 500 });
+    return handleApiError(err, "Internal Server Error");
   }
 }
 
@@ -46,14 +41,6 @@ export async function DELETE(
     });
   } catch (error) {
     console.error(error);
-
-    if (error instanceof AuthError) {
-      return NextResponse.json({ message: error.message }, { status: error.status });
-    }
-
-    return NextResponse.json(
-      { message: "Record to delete does not exist.", error },
-      { status: 500 },
-    );
+    return handleApiError(error, "Record to delete does not exist.");
   }
 }

@@ -2,7 +2,7 @@ import { authenticateAdmin } from "@/middlewares/adminAuth.middleware";
 import { NextRequest, NextResponse } from "next/server";
 import { createCourse, getAllCourses } from "@/repositories/admin.repository";
 import { Course } from "@/types/adminApis";
-import { AuthError } from "@/config/authTokens";
+import { handleApiError } from "@/errors/apiErrorHandler";
 
 export async function GET(req: NextRequest) {
   try {
@@ -13,11 +13,7 @@ export async function GET(req: NextRequest) {
     return NextResponse.json(courses, { status: 200 });
   } catch (error: any) {
     console.error(error);
-
-    if (error instanceof AuthError) {
-      return NextResponse.json({ message: error.message }, { status: error.status });
-    }
-    return NextResponse.json({ message: error.message }, { status: 400 });
+    return handleApiError(error, error?.message || "Internal server error");
   }
 }
 
@@ -34,11 +30,6 @@ export async function POST(req: NextRequest) {
     );
   } catch (error: any) {
     console.error(error);
-
-    if (error instanceof AuthError) {
-      return NextResponse.json({ message: error.message }, { status: error.status });
-    }
-
-    return NextResponse.json({ message: error.message }, { status: 400 });
+    return handleApiError(error, error?.message || "Internal server error");
   }
 }

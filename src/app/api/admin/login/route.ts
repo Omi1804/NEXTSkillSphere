@@ -1,18 +1,19 @@
 import { NextResponse } from "next/server";
 import { loginAdmin, type AdminCredentials } from "@/services/adminAuth.service";
-import { AuthError } from "@/config/authTokens";
+import { BadRequestError } from "@/errors";
 import {
   ADMIN_COOKIE_MAX_AGE,
   ADMIN_COOKIE_SAME_SITE,
   ADMIN_SESSION_COOKIE,
 } from "@/constants/adminAuth.constants";
+import { handleApiError } from "@/errors/apiErrorHandler";
 
 export async function POST(req: Request) {
   try {
     const { email, password }: AdminCredentials = await req.json();
 
     if (!email || !password) {
-      return NextResponse.json({ message: "Invalid email or password" }, { status: 400 });
+      throw new BadRequestError("Invalid email or password");
     }
 
     const { admin, token } = await loginAdmin({ email, password });
@@ -37,10 +38,7 @@ export async function POST(req: Request) {
 
     return response;
   } catch (err) {
-    if (err instanceof AuthError) {
-      return NextResponse.json({ message: err.message }, { status: err.status });
-    }
     console.error("Server Error:", err);
-    return NextResponse.json({ message: "Internal server error." }, { status: 500 });
+    return handleApiError(err, "Internal server error.");
   }
 }

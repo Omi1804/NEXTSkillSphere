@@ -1,9 +1,10 @@
-import { AuthError } from "@/config/authTokens";
 import {
   USER_COOKIE_MAX_AGE,
   USER_COOKIE_SAME_SITE,
   USER_SESSION_COOKIE,
 } from "@/constants/userAuth.constants";
+import { BadRequestError } from "@/errors";
+import { handleApiError } from "@/errors/apiErrorHandler";
 import { signupUser } from "@/services/userAuth.service";
 import { UserInput } from "@/types/userApis";
 import { NextResponse } from "next/server";
@@ -13,7 +14,7 @@ export async function POST(req: Request) {
     const { email, password, username, name }: UserInput = await req.json();
 
     if (!email || !password) {
-      return NextResponse.json({ message: "Invalid email or password" }, { status: 400 });
+      throw new BadRequestError("Invalid email or password");
     }
 
     const { user, token } = await signupUser({
@@ -40,11 +41,7 @@ export async function POST(req: Request) {
 
     return response;
   } catch (error) {
-    if (error instanceof AuthError) {
-      return NextResponse.json({ message: error.message }, { status: error.status });
-    }
-
     console.error("Server Error:", error);
-    return NextResponse.json({ message: "Internal server error" }, { status: 500 });
+    return handleApiError(error, "Internal server error");
   }
 }
