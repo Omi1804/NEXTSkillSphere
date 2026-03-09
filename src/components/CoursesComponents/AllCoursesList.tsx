@@ -1,15 +1,35 @@
 import CourseCard from "../CourseCard";
 import courses from "@/coursesData.json";
-import { useState } from "react";
+import { getClientErrorMessage } from "@/errors/clientError";
+import { Course } from "@/types/adminApis";
+import { useEffect, useState } from "react";
 
 const ITEMS_PER_PAGE = 6;
 
 const AllCoursesList = () => {
+  const [courseData, setCourseData] = useState<Course[] | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
   const totalPages = Math.ceil(courses.length / ITEMS_PER_PAGE);
 
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
   const selectedCourses = courses.slice(startIndex, startIndex + ITEMS_PER_PAGE);
+
+  useEffect(() => {
+    const fetchCourses = async () => {
+      try {
+        const response = await fetch("/api/v1/user/courses", {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+        const data = await response.json();
+        setCourseData(data);
+      } catch (error) {
+        console.log(getClientErrorMessage(error, "Failed to fetch courses"));
+      }
+    };
+    fetchCourses();
+  }, []);
 
   const changePage = (pageNumber: number) => {
     setCurrentPage(pageNumber);

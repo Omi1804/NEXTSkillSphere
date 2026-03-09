@@ -35,6 +35,12 @@ export async function createCourse(courseData: Course) {
   });
 }
 
+export async function createCoursesBulk(coursesData: Course[]) {
+  return prisma.course.createMany({
+    data: coursesData,
+  });
+}
+
 export async function getCourseById(courseId: string) {
   return prisma.course.findUnique({
     where: { id: courseId },

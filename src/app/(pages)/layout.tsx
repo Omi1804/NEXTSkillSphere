@@ -31,9 +31,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en">
       <MetaTags />
       <body className={`${poppins.variable} ${roboto.variable} antialiased`}>
-        <img src="https://cdn-icons-png.flaticon.com/512/7359/7359501.svg" alt="" />
         <Header />
-
         {children}
         <Footer />
       </body>
