@@ -18,7 +18,7 @@ const CourseCard = ({
   instructor,
 }: CourseCardType) => {
   return (
-    <div className="w-full h-[33rem] rounded-2xl overflow-hidden border shadow-md hover:shadow-2xl hover:rounded-sm duration-300 hover:border-4 hover:border-[#00ECA3] cursor-pointer">
+    <div className="w-full h-[33rem] rounded-2xl overflow-hidden border shadow-md hover:shadow-xl hover:rounded-tl-[2.3rem] duration-300 cursor-pointer">
       <div className="w-full h-[14rem]  object-cover object-center relative ">
         <img src={image} className="w-full h-full rounded-b-xl" alt="" />
         <p className="absolute bottom-[-1.5rem] right-5 bg-[#00ECA3] w-[5rem] h-[5rem] rounded-full flex items-center justify-center text-white font-body font-medium text-lg shadow-lg">

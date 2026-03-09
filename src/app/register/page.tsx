@@ -79,6 +79,7 @@ const Register = () => {
         <div className="flex my-[4rem] flex-col gap-8 lg:flex-row">
           <form className="py-4 pr-4 w-full lg:w-[35%]" onSubmit={handleSubmit}>
             <h1 className="text-3xl font-bold font-body">Account Details</h1>
+
             <TextField
               label="Username (required)"
               name="username"

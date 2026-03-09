@@ -170,15 +170,6 @@ export function HeaderClient({ initialUser }: HeaderClientProps) {
           </li>
           <li
             className={`text-white font-body font-medium text-base  tracking-wide mx-3 hover:text-[#00eda4] cursor-pointer duration-300 ${
-              path === "/students" && styles.active
-            }`}
-          >
-            <p className="duration-300">
-              <Link href={"/students"}>Students</Link>
-            </p>
-          </li>
-          <li
-            className={`text-white font-body font-medium text-base  tracking-wide mx-3 hover:text-[#00eda4] cursor-pointer duration-300 ${
               path === "/courses" && styles.active
             }`}
           >

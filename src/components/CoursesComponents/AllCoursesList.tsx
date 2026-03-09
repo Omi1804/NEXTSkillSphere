@@ -32,8 +32,6 @@ const AllCoursesList = () => {
             <option value="All Categories" defaultChecked>
               All Categories
             </option>
-
-            <option value="https://demo-themewinter.com/courselog/courses/"> All Categories</option>
             <option value="ai">Artificial Intelligence</option>
             <option value="bussinessManagement">Business &amp; Management</option>
             <option>Business Analysis</option>

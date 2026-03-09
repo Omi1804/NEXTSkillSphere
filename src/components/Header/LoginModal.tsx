@@ -123,12 +123,24 @@ export const LoginModal = ({ isOpen, onClose, setUserDetails }: LoginProps) => {
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.15 }}
                   >
-                    <label
-                      htmlFor="email"
-                      className="block font-body text-sm font-medium text-gray-600 mb-1.5"
-                    >
-                      Email Address
-                    </label>
+                    <div className="flex items-center justify-between">
+                      <label
+                        htmlFor="email"
+                        className="block font-body text-sm font-medium text-gray-600 mb-1.5"
+                      >
+                        Email Address
+                      </label>
+                      <button
+                        onClick={(e) => {
+                          e.preventDefault();
+                          setEmail("test@gmail.com");
+                          setPassword("1234");
+                        }}
+                        className="border border-green-400 px-1 rounded-sm text-[10px] font-semibold relative bottom-1 hover:scale-105 duration-200 transition-all"
+                      >
+                        Test Credentials
+                      </button>
+                    </div>
                     <div className="relative">
                       <span
                         className="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-[1.1rem] transition-colors duration-300"
@@ -142,6 +154,7 @@ export const LoginModal = ({ isOpen, onClose, setUserDetails }: LoginProps) => {
                         id="email"
                         type="email"
                         name="email"
+                        value={email}
                         placeholder="you@example.com"
                         required
                         onFocus={() => setFocusedField("email")}
@@ -183,6 +196,7 @@ export const LoginModal = ({ isOpen, onClose, setUserDetails }: LoginProps) => {
                         id="password"
                         type="password"
                         name="password"
+                        value={password}
                         placeholder="••••••••"
                         required
                         onFocus={() => setFocusedField("password")}
