@@ -7,31 +7,100 @@ datasource db {
   provider = "postgresql"
 }
 
-model admins {
-  id       String @id @default(uuid())
-  email    String @unique
-  password String
+enum Role {
+  USER
+  ADMIN
+}
+
+enum PurchaseStatus {
+  SUCCESS
+  FAILED
+  REFUNDED
 }
 
 model User {
-  id       String   @id @default(uuid())
-  email    String   @unique
-  password String
-  username String   @unique
+  id       String @id @default(uuid())
   name     String
-  courses  Course[] @relation("UserCourses")
+  email    String @unique
+  password String
+  role     Role   @default(USER)
+
+  createdAt DateTime @default(now())
+
+  courses          Course[]         @relation("InstructorCourses")
+  purchases        Purchase[]
+  lessonProgresses LessonProgress[]
 }
 
 model Course {
-  id          String  @id @default(uuid())
-  imageLink   String
-  price       Int
-  time        String
-  level       String
-  heading     String
+  id          String @id @default(uuid())
+  title       String
   description String
-  category    String
-  instructor  String
-  visibility  Boolean @default(true)
-  users       User[]  @relation("UserCourses")
+  price       Int
+
+  image_id Int?          @unique
+  image    CourseImages? @relation(fields: [image_id], references: [id])
+
+  isPublished Boolean @default(false)
+
+  createdBy  String
+  instructor User   @relation("InstructorCourses", fields: [createdBy], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  lessons   Lesson[]
+  purchases Purchase[]
+}
+
+//to be added in future when we want to add more details to the course, for now we can keep it simple with just title, description, price and image
+//  "category": "Programming",
+//     "instructor": "Jane Smith"
+
+model CourseImages {
+  id        Int      @id @default(autoincrement())
+  imageLink String
+  course    Course?
+  createdAt DateTime @default(now())
+}
+
+model Lesson {
+  id       String @id @default(uuid())
+  title    String
+  videoUrl String
+  position Int
+
+  courseId String
+  course   Course @relation(fields: [courseId], references: [id])
+
+  createdAt        DateTime         @default(now())
+  lessonProgresses LessonProgress[]
+}
+
+model Purchase {
+  id        String         @id @default(uuid())
+  userId    String
+  courseId  String
+  paymentId String
+  amount    Int
+  status    PurchaseStatus @default(SUCCESS)
+
+  purchasedAt DateTime @default(now())
+
+  user   User   @relation(fields: [userId], references: [id])
+  course Course @relation(fields: [courseId], references: [id])
+
+  @@unique([userId, courseId])
+}
+
+model LessonProgress {
+  id        String  @id @default(uuid())
+  completed Boolean @default(false)
+  userId    String
+  lessonId  String
+
+  user   User   @relation(fields: [userId], references: [id])
+  lesson Lesson @relation(fields: [lessonId], references: [id])
+
+  @@unique([userId, lessonId])
 }

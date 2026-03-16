@@ -1,4 +1,4 @@
-import { PasswordStrength, StatusMessageProps, TextFieldProps } from "@/types/register";
+import { PasswordStrength, StatusMessageProps, TextFieldProps } from "@/types/register.types";
 import { strengthStyles } from "@/utils/evaluatePassword";
 
 export const StatusMessage = ({ variant, children }: StatusMessageProps) => {

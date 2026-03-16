@@ -1,4 +1,4 @@
-import { HeaderUser } from "@/types/header";
+import { HeaderUser } from "@/types/header.types";
 import { getApiErrorMessage, getClientErrorMessage } from "@/errors/clientError";
 
 export const handleLoginSubmit = async (

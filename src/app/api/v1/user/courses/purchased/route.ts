@@ -9,7 +9,7 @@ export async function GET(req: NextRequest) {
 
     const userCourses = await getUserPurchasedCourses(user);
 
-    return NextResponse.json({ Courses: userCourses.courses }, { status: 200 });
+    return NextResponse.json({ Courses: userCourses }, { status: 200 });
   } catch (error: any) {
     console.error("Error finding course:", error);
     return handleApiError(error, "Internal Server Error");

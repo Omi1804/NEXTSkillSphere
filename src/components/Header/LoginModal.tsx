@@ -1,5 +1,5 @@
 "use client";
-import { HeaderUser } from "@/types/header";
+import { HeaderUser } from "@/types/header.types";
 import { ChangeEvent, FormEvent, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { handleLoginSubmit } from "@/utils/handleAuthSubmit";

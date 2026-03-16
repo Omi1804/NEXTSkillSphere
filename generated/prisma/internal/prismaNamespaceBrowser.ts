@@ -51,9 +51,12 @@ export const AnyNull = runtime.AnyNull
 
 
 export const ModelName = {
-  admins: 'admins',
   User: 'User',
-  Course: 'Course'
+  Course: 'Course',
+  CourseImages: 'CourseImages',
+  Lesson: 'Lesson',
+  Purchase: 'Purchase',
+  LessonProgress: 'LessonProgress'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -72,21 +75,13 @@ export const TransactionIsolationLevel = runtime.makeStrictEnum({
 export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof typeof TransactionIsolationLevel]
 
 
-export const AdminsScalarFieldEnum = {
-  id: 'id',
-  email: 'email',
-  password: 'password'
-} as const
-
-export type AdminsScalarFieldEnum = (typeof AdminsScalarFieldEnum)[keyof typeof AdminsScalarFieldEnum]
-
-
 export const UserScalarFieldEnum = {
   id: 'id',
+  name: 'name',
   email: 'email',
   password: 'password',
-  username: 'username',
-  name: 'name'
+  role: 'role',
+  createdAt: 'createdAt'
 } as const
 
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -94,18 +89,61 @@ export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof User
 
 export const CourseScalarFieldEnum = {
   id: 'id',
-  imageLink: 'imageLink',
-  price: 'price',
-  time: 'time',
-  level: 'level',
-  heading: 'heading',
+  title: 'title',
   description: 'description',
-  category: 'category',
-  instructor: 'instructor',
-  visibility: 'visibility'
+  price: 'price',
+  image_id: 'image_id',
+  isPublished: 'isPublished',
+  createdBy: 'createdBy',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 } as const
 
 export type CourseScalarFieldEnum = (typeof CourseScalarFieldEnum)[keyof typeof CourseScalarFieldEnum]
+
+
+export const CourseImagesScalarFieldEnum = {
+  id: 'id',
+  imageLink: 'imageLink',
+  createdAt: 'createdAt'
+} as const
+
+export type CourseImagesScalarFieldEnum = (typeof CourseImagesScalarFieldEnum)[keyof typeof CourseImagesScalarFieldEnum]
+
+
+export const LessonScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  videoUrl: 'videoUrl',
+  position: 'position',
+  courseId: 'courseId',
+  createdAt: 'createdAt'
+} as const
+
+export type LessonScalarFieldEnum = (typeof LessonScalarFieldEnum)[keyof typeof LessonScalarFieldEnum]
+
+
+export const PurchaseScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  courseId: 'courseId',
+  paymentId: 'paymentId',
+  amount: 'amount',
+  status: 'status',
+  purchasedAt: 'purchasedAt'
+} as const
+
+export type PurchaseScalarFieldEnum = (typeof PurchaseScalarFieldEnum)[keyof typeof PurchaseScalarFieldEnum]
+
+
+export const LessonProgressScalarFieldEnum = {
+  id: 'id',
+  completed: 'completed',
+  userId: 'userId',
+  lessonId: 'lessonId'
+} as const
+
+export type LessonProgressScalarFieldEnum = (typeof LessonProgressScalarFieldEnum)[keyof typeof LessonProgressScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -122,4 +160,12 @@ export const QueryMode = {
 } as const
 
 export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode]
+
+
+export const NullsOrder = {
+  first: 'first',
+  last: 'last'
+} as const
+
+export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
 

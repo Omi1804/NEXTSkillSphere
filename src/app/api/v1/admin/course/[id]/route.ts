@@ -1,6 +1,7 @@
 import { handleApiError } from "@/errors/apiErrorHandler";
 import { authenticateAdmin } from "@/middlewares/adminAuth.middleware";
 import { deleteCourseById, updateCourseById } from "@/services/admin.service";
+import { CourseUpdateInput } from "@/types/course.types";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function PUT(
@@ -11,7 +12,7 @@ export async function PUT(
     await authenticateAdmin(req);
 
     const courseId = (await context.params)?.id;
-    const newCourseData = await req.json();
+    const newCourseData: CourseUpdateInput = await req.json();
 
     const updatedCourse = await updateCourseById(courseId, newCourseData);
 

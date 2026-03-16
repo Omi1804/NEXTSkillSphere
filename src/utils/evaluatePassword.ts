@@ -1,4 +1,4 @@
-import { PasswordStrength } from "@/types/register";
+import { PasswordStrength } from "@/types/register.types";
 
 export const strengthStyles: Record<PasswordStrength, { label: string; className: string }> = {
   weak: { label: "Weak", className: "bg-[#E53E3E]" },

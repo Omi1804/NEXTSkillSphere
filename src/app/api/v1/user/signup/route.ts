@@ -6,7 +6,7 @@ import {
 import { BadRequestError } from "@/errors";
 import { handleApiError } from "@/errors/apiErrorHandler";
 import { signupUser } from "@/services/userAuth.service";
-import { UserInput } from "@/types/userApis";
+import { UserInput } from "@/types/user.types";
 import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {

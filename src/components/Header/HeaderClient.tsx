@@ -7,7 +7,7 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import styles from "@/app/styles/home.module.css";
 import { LoginModal } from "./LoginModal";
-import { HeaderUser } from "@/types/header";
+import { HeaderUser } from "@/types/header.types";
 import { useOnClickOutside } from "@/hooks/useOnClickOutside";
 
 interface HeaderClientProps {

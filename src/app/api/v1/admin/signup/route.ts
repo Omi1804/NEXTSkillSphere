@@ -10,13 +10,13 @@ import { handleApiError } from "@/errors/apiErrorHandler";
 
 export async function POST(req: Request) {
   try {
-    const { email, password }: AdminCredentials = await req.json();
+    const { email, password, name }: AdminCredentials = await req.json();
 
-    if (!email || !password) {
-      throw new BadRequestError("Invalid email or password");
+    if (!email || !password || !name) {
+      throw new BadRequestError("Invalid email, password, or name");
     }
 
-    const { admin, token } = await signupAdmin({ email, password });
+    const { admin, token } = await signupAdmin({ email, password, name });
 
     const response = NextResponse.json(
       {

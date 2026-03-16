@@ -1,61 +1,30 @@
 // repository for admin related database operations --> this is where we interact with the database for admin data
 import { prisma } from "@/lib/prisma";
-import { Course } from "@/types/adminApis";
 
 export interface AdminCreateInput {
+  name: string;
   email: string;
   password: string;
+  role?: "ADMIN" | "USER";
 }
 
 export async function findAdminByEmail(email: string) {
-  return prisma.admins.findUnique({
+  return prisma.user.findUnique({
     where: { email },
   });
 }
 
 export async function findAdminById(id: string) {
-  return prisma.admins.findUnique({
-    where: { id },
+  return prisma.user.findUnique({
+    where: { id, role: "ADMIN" },
   });
 }
 
 export async function createAdmin(data: AdminCreateInput) {
-  return prisma.admins.create({
-    data,
-  });
-}
-
-export async function getAllCourses() {
-  return prisma.course.findMany();
-}
-
-export async function createCourse(courseData: Course) {
-  return prisma.course.create({
-    data: courseData,
-  });
-}
-
-export async function createCoursesBulk(coursesData: Course[]) {
-  return prisma.course.createMany({
-    data: coursesData,
-  });
-}
-
-export async function getCourseById(courseId: string) {
-  return prisma.course.findUnique({
-    where: { id: courseId },
-  });
-}
-
-export async function updateCourse(courseId: string, courseData: Partial<Course>) {
-  return prisma.course.update({
-    where: { id: courseId },
-    data: courseData,
-  });
-}
-
-export async function deleteCourse(courseId: string) {
-  return prisma.course.delete({
-    where: { id: courseId },
+  return prisma.user.create({
+    data: {
+      ...data,
+      role: "ADMIN",
+    },
   });
 }

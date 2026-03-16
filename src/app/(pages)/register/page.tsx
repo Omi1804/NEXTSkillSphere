@@ -8,7 +8,7 @@ import {
   SubmitButton,
   TextField,
 } from "@/components/Register/RegisterModules";
-import { FormValues, PasswordStrength } from "@/types/register";
+import { FormValues, PasswordStrength } from "@/types/register.types";
 import { evaluatePasswordStrength } from "@/utils/evaluatePassword";
 import { handleSignupSubmit } from "@/utils/handleAuthSubmit";
 import { useRouter } from "next/navigation";

@@ -151,10 +151,8 @@ const MyCourses = () => {
               key={course.id}
               image={course.imageLink}
               price={course.price}
-              time={course.time}
-              level={course.level}
-              heading={course.heading}
-              category={course.category}
+              heading={course.title}
+              description={course.description}
               instructor={course.instructor}
             />
           ))

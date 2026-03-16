@@ -1,17 +1,21 @@
 import { handleApiError } from "@/errors/apiErrorHandler";
 import { authenticateUser } from "@/middlewares/userAuth.middleware";
-import { getCourseById } from "@/repositories/courses.repository";
+import { getUserCourseProgress } from "@/services/userProfile.service";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(req: NextRequest, context: { params: Promise<{ id: string }> }) {
   try {
-    authenticateUser(req);
-    const courseId: string = (await context.params)?.id;
+    const user = await authenticateUser(req);
+    const courseId = (await context.params).id;
 
-    const course = await getCourseById(courseId);
+    const progress = await getUserCourseProgress(user, courseId);
 
     return NextResponse.json(
-      { message: `Details of Course with id ${courseId}`, course },
+      {
+        message: `Course progress fetched for course ${courseId}`,
+        progressType: "COURSE",
+        progress,
+      },
       { status: 200 },
     );
   } catch (error) {

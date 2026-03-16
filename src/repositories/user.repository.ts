@@ -2,7 +2,7 @@
 import { prisma } from "@/lib/prisma";
 
 export interface UserCreateInput {
-  username: string;
+  username?: string;
   name: string;
   email: string;
   password: string;
@@ -20,44 +20,91 @@ export async function findUserById(id: string) {
   return prisma.user.findUnique({
     where: { id },
     include: {
-      courses: true,
+      purchases: {
+        select: {
+          courseId: true,
+        },
+      },
     },
   });
 }
 
 export async function createUser(data: UserCreateInput) {
   return prisma.user.create({
-    data,
+    data: {
+      name: data.name,
+      email: data.email,
+      password: data.password,
+    },
   });
 }
 
-export async function getAllCourses() {
-  return prisma.course.findMany();
-}
-
-export async function addCourseToUser(userEmail: string, courseId: string) {
-  return prisma.user.update({
+export async function findPurchaseByUserAndCourse(userId: string, courseId: string) {
+  return prisma.purchase.findUnique({
     where: {
-      email: userEmail,
-    },
-    data: {
-      courses: {
-        connect: { id: courseId },
+      userId_courseId: {
+        // this means userId and courseId together should be unique in the purchase table, this is defined in the prisma schema as @@unique([userId, courseId])
+        userId,
+        courseId,
       },
     },
+  });
+}
+
+export async function createPurchaseForUser(data: {
+  userId: string;
+  courseId: string;
+  amount: number;
+  paymentId: string;
+}) {
+  return prisma.purchase.create({
+    data: {
+      userId: data.userId,
+      courseId: data.courseId,
+      amount: data.amount,
+      paymentId: data.paymentId,
+    },
     include: {
-      courses: true,
+      course: {
+        include: {
+          image: {
+            select: {
+              imageLink: true,
+            },
+          },
+          instructor: {
+            select: {
+              name: true,
+            },
+          },
+        },
+      },
     },
   });
 }
 
 export async function findCoursesByUserEmail(email: string) {
-  return prisma.user.findUnique({
+  return prisma.purchase.findMany({
     where: {
-      email,
+      user: {
+        email,
+      },
     },
-    select: {
-      courses: true,
+    include: {
+      course: {
+        include: {
+          image: {
+            select: {
+              imageLink: true,
+            },
+          },
+          instructor: {
+            select: {
+              name: true,
+            },
+          },
+        },
+      },
     },
   });
 }

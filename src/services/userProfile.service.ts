@@ -1,8 +1,13 @@
-import { AuthError, NotFoundError } from "@/errors";
-import { getCourseById } from "@/repositories/admin.repository";
+import { AuthError, ForbiddenError, NotFoundError } from "@/errors";
 import {
-  addCourseToUser,
+  getCourseById,
+  getCourseProgressForUser,
+  getLessonsByCourseId,
+} from "@/repositories/courses.repository";
+import {
+  createPurchaseForUser,
   findCoursesByUserEmail,
+  findPurchaseByUserAndCourse,
   findUserByEmail,
 } from "@/repositories/user.repository";
 
@@ -25,7 +30,7 @@ export async function purchaseCourse(user: any, id: string) {
     throw new AuthError("User expired");
   }
 
-  const isCoursePurchased = user.courses.find((course: any) => course.id === id);
+  const isCoursePurchased = await findPurchaseByUserAndCourse(user.id, id);
 
   if (isCoursePurchased) {
     return isCoursePurchased;
@@ -36,7 +41,13 @@ export async function purchaseCourse(user: any, id: string) {
     throw new NotFoundError("Course not found");
   }
 
-  const updatedUser = await addCourseToUser(user.email, id);
+  const paymentId = `manual_${Date.now()}_${user.id.slice(0, 6)}`;
+  const updatedUser = await createPurchaseForUser({
+    userId: user.id,
+    courseId: id,
+    amount: existingCourse.price,
+    paymentId,
+  });
 
   return updatedUser;
 }
@@ -49,9 +60,64 @@ export async function getUserPurchasedCourses(user: any) {
   const userEmail = user.email;
 
   const userCourses = await findCoursesByUserEmail(userEmail);
-  if (!userCourses) {
+  if (!userCourses || userCourses.length === 0) {
     throw new NotFoundError("No courses found for the user");
   }
 
-  return userCourses;
+  return userCourses.map((purchase) => {
+    const course = purchase.course;
+    return {
+      id: course.id,
+      title: course.title,
+      description: course.description,
+      price: course.price,
+      imageLink: course.image?.imageLink ?? null,
+      instructor: course.instructor?.name ?? "Unknown Instructor",
+    };
+  });
+}
+
+type AuthenticatedUser = {
+  id: string;
+  email: string;
+};
+
+const validateCourseAccess = async (user: AuthenticatedUser, courseId: string) => {
+  if (!courseId) {
+    throw new NotFoundError("Course id is required");
+  }
+
+  const existingCourse = await getCourseById(courseId);
+  if (!existingCourse) {
+    throw new NotFoundError("Course not found");
+  }
+
+  const purchased = await findPurchaseByUserAndCourse(user.id, courseId);
+  if (!purchased) {
+    throw new ForbiddenError("You need to purchase this course to access it");
+  }
+};
+
+export async function getUserCourseLessons(user: AuthenticatedUser, courseId: string) {
+  if (!user) {
+    throw new AuthError("User expired");
+  }
+
+  await validateCourseAccess(user, courseId);
+  const lessons = await getLessonsByCourseId(courseId);
+
+  return {
+    courseId,
+    totalLessons: lessons.length,
+    lessons,
+  };
+}
+
+export async function getUserCourseProgress(user: AuthenticatedUser, courseId: string) {
+  if (!user) {
+    throw new AuthError("User expired");
+  }
+
+  await validateCourseAccess(user, courseId);
+  return getCourseProgressForUser(courseId, user.id);
 }
