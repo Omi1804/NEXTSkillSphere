@@ -28,3 +28,12 @@ export async function createAdmin(data: AdminCreateInput) {
     },
   });
 }
+
+export async function updateCourseImage(courseId: string, imageId: number) {
+  return prisma.course.update({
+    where: { id: courseId },
+    data: {
+      image_id: imageId,
+    },
+  });
+}

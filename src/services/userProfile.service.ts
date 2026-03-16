@@ -1,9 +1,6 @@
 import { AuthError, ForbiddenError, NotFoundError } from "@/errors";
-import {
-  getCourseById,
-  getCourseProgressForUser,
-  getLessonsByCourseId,
-} from "@/repositories/courses.repository";
+import { getCourseById, getCourseProgressForUser } from "@/repositories/courses.repository";
+import { getLessonsByCourseId } from "@/repositories/lessons.repository";
 import {
   createPurchaseForUser,
   findCoursesByUserEmail,

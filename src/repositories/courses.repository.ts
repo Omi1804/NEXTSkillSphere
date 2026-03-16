@@ -17,27 +17,6 @@ export const mapCourseRecord = (course: any): Course => {
   };
 };
 
-export interface LessonRecord {
-  id: string;
-  title: string;
-  videoUrl: string;
-  position: number;
-  createdAt: Date;
-}
-
-export interface LessonCreateInput {
-  title: string;
-  videoUrl: string;
-  position: number;
-  courseId: string;
-}
-
-export interface LessonUpdateInput {
-  title?: string;
-  videoUrl?: string;
-  position?: number;
-}
-
 export interface CourseProgressRecord {
   courseId: string;
   totalLessons: number;
@@ -124,6 +103,19 @@ export async function getCoursesPaginated(page: number, limit: number) {
   return { courses: courses.map(mapCourseRecord), totalCourses };
 }
 
+export const getImagesWithoutCourses = async () => {
+  return prisma.courseImages.findMany({
+    where: {
+      course: {
+        is: null,
+      },
+    },
+    orderBy: {
+      createdAt: "asc",
+    },
+  });
+};
+
 export async function createCourse(courseData: CourseCreateInput, createdBy: string) {
   const image = await prisma.courseImages.findFirst({
     where: {
@@ -167,7 +159,12 @@ export async function createCoursesBulk(coursesData: CourseCreateInput[], create
     const images = await tx.courseImages.findMany({
       take: coursesData.length,
       where: {
-        course: null,
+        course: {
+          is: null,
+        },
+      },
+      orderBy: {
+        createdAt: "asc",
       },
       select: {
         id: true,
@@ -206,22 +203,6 @@ export async function updateCourse(courseId: string, courseData: CourseUpdateInp
 export async function deleteCourse(courseId: string) {
   return prisma.course.delete({
     where: { id: courseId },
-  });
-}
-
-export async function getLessonsByCourseId(courseId: string): Promise<LessonRecord[]> {
-  return prisma.lesson.findMany({
-    where: { courseId },
-    select: {
-      id: true,
-      title: true,
-      videoUrl: true,
-      position: true,
-      createdAt: true,
-    },
-    orderBy: {
-      position: "asc",
-    },
   });
 }
 
@@ -269,43 +250,12 @@ export async function getCourseProgressForUser(
   };
 }
 
-export async function getLessonById(lessonId: string) {
-  return prisma.lesson.findUnique({
-    where: { id: lessonId },
-  });
-}
-
-export async function getNextLessonPosition(courseId: string): Promise<number> {
-  const lessonAggregate = await prisma.lesson.aggregate({
-    where: { courseId },
-    _max: {
-      position: true,
+export async function getCoursesWithoutImages() {
+  const courses = await prisma.course.findMany({
+    where: {
+      image_id: null,
     },
   });
 
-  return (lessonAggregate._max.position ?? 0) + 1;
-}
-
-export async function createLesson(input: LessonCreateInput) {
-  return prisma.lesson.create({
-    data: {
-      title: input.title,
-      videoUrl: input.videoUrl,
-      position: input.position,
-      courseId: input.courseId,
-    },
-  });
-}
-
-export async function updateLesson(lessonId: string, data: LessonUpdateInput) {
-  return prisma.lesson.update({
-    where: { id: lessonId },
-    data,
-  });
-}
-
-export async function deleteLesson(lessonId: string) {
-  return prisma.lesson.delete({
-    where: { id: lessonId },
-  });
+  return courses;
 }

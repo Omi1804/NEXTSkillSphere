@@ -2,37 +2,16 @@ import { BadRequestError, NotFoundError } from "@/errors";
 import { CourseUpdateInput } from "@/types/course.types";
 import { UNSPLASH_BASE_URL, UNSPLASH_DEFAULTS } from "@/constants/general.constants";
 import { NextRequest } from "next/server";
+import { deleteCourse, getCourseById, updateCourse } from "@/repositories/courses.repository";
 import {
   createLesson,
-  deleteCourse,
   deleteLesson,
-  getCourseById,
   getLessonById,
   getLessonsByCourseId,
   getNextLessonPosition,
-  updateCourse,
   updateLesson,
-} from "@/repositories/courses.repository";
-
-type AdminLessonCreateInput = {
-  title: string;
-  videoUrl: string;
-  position?: number;
-};
-
-type AdminLessonUpdateInput = {
-  title?: string;
-  videoUrl?: string;
-  position?: number;
-};
-
-type UnsplashImage = {
-  urls?: {
-    regular?: string;
-    full?: string;
-    raw?: string;
-  };
-};
+} from "@/repositories/lessons.repository";
+import { AdminLessonCreateInput, AdminLessonUpdateInput, UnsplashImage } from "@/types/user.types";
 
 const toBoundedInt = (value: string | null, fallback: number, min: number, max: number) => {
   const parsed = Number(value);
