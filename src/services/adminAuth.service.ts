@@ -26,7 +26,7 @@ export async function loginAdmin(credentials: AdminLoginCredentials) {
   const admin = await findAdminByEmail(credentials.email);
 
   if (!admin || admin.password !== credentials.password) {
-    throw new AuthError("Invalid credentials or user does not exist");
+    throw new AuthError("Invalid credentials or Admin does not exist");
   }
 
   const token = createToken(admin.id);

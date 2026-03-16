@@ -25,6 +25,19 @@ export interface LessonRecord {
   createdAt: Date;
 }
 
+export interface LessonCreateInput {
+  title: string;
+  videoUrl: string;
+  position: number;
+  courseId: string;
+}
+
+export interface LessonUpdateInput {
+  title?: string;
+  videoUrl?: string;
+  position?: number;
+}
+
 export interface CourseProgressRecord {
   courseId: string;
   totalLessons: number;
@@ -78,6 +91,10 @@ export async function getCourseById(courseId: string) {
       },
     },
   });
+
+  if (!course) {
+    return null;
+  }
 
   return mapCourseRecord(course);
 }
@@ -250,4 +267,45 @@ export async function getCourseProgressForUser(
     isCompleted: totalLessons > 0 && completedLessons === totalLessons,
     lessons: lessonProgress,
   };
+}
+
+export async function getLessonById(lessonId: string) {
+  return prisma.lesson.findUnique({
+    where: { id: lessonId },
+  });
+}
+
+export async function getNextLessonPosition(courseId: string): Promise<number> {
+  const lessonAggregate = await prisma.lesson.aggregate({
+    where: { courseId },
+    _max: {
+      position: true,
+    },
+  });
+
+  return (lessonAggregate._max.position ?? 0) + 1;
+}
+
+export async function createLesson(input: LessonCreateInput) {
+  return prisma.lesson.create({
+    data: {
+      title: input.title,
+      videoUrl: input.videoUrl,
+      position: input.position,
+      courseId: input.courseId,
+    },
+  });
+}
+
+export async function updateLesson(lessonId: string, data: LessonUpdateInput) {
+  return prisma.lesson.update({
+    where: { id: lessonId },
+    data,
+  });
+}
+
+export async function deleteLesson(lessonId: string) {
+  return prisma.lesson.delete({
+    where: { id: lessonId },
+  });
 }

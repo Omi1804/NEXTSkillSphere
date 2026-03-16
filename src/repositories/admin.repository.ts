@@ -10,7 +10,7 @@ export interface AdminCreateInput {
 
 export async function findAdminByEmail(email: string) {
   return prisma.user.findUnique({
-    where: { email },
+    where: { email, role: "ADMIN" },
   });
 }
 
