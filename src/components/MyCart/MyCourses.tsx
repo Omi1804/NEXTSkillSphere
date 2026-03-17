@@ -28,8 +28,6 @@ const MyCourses = () => {
     }
   }, []);
 
-  console.log(purchasedCourses);
-
   return (
     <div className="">
       <div className="flex bg-[#F8F8FC] px-[6rem] py-8 items-center justify-between">
@@ -149,6 +147,7 @@ const MyCourses = () => {
           purchasedCourses.map((course: any) => (
             <CourseCard
               key={course.id}
+              id={course.id}
               image={course.imageLink}
               price={course.price}
               heading={course.title}

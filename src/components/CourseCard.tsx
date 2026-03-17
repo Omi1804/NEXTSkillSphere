@@ -1,4 +1,7 @@
+import { useRouter } from "next/navigation";
+
 interface CourseCardType {
+  id: string;
   image?: string | null;
   price: number;
   heading: string;
@@ -6,7 +9,8 @@ interface CourseCardType {
   instructor?: string;
 }
 
-const CourseCard = ({ image, price, heading, description, instructor }: CourseCardType) => {
+const CourseCard = ({ id, image, price, heading, description, instructor }: CourseCardType) => {
+  const router = useRouter();
   const imageSource = image
     ? image.startsWith("http")
       ? image
@@ -14,7 +18,10 @@ const CourseCard = ({ image, price, heading, description, instructor }: CourseCa
     : "/home-2-intro.jpg";
 
   return (
-    <div className="w-full h-[33rem] rounded-2xl overflow-hidden border shadow-md hover:shadow-xl hover:rounded-tl-[2.3rem] duration-300 cursor-pointer">
+    <div
+      onClick={() => router.push(`/courses/${id}`)}
+      className="w-full h-[33rem] rounded-2xl overflow-hidden border shadow-md hover:shadow-xl hover:rounded-tl-[2.3rem] duration-300 cursor-pointer"
+    >
       <div className="w-full h-[14rem]  object-cover object-center relative ">
         <img src={imageSource} className="w-full h-full rounded-b-xl object-cover" alt={heading} />
         <p className="absolute bottom-[-1.5rem] right-5 bg-[#00ECA3] w-[5rem] h-[5rem] rounded-full flex items-center justify-center text-white font-body font-medium text-lg shadow-lg">

@@ -68,6 +68,7 @@ export async function getCourseById(courseId: string) {
           name: true,
         },
       },
+      lessons: true,
     },
   });
 

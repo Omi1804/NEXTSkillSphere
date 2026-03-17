@@ -28,6 +28,7 @@ const AllCoursesList = ({
         {courses?.map((course: Course) => (
           <CourseCard
             key={course.id}
+            id={course.id}
             image={course.imageLink}
             price={course.price}
             heading={course.title}

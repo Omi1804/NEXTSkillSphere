@@ -31,7 +31,7 @@ export const handleLoginSubmit = async (
           id: responseData.userDetails.id,
           name: responseData.userDetails.name,
           email: responseData.userDetails.email,
-          username: responseData.userDetails.username,
+          role: responseData.userDetails.role,
         }
       : undefined;
 

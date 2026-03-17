@@ -10,7 +10,7 @@ const Header = async () => {
         id: currentUser.id,
         name: currentUser.name,
         email: currentUser.email,
-        username: currentUser.username,
+        role: currentUser.role,
       }
     : null;
 
