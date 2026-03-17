@@ -80,10 +80,13 @@ export async function getCourseById(courseId: string) {
 
 export async function getCoursesPaginated(page: number, limit: number) {
   const offset = (page - 1) * limit;
-  const [courses, totalCourses] = await prisma.$transaction([
+  const [courses, totalCourses] = await Promise.all([
     prisma.course.findMany({
       skip: offset,
       take: limit,
+      orderBy: {
+        createdAt: "desc",
+      },
       include: {
         image: {
           select: {

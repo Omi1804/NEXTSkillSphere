@@ -1,21 +1,16 @@
 import CommonHero from "@/components/CommonHero";
 import AllCoursesList from "@/components/CoursesComponents/AllCoursesList";
 import JoinCourse from "@/components/HomeComponents/JoinCourse";
+import { getCoursesPaginated } from "@/repositories/courses.repository";
+import { Course } from "@/types/course.types";
 
-const getAllCourse = async (page: number, limit: number) => {
-  try {
-    const response = await fetch(
-      `http://localhost:3000/api/v1/user/courses?page=${page}&limit=${limit}`,
-      {
-        cache: "no-store",
-      },
-    );
-    const data = await response.json();
-    return data;
-  } catch (error) {
-    console.error("Error fetching courses:", error);
-    return [];
+const parsePositiveInt = (value: string | undefined, fallback: number) => {
+  const parsed = Number(value);
+  if (!Number.isFinite(parsed) || parsed < 1) {
+    return fallback;
   }
+
+  return Math.floor(parsed);
 };
 
 type CoursesPageProps = {
@@ -27,10 +22,20 @@ type CoursesPageProps = {
 
 const courses = async ({ searchParams }: CoursesPageProps) => {
   const resolvedSearchParams = await searchParams;
-  const page = Number(resolvedSearchParams?.page) || 1;
-  const limit = Number(resolvedSearchParams?.limit) || 6;
+  const page = parsePositiveInt(resolvedSearchParams?.page, 1);
+  const limit = parsePositiveInt(resolvedSearchParams?.limit, 6);
 
-  const courses = await getAllCourse(page, limit);
+  let courses: Course[] = [];
+  let totalCourses = 0;
+
+  try {
+    const paginatedCourses = await getCoursesPaginated(page, limit);
+    courses = paginatedCourses.courses;
+    totalCourses = paginatedCourses.totalCourses;
+  } catch (error) {
+    console.error("Error fetching courses:", error);
+  }
+
   return (
     <div>
       <CommonHero
@@ -38,12 +43,7 @@ const courses = async ({ searchParams }: CoursesPageProps) => {
         heroHeading={"Courses List"}
         subHeading={"COURSE LIST"}
       />
-      <AllCoursesList
-        courses={courses.allCourses}
-        page={page}
-        limit={limit}
-        total={courses.totalCourses}
-      />
+      <AllCoursesList courses={courses} page={page} limit={limit} total={totalCourses} />
       <JoinCourse />
     </div>
   );

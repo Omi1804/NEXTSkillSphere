@@ -5,7 +5,6 @@ import { motion } from "framer-motion";
 type ProfileClientProps = {
   name: string;
   email: string;
-  username: string;
   accountTag: string;
   enrolledCount: number;
 };
@@ -104,13 +103,7 @@ const DetailRow = ({
   </motion.div>
 );
 
-export function ProfileClient({
-  name,
-  email,
-  username,
-  accountTag,
-  enrolledCount,
-}: ProfileClientProps) {
+export function ProfileClient({ name, email, accountTag, enrolledCount }: ProfileClientProps) {
   const initial = name[0]?.toUpperCase() ?? "U";
 
   return (
@@ -225,16 +218,6 @@ export function ProfileClient({
                   {email}
                 </span>
                 <span className="w-1 h-1 rounded-full bg-gray-300" />
-                <span
-                  className="text-sm font-semibold font-body"
-                  style={{
-                    background: "linear-gradient(90deg, #00c98a, #6a7df1)",
-                    WebkitBackgroundClip: "text",
-                    WebkitTextFillColor: "transparent",
-                  }}
-                >
-                  @{username}
-                </span>
               </div>
             </motion.div>
           </div>
@@ -249,13 +232,7 @@ export function ProfileClient({
             delay={0.25}
             accent="green"
           />
-          <StatCard
-            title="Username"
-            value={`@${username}`}
-            icon="alternate_email"
-            delay={0.32}
-            accent="indigo"
-          />
+
           <StatCard title="Account Tag" value={accountTag} icon="tag" delay={0.39} accent="mixed" />
         </div>
 
@@ -292,12 +269,7 @@ export function ProfileClient({
 
           <div className="px-4 py-4 grid md:grid-cols-2 gap-1">
             <DetailRow label="Full Name" value={name} icon="person" delay={0.5} />
-            <DetailRow
-              label="Username"
-              value={`@${username}`}
-              icon="alternate_email"
-              delay={0.55}
-            />
+
             <DetailRow label="Email Address" value={email} icon="mail" delay={0.6} />
             <DetailRow
               label="Courses Enrolled"

@@ -1,13 +1,14 @@
 import Image from "next/image";
 import { Carousel } from "react-responsive-carousel";
 import { useState } from "react";
+import { motion } from "framer-motion";
 
 const HeroPage1 = () => {
   return (
     <Carousel
       showStatus={false}
       showArrows={false}
-      autoPlay={true}
+      // autoPlay={true}
       showThumbs={false}
       interval={2000}
       infiniteLoop={true}
@@ -45,26 +46,44 @@ const HeroPage1 = () => {
 
 export const CarouselOne = () => {
   return (
-    <div className="w-full h-[100vh] object-contain bg-[url('/bg3.jpg')] bg-no-repeat bg-center bg-cover text-center py-10 animate-fade-in">
-      <div className="w-24 h-24 rounded-full mx-auto flex items-center justify-center bg-[linear-gradient(rgb(255,_219,_79)_0%,_rgb(255,_174,_79)_35%,_rgb(255,_42,_117)_100%)] animate-slide-in-from-bottom text-[4.5rem]">
-        <span className="material-symbols-outlined text-white font-extrabold text-[4.5rem] ">
+    <motion.div className="w-full h-[100vh] object-contain bg-[url('/bg3.jpg')] bg-no-repeat bg-center bg-cover text-center py-10 animate-fade-in">
+      <motion.div
+        initial={{ opacity: 0, y: 40, filter: "blur(10px)" }}
+        animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+        transition={{ duration: 0.5, delay: 0.2 }}
+        className="w-24 h-24 rounded-full mx-auto flex items-center justify-center bg-[linear-gradient(rgb(255,_219,_79)_0%,_rgb(255,_174,_79)_35%,_rgb(255,_42,_117)_100%)] text-[4.5rem]"
+      >
+        <span className="material-symbols-outlined text-white font-bold !text-[4.5rem] ">
           deployed_code
         </span>
-      </div>
-      <h1
+      </motion.div>
+      <motion.h1
+        initial={{ opacity: 0, y: 40, filter: "blur(10px)" }}
+        animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+        transition={{ duration: 0.5, delay: 0.6 }}
         style={{
           background: "-webkit-linear-gradient(left, #ff2a73 0%, #ffd514 100%)",
           WebkitBackgroundClip: "text",
           WebkitTextFillColor: "transparent",
         }}
-        className="text-[4.3rem] font-bold font-body animate-slide-in-from-bottom opacity-0 animate-delay-250"
+        className="text-[4.3rem] font-bold font-body"
       >
         Education Everywhere
-      </h1>
-      <h3 className="text-[2.7rem] font-light font-heading animate-slide-in-from-bottom opacity-0 animate-delay-500">
+      </motion.h1>
+      <motion.h3
+        initial={{ opacity: 0, y: 40, filter: "blur(10px)" }}
+        animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+        transition={{ duration: 0.5, delay: 0.9 }}
+        className="text-[2.7rem] font-light font-heading "
+      >
         Over 1900 online courses
-      </h3>
-      <div className="my-10 flex items-center justify-center gap-10 ">
+      </motion.h3>
+      <motion.div
+        initial={{ opacity: 0, y: 40, filter: "blur(10px)" }}
+        animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+        transition={{ duration: 0.5, delay: 1.2 }}
+        className="my-10 flex items-center justify-center gap-10 "
+      >
         <button className="flex items-center gap-3 rounded-lg justify-center w-[11rem] p-4 rounded-tl-[2.3rem] bg-[linear-gradient(90deg,_rgb(255,_94,_58)_0%,_rgb(255,_42,_104)_100%)] text-white shadow-md hover:shadow-xl hover:scale-105 duration-300 animate-slide-in-from-bottom opacity-0 animate-delay-750">
           <span className="material-symbols-outlined !text-[1.2rem]">edit</span>
           <p className="font-heading text-base font-semibold">Learn Now</p>
@@ -74,8 +93,8 @@ export const CarouselOne = () => {
           <span className="material-symbols-outlined !text-[1.2rem]">adjust</span>
           <p className="font-heading text-base font-semibold">Explore eLearny</p>
         </button>
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 };
 
@@ -126,10 +145,15 @@ export const CarouselTwo = () => {
           />
         </div>
       </div>
-      <div className=" relative  w-[60%] h-full py-[10rem] pl-[5rem] z-10">
-        <div className="w-16 h-16 rounded-full bg-[linear-gradient(rgb(0,_237,_164)_0%,_rgb(106,_125,_241)_100%)] mx-auto flex items-center justify-center mb-2">
+      <div className="relative w-[60%] h-full py-[10rem] pl-[5rem] z-10">
+        <motion.div
+          initial={{ opacity: 0, y: 40, filter: "blur(10px)" }}
+          animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+          className="w-16 h-16 rounded-full bg-[linear-gradient(rgb(0,_237,_164)_0%,_rgb(106,_125,_241)_100%)] mx-auto flex items-center justify-center mb-2"
+        >
           <span className="material-symbols-outlined text-3xl text-white">mouse</span>
-        </div>
+        </motion.div>
         <h1 className="bg-clip-text text-[4rem] font-bold w-full font-body text-transparent bg-gradient-to-r from-[#687bec] to-[#ff0e67]">
           eLearning for all
         </h1>
