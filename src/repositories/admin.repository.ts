@@ -9,13 +9,13 @@ export interface AdminCreateInput {
 }
 
 export async function findAdminByEmail(email: string) {
-  return prisma.user.findUnique({
+  return prisma.user.findFirst({
     where: { email, role: "ADMIN" },
   });
 }
 
 export async function findAdminById(id: string) {
-  return prisma.user.findUnique({
+  return prisma.user.findFirst({
     where: { id, role: "ADMIN" },
   });
 }

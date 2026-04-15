@@ -1,5 +1,6 @@
 "use client";
 import styles from "@/app/styles/home.module.css";
+import Link from "next/link";
 import { useInView } from "react-intersection-observer";
 
 const CaseStudies = () => {
@@ -14,13 +15,17 @@ const CaseStudies = () => {
           <p className="text-white font-bold text-xl tracking-wide">
             Get the know what is best for you
           </p>
-          <p className={styles.viewCategory}>View Categories</p>
+          <Link href="/services" className={styles.viewCategory}>
+            View Categories
+          </Link>
         </div>
         <div className="bg-[#00ECA3] flex flex-col justify-center items-start  px-[5rem] py-[3rem]">
           <p className="text-white font-bold text-xl tracking-wide">
             Get the know what is best for you
           </p>
-          <p className={styles.viewCollection}>View Collection</p>
+          <Link href="/courses" className={styles.viewCollection}>
+            View Collection
+          </Link>
         </div>
         <div></div>
       </div>
@@ -48,9 +53,12 @@ const CaseStudies = () => {
               </div>
             </div>
             <p className="text-xl font-extrabold mx-2 mt-4">eEducation as Interpretation</p>
-            <button className="outline-none border-none text-lg mx-2 my-1 text-[#00ECA3] font-semibold hover:text-[#6A7CF0] duration-300">
+            <Link
+              href="/services"
+              className="outline-none border-none text-lg mx-2 my-1 text-[#00ECA3] font-semibold hover:text-[#6A7CF0] duration-300"
+            >
               View Case Study
-            </button>
+            </Link>
           </div>
           <div className={`${inView && "animate-slide-in-from-bottom"} opacity-0`}>
             <div className=" w-[35rem] h-[20rem] rounded-lg flex justify-center items-center bg-center bg-cover relative bg-[url('https://img.youtube.com/vi/tz82ola3oy0/maxresdefault.jpg')] overflow-hidden">
@@ -70,9 +78,12 @@ const CaseStudies = () => {
               </div>
             </div>
             <p className="text-xl font-extrabold mx-2 mt-4">Creating a Better study Environment</p>
-            <button className="outline-none border-none text-lg mx-2 my-1 text-[#00ECA3] font-semibold hover:text-[#6A7CF0] duration-300">
+            <Link
+              href="/services"
+              className="outline-none border-none text-lg mx-2 my-1 text-[#00ECA3] font-semibold hover:text-[#6A7CF0] duration-300"
+            >
               View Case Study
-            </button>
+            </Link>
           </div>
         </div>
       </div>

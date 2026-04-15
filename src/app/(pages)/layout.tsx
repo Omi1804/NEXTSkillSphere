@@ -1,10 +1,13 @@
 import type { Metadata } from "next";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-import "@/app/styles/global.css";
+import "../globals.css";
+import "lenis/dist/lenis.css";
 import { Poppins, Roboto } from "next/font/google";
 import Header from "@/components/Header/Header";
 import Footer from "@/components/ui/Footer";
 import { MetaTags } from "./meta";
+import SmoothScrollProvider from "@/components/SmoothScrollProvider";
+import ChatAssistantWidget from "@/components/ChatAssistant/ChatAssistantWidget";
 
 export const metadata: Metadata = {
   title: "Skill Sphere",
@@ -31,9 +34,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en">
       <MetaTags />
       <body className={`${poppins.variable} ${roboto.variable} antialiased`}>
-        <Header />
-        {children}
-        <Footer />
+        <SmoothScrollProvider>
+          <Header />
+          {children}
+          <Footer />
+          <ChatAssistantWidget />
+        </SmoothScrollProvider>
       </body>
     </html>
   );

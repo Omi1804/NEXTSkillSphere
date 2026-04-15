@@ -9,6 +9,7 @@ export async function getLessonsByCourseId(courseId: string): Promise<LessonReco
       title: true,
       videoUrl: true,
       position: true,
+      courseId: true,
       createdAt: true,
     },
     orderBy: {

@@ -2,6 +2,7 @@ import Image from "next/image";
 import { Carousel } from "react-responsive-carousel";
 import { useState } from "react";
 import { motion } from "framer-motion";
+import Link from "next/link";
 
 const HeroPage1 = () => {
   return (
@@ -84,15 +85,21 @@ export const CarouselOne = () => {
         transition={{ duration: 0.5, delay: 1.2 }}
         className="my-10 flex items-center justify-center gap-10 "
       >
-        <button className="flex items-center gap-3 rounded-lg justify-center w-[11rem] p-4 rounded-tl-[2.3rem] bg-[linear-gradient(90deg,_rgb(255,_94,_58)_0%,_rgb(255,_42,_104)_100%)] text-white shadow-md hover:shadow-xl hover:scale-105 duration-300 animate-slide-in-from-bottom opacity-0 animate-delay-750">
+        <Link
+          href="/courses"
+          className="flex items-center gap-3 rounded-lg justify-center w-[11rem] p-4 rounded-tl-[2.3rem] bg-[linear-gradient(90deg,_rgb(255,_94,_58)_0%,_rgb(255,_42,_104)_100%)] text-white shadow-md hover:shadow-xl hover:scale-105 duration-300 animate-slide-in-from-bottom opacity-0 animate-delay-750"
+        >
           <span className="material-symbols-outlined !text-[1.2rem]">edit</span>
           <p className="font-heading text-base font-semibold">Learn Now</p>
-        </button>
+        </Link>
 
-        <button className="flex items-center gap-3 rounded-lg justify-center w-[13rem] p-4 rounded-tl-[2.3rem] bg-[linear-gradient(90deg,_rgb(0,_237,_164)_0%,_rgb(106,_125,_241)_100%)] text-white shadow-md hover:shadow-xl hover:scale-105 duration-300 animate-slide-in-from-bottom opacity-0 animate-delay-750">
+        <Link
+          href="/about"
+          className="flex items-center gap-3 rounded-lg justify-center w-[13rem] p-4 rounded-tl-[2.3rem] bg-[linear-gradient(90deg,_rgb(0,_237,_164)_0%,_rgb(106,_125,_241)_100%)] text-white shadow-md hover:shadow-xl hover:scale-105 duration-300 animate-slide-in-from-bottom opacity-0 animate-delay-750"
+        >
           <span className="material-symbols-outlined !text-[1.2rem]">adjust</span>
           <p className="font-heading text-base font-semibold">Explore eLearny</p>
-        </button>
+        </Link>
       </motion.div>
     </motion.div>
   );
@@ -171,10 +178,13 @@ export const CarouselTwo = () => {
             <p className="text-3xl font-light tracking-wide">Certified Lessons</p>
           </li>
         </ul>
-        <button className="flex items-center gap-3 mx-auto rounded-lg justify-center w-[13rem] p-4 rounded-tl-[2.3rem] shadow-md bg-[linear-gradient(90deg,_rgb(0,_237,_164)_0%,_rgb(106,_125,_241)_100%)] text-white hover:shadow-xl hover:scale-105 duration-300">
+        <Link
+          href="/courses"
+          className="flex items-center gap-3 mx-auto rounded-lg justify-center w-[13rem] p-4 rounded-tl-[2.3rem] shadow-md bg-[linear-gradient(90deg,_rgb(0,_237,_164)_0%,_rgb(106,_125,_241)_100%)] text-white hover:shadow-xl hover:scale-105 duration-300"
+        >
           <span className="material-symbols-outlined">visibility</span>
           <p>View Courses</p>
-        </button>
+        </Link>
       </div>
     </div>
   );
@@ -193,14 +203,20 @@ export const CarouselThree = () => {
         </div>
 
         <div className="my-4 flex items-center justify-center gap-10">
-          <button className="flex items-center gap-3 rounded-lg justify-center w-[13rem] p-4 rounded-tl-[2.3rem] bg-[linear-gradient(90deg,_rgb(0,_237,_164)_0%,_rgb(106,_125,_241)_100%)] text-white hover:shadow-xl hover:scale-105 duration-300 shadow-md">
+          <Link
+            href="/courses"
+            className="flex items-center gap-3 rounded-lg justify-center w-[13rem] p-4 rounded-tl-[2.3rem] bg-[linear-gradient(90deg,_rgb(0,_237,_164)_0%,_rgb(106,_125,_241)_100%)] text-white hover:shadow-xl hover:scale-105 duration-300 shadow-md"
+          >
             <span className="material-symbols-outlined">search</span>
             <p>Discover Courses</p>
-          </button>
-          <button className="flex items-center gap-3 rounded-lg justify-center w-[13rem] p-4 rounded-tl-[2.3rem] bg-white text-black hover:shadow-xl hover:scale-105 duration-300 shadow-md">
+          </Link>
+          <Link
+            href="/contact"
+            className="flex items-center gap-3 rounded-lg justify-center w-[13rem] p-4 rounded-tl-[2.3rem] bg-white text-black hover:shadow-xl hover:scale-105 duration-300 shadow-md"
+          >
             <span className="material-symbols-outlined">forum</span>
             <p>Talk to us</p>
-          </button>
+          </Link>
         </div>
       </div>
     </div>

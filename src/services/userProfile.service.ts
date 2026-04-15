@@ -1,11 +1,12 @@
 import { AuthError, ForbiddenError, NotFoundError } from "@/errors";
 import { getCourseById, getCourseProgressForUser } from "@/repositories/courses.repository";
-import { getLessonsByCourseId } from "@/repositories/lessons.repository";
+import { getLessonById, getLessonsByCourseId } from "@/repositories/lessons.repository";
 import {
   createPurchaseForUser,
   findCoursesByUserEmail,
   findPurchaseByUserAndCourse,
   findUserByEmail,
+  upsertLessonProgress,
 } from "@/repositories/user.repository";
 
 export async function getUserProfileByEmail(email?: string | null) {
@@ -34,7 +35,7 @@ export async function purchaseCourse(user: any, id: string) {
   }
 
   const existingCourse = await getCourseById(id);
-  if (!existingCourse) {
+  if (!existingCourse || !existingCourse.isPublished) {
     throw new NotFoundError("Course not found");
   }
 
@@ -57,9 +58,6 @@ export async function getUserPurchasedCourses(user: any) {
   const userEmail = user.email;
 
   const userCourses = await findCoursesByUserEmail(userEmail);
-  if (!userCourses || userCourses.length === 0) {
-    throw new NotFoundError("No courses found for the user");
-  }
 
   return userCourses.map((purchase) => {
     const course = purchase.course;
@@ -70,6 +68,9 @@ export async function getUserPurchasedCourses(user: any) {
       price: course.price,
       imageLink: course.image?.imageLink ?? null,
       instructor: course.instructor?.name ?? "Unknown Instructor",
+      instructorId: course.createdBy,
+      isPublished: course.isPublished,
+      createdBy: course.createdBy,
     };
   });
 }
@@ -117,4 +118,31 @@ export async function getUserCourseProgress(user: AuthenticatedUser, courseId: s
 
   await validateCourseAccess(user, courseId);
   return getCourseProgressForUser(courseId, user.id);
+}
+
+export async function updateUserLessonProgress(
+  user: AuthenticatedUser,
+  lessonId: string,
+  completed: boolean,
+) {
+  if (!user) {
+    throw new AuthError("User expired");
+  }
+
+  if (!lessonId) {
+    throw new NotFoundError("Lesson id is required");
+  }
+
+  const lesson = await getLessonById(lessonId);
+  if (!lesson) {
+    throw new NotFoundError("Lesson not found");
+  }
+
+  await validateCourseAccess(user, lesson.courseId);
+
+  return upsertLessonProgress({
+    userId: user.id,
+    lessonId,
+    completed,
+  });
 }

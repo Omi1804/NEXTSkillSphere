@@ -108,3 +108,26 @@ export async function findCoursesByUserEmail(email: string) {
     },
   });
 }
+
+export async function upsertLessonProgress(data: {
+  userId: string;
+  lessonId: string;
+  completed: boolean;
+}) {
+  return prisma.lessonProgress.upsert({
+    where: {
+      userId_lessonId: {
+        userId: data.userId,
+        lessonId: data.lessonId,
+      },
+    },
+    update: {
+      completed: data.completed,
+    },
+    create: {
+      userId: data.userId,
+      lessonId: data.lessonId,
+      completed: data.completed,
+    },
+  });
+}

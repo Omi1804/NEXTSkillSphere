@@ -1,4 +1,5 @@
 import styles from "@/app/styles/services.module.css";
+import Link from "next/link";
 
 const ModernTechniques = () => {
   return (
@@ -45,9 +46,11 @@ const ModernTechniques = () => {
             <p className="text-base font-body font-light">Phasellus quis quam auctor, mollis</p>
           </div>
         </div>
-        <button className={styles.homebtn}>
-          <p className="relative z-10 text-white">Search for Courses</p>
-        </button>
+        <Link href="/courses">
+          <button className={styles.homebtn}>
+            <p className="relative z-10 text-white">Search for Courses</p>
+          </button>
+        </Link>
       </div>
     </div>
   );

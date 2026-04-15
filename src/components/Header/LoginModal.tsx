@@ -3,6 +3,7 @@ import { HeaderUser } from "@/types/header.types";
 import { ChangeEvent, FormEvent, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { handleLoginSubmit } from "@/utils/handleAuthSubmit";
+import Link from "next/link";
 
 type LoginProps = {
   isOpen: boolean;
@@ -230,13 +231,13 @@ export const LoginModal = ({ isOpen, onClose, setUserDetails }: LoginProps) => {
                         Remember me
                       </span>
                     </label>
-                    <button
-                      type="button"
+                    <Link
+                      href="/contact"
                       className="font-body text-sm font-medium transition-colors"
                       style={{ color: "#6a7df1" }}
                     >
                       Forgot password?
-                    </button>
+                    </Link>
                   </motion.div>
 
                   <AnimatePresence>

@@ -1,4 +1,5 @@
 import styles from "@/app/styles/services.module.css";
+import Link from "next/link";
 
 const AllServices = () => {
   return (
@@ -26,9 +27,12 @@ const AllServices = () => {
           <p className="text-base font-heading my-4 font-light tracking-wide ">
             Dolor sit amet, consectetur adipiscing elit, sed do eiusmod
           </p>
-          <button className="w-[8.5rem] my-2 py-2 bg-white rounded-lg rounded-tl-[1.6rem] border font-body font-semibold duration-500">
+          <Link
+            href="/courses"
+            className="inline-block w-[8.5rem] my-2 py-2 bg-white rounded-lg rounded-tl-[1.6rem] border font-body font-semibold duration-500"
+          >
             3 courses
-          </button>
+          </Link>
         </div>
         <div
           className={`py-10 px-[4rem] text-center bg-[#fafafa] rounded-lg ${styles.allServices} hover:shadow-2xl`}
@@ -40,9 +44,12 @@ const AllServices = () => {
           <p className="text-base font-heading my-4 font-light tracking-wide ">
             Dolor sit amet, consectetur adipiscing elit, sed do eiusmod
           </p>
-          <button className="w-[8.5rem] my-2 py-2 bg-white rounded-lg rounded-tl-[1.6rem] border font-body font-semibold duration-500">
+          <Link
+            href="/courses"
+            className="inline-block w-[8.5rem] my-2 py-2 bg-white rounded-lg rounded-tl-[1.6rem] border font-body font-semibold duration-500"
+          >
             2 courses
-          </button>
+          </Link>
         </div>
         <div
           className={`py-10 px-[4rem] text-center bg-[#fafafa] rounded-lg ${styles.allServices} hover:shadow-2xl`}
@@ -54,9 +61,12 @@ const AllServices = () => {
           <p className="text-base font-heading my-4 font-light tracking-wide ">
             Dolor sit amet, consectetur adipiscing elit, sed do eiusmod
           </p>
-          <button className="w-[8.5rem] my-2 py-2 bg-white rounded-lg rounded-tl-[1.6rem] border font-body font-semibold duration-500">
+          <Link
+            href="/courses"
+            className="inline-block w-[8.5rem] my-2 py-2 bg-white rounded-lg rounded-tl-[1.6rem] border font-body font-semibold duration-500"
+          >
             3 courses
-          </button>
+          </Link>
         </div>
         <div
           className={`py-10 px-[4rem] text-center bg-[#fafafa] rounded-lg ${styles.allServices} hover:shadow-2xl`}
@@ -68,9 +78,12 @@ const AllServices = () => {
           <p className="text-base font-heading my-4 font-light tracking-wide ">
             Dolor sit amet, consectetur adipiscing elit, sed do eiusmod
           </p>
-          <button className="w-[8.5rem] my-2 py-2 bg-white rounded-lg rounded-tl-[1.6rem] border font-body font-semibold duration-500">
+          <Link
+            href="/courses"
+            className="inline-block w-[8.5rem] my-2 py-2 bg-white rounded-lg rounded-tl-[1.6rem] border font-body font-semibold duration-500"
+          >
             1 courses
-          </button>
+          </Link>
         </div>
         <div
           className={`py-10 px-[2rem] text-center bg-[#fafafa] rounded-lg ${styles.allServices} hover:shadow-2xl`}
@@ -84,9 +97,12 @@ const AllServices = () => {
           <p className="text-base font-heading my-4 font-light tracking-wide ">
             Dolor sit amet, consectetur adipiscing elit, sed do eiusmod
           </p>
-          <button className="w-[8.5rem] my-2 py-2 bg-white rounded-lg rounded-tl-[1.6rem] border font-body font-semibold duration-500">
+          <Link
+            href="/courses"
+            className="inline-block w-[8.5rem] my-2 py-2 bg-white rounded-lg rounded-tl-[1.6rem] border font-body font-semibold duration-500"
+          >
             4 courses
-          </button>
+          </Link>
         </div>
         <div
           className={`py-10 px-[4rem] text-center bg-[#fafafa] rounded-lg ${styles.allServices} hover:shadow-2xl`}
@@ -98,9 +114,12 @@ const AllServices = () => {
           <p className="text-base font-heading my-4 font-light tracking-wide ">
             Dolor sit amet, consectetur adipiscing elit, sed do eiusmod
           </p>
-          <button className="w-[8.5rem] my-2 py-2 bg-white rounded-lg rounded-tl-[1.6rem] border font-body font-semibold duration-500">
+          <Link
+            href="/courses"
+            className="inline-block w-[8.5rem] my-2 py-2 bg-white rounded-lg rounded-tl-[1.6rem] border font-body font-semibold duration-500"
+          >
             1 courses
-          </button>
+          </Link>
         </div>
       </div>
     </div>

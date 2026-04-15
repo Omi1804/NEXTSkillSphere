@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import { useInView } from "react-intersection-observer";
 
 const CourseList = () => {
@@ -25,10 +26,13 @@ const CourseList = () => {
         >
           <div className="relative h-[16.81rem]">
             <img src="/homeCourses2.jpg" className="w-full h-full object-cover" alt="" />
-            <div className="absolute top-0 left-0 flex hover:bg-[#00ECA3] w-full h-full items-center justify-center cursor-pointer duration-500 opacity-0 hover:opacity-95 ">
+            <Link
+              href="/courses"
+              className="absolute top-0 left-0 flex hover:bg-[#00ECA3] w-full h-full items-center justify-center cursor-pointer duration-500 opacity-0 hover:opacity-95 "
+            >
               <p className="text-white font-bold">View Details</p>
               <span className="material-symbols-outlined text-white">visibility</span>
-            </div>
+            </Link>
           </div>
           <div className="px-10 py-14 text-center bg-white">
             <h1 className="font-extrabold text-[1.8rem] mb-4">
@@ -47,10 +51,13 @@ const CourseList = () => {
         >
           <div className="relative h-[16.81rem]">
             <img src="/homeCourses3.jpg" className="w-full h-full object-cover" alt="" />
-            <div className="absolute top-0 left-0 flex hover:bg-[#00ECA3] w-full h-full items-center justify-center cursor-pointer duration-500 opacity-0 hover:opacity-95  ">
+            <Link
+              href="/courses"
+              className="absolute top-0 left-0 flex hover:bg-[#00ECA3] w-full h-full items-center justify-center cursor-pointer duration-500 opacity-0 hover:opacity-95  "
+            >
               <p className="text-white font-bold">View Details</p>
               <span className="material-symbols-outlined text-white">visibility</span>
-            </div>
+            </Link>
           </div>
           <div className="relative px-10 py-8 text-center  bg-white">
             <h1 className="font-extrabold text-[1.8rem] mb-4">
@@ -69,10 +76,13 @@ const CourseList = () => {
         >
           <div className="relative h-[16.81rem]">
             <img src="/homeCourses1.jpg" className="w-full h-full object-cover" alt="" />
-            <div className="absolute top-0 left-0 flex hover:bg-[#00ECA3] w-full h-full items-center justify-center cursor-pointer duration-500 opacity-0 hover:opacity-95 ">
+            <Link
+              href="/courses"
+              className="absolute top-0 left-0 flex hover:bg-[#00ECA3] w-full h-full items-center justify-center cursor-pointer duration-500 opacity-0 hover:opacity-95 "
+            >
               <p className="text-white font-bold ">View Details</p>
               <span className="material-symbols-outlined text-white">visibility</span>
-            </div>
+            </Link>
           </div>
           <div className="px-10 py-14 text-center bg-white">
             <h1 className="font-extrabold text-[1.8rem] mb-4">

@@ -25,7 +25,7 @@ const page = async ({ params }: CoursePageProps) => {
     getCurrentUser(),
   ]);
 
-  if (!course) {
+  if (!course || !course.isPublished) {
     notFound();
   }
 
@@ -45,8 +45,8 @@ const page = async ({ params }: CoursePageProps) => {
     <>
       <CommonHero
         Image={"course_image10.jpg"}
-        heroHeading={"About"}
-        subHeading={"ABOUT"}
+        heroHeading={course.title}
+        subHeading={"COURSE DETAILS"}
         blackFilter={true}
       />
       <CourseDetailsView
@@ -54,7 +54,7 @@ const page = async ({ params }: CoursePageProps) => {
         lessons={lessons.map((lesson) => ({
           id: lesson.id,
           title: lesson.title,
-          videoUrl: lesson.videoUrl,
+          videoUrl: hasAccess ? lesson.videoUrl : "",
           position: lesson.position,
         }))}
         progress={progress}

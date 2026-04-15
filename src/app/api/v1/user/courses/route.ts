@@ -9,7 +9,9 @@ export async function GET(req: NextRequest) {
     const limit = parseInt(queryParams.get("limit") || "10", 10);
     // No need to authenticate for fetching courses
 
-    const { courses, totalCourses } = await getCoursesPaginated(page, limit);
+    const { courses, totalCourses } = await getCoursesPaginated(page, limit, {
+      onlyPublished: true,
+    });
 
     return NextResponse.json({ allCourses: courses, totalCourses }, { status: 200 });
   } catch (error) {

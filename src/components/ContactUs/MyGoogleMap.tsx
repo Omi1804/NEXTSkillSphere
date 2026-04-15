@@ -9,12 +9,12 @@ const MyGoogleMap: React.FC = () => {
 
   const center = {
     address: "H46C+XR7, Delhi, Airport, New Delhi, Delhi 110037",
-    lat: 28.5437, // Latitude for Delhi
-    lng: 77.1282, // Longitude for Delhi
+    lat: 28.5437,
+    lng: 77.1282,
   };
 
   return (
-    <div className="border border-black h-[70vh] w-full">
+    <div className="h-[70vh] w-full">
       <LoadScript googleMapsApiKey="AIzaSyAnu_hJVAodCX9J7AvNFozo9IXFWkmTOKI">
         <GoogleMap mapContainerStyle={containerStyle} center={center} zoom={10}>
           <Marker

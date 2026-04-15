@@ -1,14 +1,23 @@
 import { MetadataRoute } from "next";
 
+const publicRoutes = [
+  "",
+  "/about",
+  "/services",
+  "/courses",
+  "/cart",
+  "/wishlist",
+  "/contact",
+  "/login",
+  "/register",
+  "/privacy-policy",
+  "/terms",
+  "/refund-policy",
+];
+
 export default function sitemap(): MetadataRoute.Sitemap {
-  return [
-    {
-      url: "https://next-skill-sphere.vercel.app/",
-      lastModified: new Date(),
-    },
-    {
-      url: "https://next-skill-sphere.vercel.app/services",
-      lastModified: new Date(),
-    },
-  ];
+  return publicRoutes.map((route) => ({
+    url: `https://next-skill-sphere.vercel.app${route}`,
+    lastModified: new Date(),
+  }));
 }

@@ -3,6 +3,8 @@
 import { Course } from "@/types/course.types";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import { getAverageRating, getCourseReviews } from "@/lib/courseReviews";
+import { useCourseCollections } from "@/hooks/useCourseCollections";
 
 type CourseProgress = {
   totalLessons: number;
@@ -45,6 +47,9 @@ const CourseDetailsView = ({
     : "/home-2-intro.jpg";
 
   const progressWidth = Math.max(0, Math.min(progress?.completionPercentage ?? 0, 100));
+  const reviews = getCourseReviews(course.id);
+  const averageRating = getAverageRating(reviews);
+  const { addToCart, isInCart } = useCourseCollections();
 
   return (
     <div className="min-h-screen bg-[radial-gradient(circle_at_top_right,#c4fff0_0%,#ffffff_35%,#f4f8ff_100%)] px-4 py-10 md:px-10 lg:px-16">
@@ -68,7 +73,7 @@ const CourseDetailsView = ({
           <div className="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-4">
             <div className="rounded-2xl border border-slate-200 bg-white p-4">
               <p className="text-xs uppercase tracking-widest text-slate-500">Price</p>
-              <p className="mt-1 text-xl font-bold text-slate-900">${course.price}</p>
+              <p className="mt-1 text-xl font-bold text-slate-900">₹{course.price}</p>
             </div>
             <div className="rounded-2xl border border-slate-200 bg-white p-4">
               <p className="text-xs uppercase tracking-widest text-slate-500">Lessons</p>
@@ -76,14 +81,23 @@ const CourseDetailsView = ({
             </div>
             <div className="rounded-2xl border border-slate-200 bg-white p-4">
               <p className="text-xs uppercase tracking-widest text-slate-500">Instructor</p>
-              <p className="mt-1 line-clamp-1 text-lg font-bold text-slate-900">
-                {course.instructor || "Unknown"}
-              </p>
+              {course.instructorId ? (
+                <Link
+                  href={`/instructors/${course.instructorId}`}
+                  className="mt-1 line-clamp-1 text-lg font-bold text-slate-900 transition hover:text-[#057455]"
+                >
+                  {course.instructor || "Unknown"}
+                </Link>
+              ) : (
+                <p className="mt-1 line-clamp-1 text-lg font-bold text-slate-900">
+                  {course.instructor || "Unknown"}
+                </p>
+              )}
             </div>
             <div className="rounded-2xl border border-slate-200 bg-white p-4">
-              <p className="text-xs uppercase tracking-widest text-slate-500">Progress</p>
+              <p className="text-xs uppercase tracking-widest text-slate-500">Rating</p>
               <p className="mt-1 text-xl font-bold text-slate-900">
-                {progress ? `${progress.completionPercentage}%` : "Locked"}
+                {averageRating}/5
               </p>
             </div>
           </div>
@@ -91,7 +105,7 @@ const CourseDetailsView = ({
           <div className="mt-8 flex flex-wrap items-center gap-3">
             {!isLoggedIn && (
               <Link
-                href="/register"
+                href={`/login?next=/courses/${course.id}`}
                 className="rounded-xl bg-slate-900 px-6 py-3 text-sm font-semibold text-white transition hover:translate-y-[-2px]"
               >
                 Sign In To Track Progress
@@ -99,17 +113,33 @@ const CourseDetailsView = ({
             )}
             {isLoggedIn && !hasAccess && (
               <Link
-                href="/mycart"
+                href={`/checkout/${course.id}`}
                 className="rounded-xl bg-slate-900 px-6 py-3 text-sm font-semibold text-white transition hover:translate-y-[-2px]"
               >
                 Purchase To Unlock Lessons
               </Link>
             )}
             {hasAccess && (
-              <div className="rounded-xl bg-[#00ECA3]/20 px-4 py-3 text-sm font-semibold text-[#05654c]">
+              <Link
+                href={`/learn/${course.id}`}
+                className="rounded-xl bg-[#00ECA3]/20 px-4 py-3 text-sm font-semibold text-[#05654c] transition hover:bg-[#00ECA3]/30"
+              >
                 You own this course. Keep learning.
-              </div>
+              </Link>
             )}
+            <Link
+              href={`/courses/${course.id}/reviews`}
+              className="rounded-xl border border-slate-200 bg-white px-5 py-3 text-sm font-semibold text-slate-700 transition hover:translate-y-[-2px] hover:bg-slate-50"
+            >
+              View Reviews
+            </Link>
+            <button
+              type="button"
+              onClick={() => addToCart(course.id)}
+              className="rounded-xl border border-slate-200 bg-white px-5 py-3 text-sm font-semibold text-slate-700 transition hover:translate-y-[-2px] hover:bg-slate-50"
+            >
+              {isInCart(course.id) ? "In Cart" : "Add to Cart"}
+            </button>
           </div>
         </motion.div>
 
@@ -121,6 +151,44 @@ const CourseDetailsView = ({
             className="relative h-[330px] w-full rounded-3xl object-cover shadow-lg md:h-[420px]"
           />
         </motion.div>
+      </motion.section>
+
+      <motion.section
+        className="mx-auto mt-10 grid w-full max-w-7xl gap-5 rounded-3xl border border-slate-200 bg-white p-6 shadow-md lg:grid-cols-[320px_1fr]"
+        initial={{ opacity: 0, y: 16 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.3 }}
+        transition={{ duration: 0.5 }}
+      >
+        <div>
+          <p className="text-sm font-bold uppercase tracking-[0.22em] text-[#057455]">
+            Testimonials
+          </p>
+          <h2 className="mt-3 text-3xl font-black text-slate-950">{averageRating}/5 Rating</h2>
+          <Link
+            href={`/courses/${course.id}/reviews`}
+            className="mt-5 inline-flex items-center gap-2 rounded-xl bg-slate-950 px-4 py-3 text-sm font-bold text-white transition hover:-translate-y-0.5"
+          >
+            All reviews
+            <span className="material-symbols-outlined text-base">arrow_forward</span>
+          </Link>
+        </div>
+        <div className="grid gap-4 md:grid-cols-2">
+          {reviews.slice(0, 2).map((review) => (
+            <article key={review.name} className="rounded-2xl border border-slate-200 p-5">
+              <div className="flex text-[#f5b700]">
+                {Array.from({ length: 5 }, (_, index) => (
+                  <span key={index} className="material-symbols-outlined text-lg">
+                    {index < review.rating ? "star" : "star_outline"}
+                  </span>
+                ))}
+              </div>
+              <p className="mt-3 text-sm leading-6 text-slate-600">{review.body}</p>
+              <p className="mt-4 font-bold text-slate-950">{review.name}</p>
+              <p className="text-xs text-slate-500">{review.role}</p>
+            </article>
+          ))}
+        </div>
       </motion.section>
 
       <motion.section
@@ -174,14 +242,16 @@ const CourseDetailsView = ({
                     {lesson.title}
                   </h3>
                   <p className="mt-1 text-sm text-slate-600">Video lesson</p>
-                  <a
-                    href={lesson.videoUrl}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="mt-3 inline-flex items-center text-sm font-semibold text-[#0a7cde] underline-offset-4 transition hover:underline"
-                  >
-                    Open video source
-                  </a>
+                  {hasAccess ? (
+                    <Link
+                      href={`/learn/${course.id}/lesson/${lesson.id}`}
+                      className="mt-3 inline-flex items-center text-sm font-semibold text-[#0a7cde] underline-offset-4 transition hover:underline"
+                    >
+                      Open lesson
+                    </Link>
+                  ) : (
+                    <p className="mt-3 text-sm font-semibold text-slate-400">Locked</p>
+                  )}
                 </div>
               </div>
             </motion.div>

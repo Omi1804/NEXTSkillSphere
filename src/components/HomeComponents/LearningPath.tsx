@@ -1,6 +1,7 @@
 "use client";
 
 import styles from "@/app/styles/home.module.css";
+import Link from "next/link";
 import { useState } from "react";
 import { useInView } from "react-intersection-observer";
 interface Component2 {
@@ -57,13 +58,15 @@ const CommonComponent1 = ({ inView }: { inView: boolean }) => {
             <span className="text-base font-light font-heading">Certification Awarded</span>
           </li>
         </ul>
-        <button
-          className={`${styles.homebtn} relative bottom-5 ${
-            inView && "animate-slide-in-from-bottom"
-          }`}
-        >
-          Discover New Courses
-        </button>
+        <Link href="/courses">
+          <button
+            className={`${styles.homebtn} relative bottom-5 ${
+              inView && "animate-slide-in-from-bottom"
+            }`}
+          >
+            Discover New Courses
+          </button>
+        </Link>
       </div>
     </div>
   );

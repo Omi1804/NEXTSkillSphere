@@ -1,18 +1,20 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Link from "next/link";
 
 type ProfileClientProps = {
   name: string;
   email: string;
   accountTag: string;
   enrolledCount: number;
+  role?: string;
 };
 
 const fadeUp = (delay = 0) => ({
   initial: { opacity: 0, y: 22 },
   animate: { opacity: 1, y: 0 },
-  transition: { type: "spring", stiffness: 320, damping: 28, delay },
+  transition: { type: "spring" as const, stiffness: 320, damping: 28, delay },
 });
 
 const StatCard = ({
@@ -20,57 +22,28 @@ const StatCard = ({
   value,
   icon,
   delay,
-  accent,
 }: {
   title: string;
   value: string | number;
   icon: string;
   delay: number;
-  accent: "green" | "indigo" | "mixed";
-}) => {
-  const gradients = {
-    green: "from-[#00eda4]/20 to-[#00eda4]/5",
-    indigo: "from-[#6a7df1]/20 to-[#6a7df1]/5",
-    mixed: "from-[#00eda4]/15 to-[#6a7df1]/15",
-  };
-  const iconColors = {
-    green: "#00c98a",
-    indigo: "#6a7df1",
-    mixed: "#5b6de0",
-  };
-
-  return (
-    <motion.div
-      className={`flex-1 min-w-[170px] relative overflow-hidden rounded-2xl bg-gradient-to-br ${gradients[accent]} border border-white shadow-sm p-6 cursor-default`}
-      {...fadeUp(delay)}
-      whileHover={{ y: -4, boxShadow: "0 16px 40px rgba(106,125,241,0.12)" }}
-      transition={{ type: "spring", stiffness: 340, damping: 22 }}
-    >
-      {/* Corner decoration */}
-      <div
-        className="absolute top-0 right-0 w-20 h-20 rounded-full opacity-20 -translate-y-1/2 translate-x-1/2"
-        style={{
-          background:
-            accent === "green"
-              ? "radial-gradient(circle, #00eda4, transparent)"
-              : accent === "indigo"
-                ? "radial-gradient(circle, #6a7df1, transparent)"
-                : "radial-gradient(circle, #6a7df1, #00eda4, transparent)",
-        }}
-      />
-      <span
-        className="material-symbols-outlined text-2xl mb-3 block"
-        style={{ color: iconColors[accent] }}
-      >
-        {icon}
-      </span>
-      <p className="text-xs font-semibold uppercase tracking-widest text-gray-400 font-body">
-        {title}
-      </p>
-      <p className="text-2xl font-bold text-gray-800 mt-1 font-body">{value}</p>
-    </motion.div>
-  );
-};
+}) => (
+  <motion.div
+    className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition"
+    {...fadeUp(delay)}
+    whileHover={{ y: -4, boxShadow: "0 18px 45px rgba(15,23,42,0.1)" }}
+  >
+    <div className="flex items-center justify-between gap-4">
+      <div>
+        <p className="text-xs font-bold uppercase tracking-[0.18em] text-slate-400">{title}</p>
+        <p className="mt-2 text-3xl font-bold text-slate-950">{value}</p>
+      </div>
+      <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#00ECA3]/15 text-[#057455]">
+        <span className="material-symbols-outlined">{icon}</span>
+      </div>
+    </div>
+  </motion.div>
+);
 
 const DetailRow = ({
   label,
@@ -84,203 +57,222 @@ const DetailRow = ({
   delay: number;
 }) => (
   <motion.div
-    className="group flex items-start gap-4 p-4 rounded-2xl hover:bg-gray-50 transition-colors duration-200"
+    className="flex items-start gap-4 border-b border-slate-100 py-5 last:border-b-0"
     {...fadeUp(delay)}
-    transition={{ type: "spring", stiffness: 340, damping: 22 }}
   >
-    <div
-      className="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"
-      style={{ background: "linear-gradient(135deg, #00eda4, #6a7df1)" }}
-    >
-      <span className="material-symbols-outlined text-white text-base">{icon}</span>
+    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-slate-950 text-white">
+      <span className="material-symbols-outlined text-lg">{icon}</span>
     </div>
-    <div className="flex-1 min-w-0 border-b border-gray-100 pb-3">
-      <span className="text-[10px] uppercase tracking-[0.18em] text-gray-400 font-semibold block mb-0.5">
-        {label}
-      </span>
-      <span className="text-base text-gray-800 font-body font-medium truncate block">{value}</span>
+    <div className="min-w-0">
+      <p className="text-xs font-bold uppercase tracking-[0.18em] text-slate-400">{label}</p>
+      <p className="mt-1 break-words text-base font-semibold text-slate-900">{value}</p>
     </div>
   </motion.div>
 );
 
-export function ProfileClient({ name, email, accountTag, enrolledCount }: ProfileClientProps) {
+export function ProfileClient({
+  name,
+  email,
+  accountTag,
+  enrolledCount,
+  role = "USER",
+}: ProfileClientProps) {
   const initial = name[0]?.toUpperCase() ?? "U";
+  const isAdmin = role === "ADMIN";
 
   return (
-    <section className="min-h-[80vh] py-14 px-4 sm:px-8 lg:px-16 bg-[#f7f8fc]">
-      {/* Ambient background blobs */}
-      <div className="fixed inset-0 pointer-events-none overflow-hidden -z-10">
-        <div
-          className="absolute -top-40 -left-40 w-[500px] h-[500px] rounded-full opacity-[0.07] blur-3xl"
-          style={{
-            background: "radial-gradient(circle, #00eda4, transparent)",
-          }}
+    <main className="min-h-screen bg-[#f6f8fb]">
+      <section className="relative h-[25rem] isolate overflow-hidden bg-slate-950 px-4 py-12 text-white sm:px-8 lg:px-16 mb-8">
+        <img
+          src="/course_image10.jpg"
+          alt="Skill Sphere learning workspace"
+          className="absolute inset-0 -z-20 h-full w-full object-cover opacity-45 object-top"
         />
-        <div
-          className="absolute -bottom-40 -right-40 w-[500px] h-[500px] rounded-full opacity-[0.07] blur-3xl"
-          style={{
-            background: "radial-gradient(circle, #6a7df1, transparent)",
-          }}
-        />
-      </div>
+        <div className="absolute inset-0 -z-10 bg-[linear-gradient(115deg,#020617_0%,rgba(2,6,23,0.52)_38%,rgba(2,6,23,0.55)_100%)]" />
 
-      <div className="max-w-4xl mx-auto space-y-6">
-        {/* ── Hero Card ── */}
-        <motion.div
-          className="relative overflow-hidden rounded-3xl bg-white shadow-xl border border-white"
-          //   {...fadeUp(0)}
-        >
-          {/* Gradient slash banner */}
-          <div
-            className="h-28 w-full"
-            style={{
-              background: "linear-gradient(105deg, #00eda4 0%, #6a7df1 100%)",
-            }}
-          />
-          {/* Diagonal cut overlay */}
-          <div
-            className="absolute top-0 left-0 right-0 h-28"
-            style={{
-              background:
-                "linear-gradient(105deg, rgba(0,237,164,0.9) 0%, rgba(106,125,241,0.9) 60%, transparent 100%)",
-            }}
-          />
-          {/* Dot pattern overlay */}
-          <div
-            className="absolute top-0 left-0 right-0 h-28 opacity-20"
-            style={{
-              backgroundImage: "radial-gradient(circle, white 1px, transparent 1px)",
-              backgroundSize: "18px 18px",
-            }}
-          />
-
-          <div className="px-8 pb-8">
-            {/* Avatar — overlaps the banner */}
-            <div className="relative -mt-12 mb-4 flex items-end justify-between">
-              <motion.div
-                className="relative"
-                initial={{ scale: 0.6, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                transition={{
-                  type: "spring",
-                  stiffness: 300,
-                  damping: 22,
-                  delay: 0.15,
-                }}
-              >
-                {/* Gradient ring */}
-                <div
-                  className="w-24 h-24 rounded-3xl p-[3px] shadow-2xl"
-                  style={{
-                    background: "linear-gradient(135deg, #00eda4, #6a7df1)",
-                  }}
-                >
-                  <div
-                    className="w-full h-full rounded-[calc(1.5rem-3px)] bg-white flex items-center justify-center text-4xl font-bold"
-                    style={{
-                      background: "linear-gradient(135deg, #00eda4, #6a7df1)",
-                      WebkitBackgroundClip: "text",
-                      WebkitTextFillColor: "transparent",
-                    }}
-                  >
-                    {initial}
-                  </div>
+        <div className="mx-auto grid max-w-7xl gap-8 py-8 lg:grid-cols-[1fr_380px] lg:items-end">
+          <motion.div {...fadeUp(0)}>
+            <p className="text-sm font-bold uppercase tracking-[0.3em] text-[#00ECA3]">Profile</p>
+            <div className="mt-6 flex flex-wrap items-end gap-5">
+              <div className="flex h-28 w-28 items-center justify-center rounded-3xl border border-white/20 bg-white text-5xl font-black text-slate-950 shadow-2xl">
+                {initial}
+              </div>
+              <div className="min-w-0">
+                <div className="mb-3 flex flex-wrap gap-2">
+                  <span className="inline-flex items-center gap-1 rounded-full bg-white/10 px-3 py-1 text-xs font-bold uppercase tracking-widest text-white ring-1 ring-white/15">
+                    <span className="material-symbols-outlined text-sm">verified_user</span>
+                    {role.toLowerCase()} account
+                  </span>
+                  {isAdmin && (
+                    <span className="inline-flex items-center gap-1 rounded-full bg-[#00ECA3] px-3 py-1 text-xs font-bold uppercase tracking-widest text-slate-950">
+                      <span className="material-symbols-outlined text-sm">
+                        admin_panel_settings
+                      </span>
+                      Admin access
+                    </span>
+                  )}
                 </div>
-                {/* Online dot */}
-                <span className="absolute bottom-1 right-1 w-3.5 h-3.5 rounded-full bg-[#00eda4] border-2 border-white shadow" />
-              </motion.div>
+                <h1 className="max-w-4xl text-4xl font-black leading-tight md:text-6xl">{name}</h1>
+                <p className="mt-3 flex items-center gap-2 text-sm text-slate-200 md:text-base">
+                  <span className="material-symbols-outlined text-base text-[#00ECA3]">mail</span>
+                  {email}
+                </p>
+              </div>
+            </div>
+          </motion.div>
 
-              {/* Edit profile pill */}
-              <motion.button
-                className="flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-body font-medium border border-gray-200 text-gray-600 hover:border-[#6a7df1]/40 hover:text-[#6a7df1] transition-all duration-200 bg-white shadow-sm"
-                initial={{ opacity: 0, x: 12 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.3 }}
-                whileHover={{ scale: 1.04 }}
-                whileTap={{ scale: 0.96 }}
+          <motion.div
+            className="rounded-2xl border border-white/15 bg-white/10 p-5 shadow-2xl backdrop-blur"
+            {...fadeUp(0.12)}
+          >
+            <p className="text-xs font-bold uppercase tracking-[0.22em] text-slate-300">
+              Learning pulse
+            </p>
+            <p className="mt-3 text-4xl font-black">{enrolledCount}</p>
+            <p className="mt-1 text-sm text-slate-300">
+              enrolled course{enrolledCount !== 1 ? "s" : ""} connected to this account.
+            </p>
+            <div className="mt-5 flex gap-3">
+              <Link
+                href="/mycart"
+                className="inline-flex flex-1 items-center justify-center gap-2 rounded-xl bg-[#00ECA3] px-4 py-3 text-sm font-bold text-slate-950 transition hover:-translate-y-0.5"
               >
-                <span className="material-symbols-outlined text-base">edit</span>
-                Edit Profile
-              </motion.button>
+                My courses
+                <span className="material-symbols-outlined text-base">school</span>
+              </Link>
+              <Link
+                href="/courses"
+                className="inline-flex items-center justify-center rounded-xl border border-white/20 px-4 py-3 text-sm font-bold text-white transition hover:bg-white/10"
+                aria-label="Browse courses"
+              >
+                <span className="material-symbols-outlined text-base">explore</span>
+              </Link>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      <section className="mx-auto grid max-w-7xl gap-6 px-4 pb-14 sm:px-8 lg:grid-cols-[1fr_420px] lg:px-16">
+        <div className="grid gap-6">
+          <div className="grid gap-4 md:grid-cols-3">
+            <StatCard title="Courses" value={enrolledCount} icon="school" delay={0.16} />
+            <StatCard title="Account Tag" value={accountTag} icon="tag" delay={0.22} />
+            <StatCard title="Role" value={role} icon="badge" delay={0.28} />
+          </div>
+
+          {isAdmin && (
+            <motion.div
+              className="overflow-hidden rounded-2xl border border-[#00ECA3]/30 bg-slate-950 text-white shadow-xl"
+              {...fadeUp(0.34)}
+            >
+              <div className="grid gap-6 p-6 md:grid-cols-[1fr_auto] md:items-center">
+                <div>
+                  <div className="mb-3 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-[#00ECA3] text-slate-950">
+                    <span className="material-symbols-outlined">admin_panel_settings</span>
+                  </div>
+                  <h2 className="text-2xl font-black">Admin access enabled</h2>
+                  <p className="mt-2 max-w-2xl text-sm leading-6 text-slate-300">
+                    This account has admin privileges. You can manage courses, lessons, images, and
+                    publishing from the admin dashboard.
+                  </p>
+                </div>
+                <Link
+                  href="/admin/dashboard"
+                  className="inline-flex items-center justify-center gap-2 rounded-xl bg-[#00ECA3] px-5 py-3 text-sm font-bold text-slate-950 transition hover:-translate-y-0.5"
+                >
+                  Open dashboard
+                  <span className="material-symbols-outlined text-base">arrow_forward</span>
+                </Link>
+              </div>
+              <div className="h-1 bg-[linear-gradient(90deg,#00ECA3,#6a7df1)]" />
+            </motion.div>
+          )}
+
+          <motion.div
+            className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm md:p-8"
+            {...fadeUp(0.4)}
+          >
+            <div className="mb-2 flex items-center gap-3">
+              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#00ECA3]/15 text-[#057455]">
+                <span className="material-symbols-outlined">manage_accounts</span>
+              </div>
+              <div>
+                <p className="text-xs font-bold uppercase tracking-[0.22em] text-[#057455]">
+                  Account
+                </p>
+                <h2 className="text-xl font-black text-slate-950">Overview</h2>
+              </div>
             </div>
 
-            <motion.div
-              {...fadeUp(0.2)}
-              transition={{ type: "spring", stiffness: 340, damping: 22 }}
-            >
-              <p className="text-[10px] uppercase tracking-[0.3em] text-gray-400 font-semibold mb-1">
-                Member
-              </p>
-              <h1 className="text-3xl font-bold text-gray-900 font-body leading-tight">{name}</h1>
-              <div className="flex flex-wrap items-center gap-3 mt-2">
-                <span className="flex items-center gap-1 text-sm text-gray-500 font-body">
-                  <span className="material-symbols-outlined text-base text-gray-400">mail</span>
-                  {email}
-                </span>
-                <span className="w-1 h-1 rounded-full bg-gray-300" />
-              </div>
-            </motion.div>
-          </div>
-        </motion.div>
-
-        {/* ── Stats Row ── */}
-        <div className="flex flex-wrap gap-4">
-          <StatCard
-            title="Courses Enrolled"
-            value={enrolledCount}
-            icon="school"
-            delay={0.25}
-            accent="green"
-          />
-
-          <StatCard title="Account Tag" value={accountTag} icon="tag" delay={0.39} accent="mixed" />
+            <div className="mt-4">
+              <DetailRow label="Full name" value={name} icon="person" delay={0.48} />
+              <DetailRow label="Email address" value={email} icon="mail" delay={0.54} />
+              <DetailRow
+                label="Courses enrolled"
+                value={`${enrolledCount} course${enrolledCount !== 1 ? "s" : ""}`}
+                icon="school"
+                delay={0.6}
+              />
+              <DetailRow label="Account tag" value={accountTag} icon="tag" delay={0.66} />
+            </div>
+          </motion.div>
         </div>
 
-        {/* ── Account Overview ── */}
-        <motion.div
-          className="bg-white rounded-3xl border border-white shadow-lg overflow-hidden"
-          {...fadeUp(0.45)}
-          transition={{ type: "spring", stiffness: 340, damping: 22 }}
-        >
-          {/* Section header */}
-          <div className="px-8 pt-7 pb-4 flex items-center gap-3 border-b border-gray-100">
-            <div
-              className="w-8 h-8 rounded-xl flex items-center justify-center"
-              style={{
-                background: "linear-gradient(135deg, #00eda4, #6a7df1)",
-              }}
-            >
-              <span className="material-symbols-outlined text-white text-base">
-                manage_accounts
-              </span>
+        <aside className="space-y-6">
+          <motion.div
+            className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm"
+            {...fadeUp(0.44)}
+          >
+            <p className="text-xs font-bold uppercase tracking-[0.22em] text-[#057455]">
+              Next move
+            </p>
+            <h2 className="mt-3 text-2xl font-black text-slate-950">Keep the momentum going</h2>
+            <p className="mt-3 text-sm leading-6 text-slate-600">
+              Jump back into your enrolled courses or explore the catalog for your next skill path.
+            </p>
+            <div className="mt-6 grid gap-3">
+              <Link
+                href="/mycart"
+                className="inline-flex items-center justify-center gap-2 rounded-xl bg-slate-950 px-5 py-3 text-sm font-bold text-white transition hover:-translate-y-0.5"
+              >
+                Continue learning
+                <span className="material-symbols-outlined text-base">play_arrow</span>
+              </Link>
+              <Link
+                href="/courses"
+                className="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-200 px-5 py-3 text-sm font-bold text-slate-700 transition hover:bg-slate-50"
+              >
+                Browse catalog
+                <span className="material-symbols-outlined text-base">explore</span>
+              </Link>
             </div>
-            <h2 className="text-lg font-bold text-gray-800 font-body">Account Overview</h2>
-            {/* Gradient accent line */}
-            <motion.div
-              className="flex-1 h-px ml-2"
-              style={{
-                background: "linear-gradient(90deg, #00eda4, #6a7df1, transparent)",
-              }}
-              initial={{ scaleX: 0, originX: 0 }}
-              animate={{ scaleX: 1 }}
-              transition={{ delay: 0.6, duration: 0.6 }}
-            />
-          </div>
+          </motion.div>
 
-          <div className="px-4 py-4 grid md:grid-cols-2 gap-1">
-            <DetailRow label="Full Name" value={name} icon="person" delay={0.5} />
-
-            <DetailRow label="Email Address" value={email} icon="mail" delay={0.6} />
-            <DetailRow
-              label="Courses Enrolled"
-              value={`${enrolledCount} course${enrolledCount !== 1 ? "s" : ""}`}
-              icon="school"
-              delay={0.65}
-            />
-            <DetailRow label="Account Tag" value={accountTag} icon="tag" delay={0.7} />
-          </div>
-        </motion.div>
-      </div>
-    </section>
+          <motion.div
+            className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm"
+            {...fadeUp(0.52)}
+          >
+            <div className="flex items-center gap-3">
+              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-slate-100 text-slate-700">
+                <span className="material-symbols-outlined">shield</span>
+              </div>
+              <div>
+                <p className="text-sm font-black text-slate-950">Access level</p>
+                <p className="text-xs text-slate-500">
+                  {isAdmin ? "Admin and learner permissions" : "Learner permissions"}
+                </p>
+              </div>
+            </div>
+            <div className="mt-5 rounded-xl bg-slate-50 p-4">
+              <p className="text-sm font-semibold text-slate-700">
+                {isAdmin
+                  ? "You can access the learning area and the admin dashboard."
+                  : "You can access purchased courses and lesson progress."}
+              </p>
+            </div>
+          </motion.div>
+        </aside>
+      </section>
+    </main>
   );
 }

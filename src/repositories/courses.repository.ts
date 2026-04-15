@@ -11,6 +11,7 @@ export const mapCourseRecord = (course: any): Course => {
     imageLink: course.image?.imageLink ?? null,
     isPublished: course.isPublished,
     createdBy: course.createdBy,
+    instructorId: course.createdBy,
     createdAt: course.createdAt,
     updatedAt: course.updatedAt,
     instructor: course.instructor?.name ?? "Unknown Instructor",
@@ -50,6 +51,31 @@ export async function getAllCourses() {
   return courses.map(mapCourseRecord);
 }
 
+export async function getAllPublishedCourses() {
+  const courses = await prisma.course.findMany({
+    where: {
+      isPublished: true,
+    },
+    orderBy: {
+      createdAt: "desc",
+    },
+    include: {
+      image: {
+        select: {
+          imageLink: true,
+        },
+      },
+      instructor: {
+        select: {
+          name: true,
+        },
+      },
+    },
+  });
+
+  return courses.map(mapCourseRecord);
+}
+
 export async function getCourseById(courseId: string) {
   const course = await prisma.course.findUnique({
     where: { id: courseId },
@@ -58,6 +84,11 @@ export async function getCourseById(courseId: string) {
       title: true,
       description: true,
       price: true,
+      image_id: true,
+      isPublished: true,
+      createdBy: true,
+      createdAt: true,
+      updatedAt: true,
       image: {
         select: {
           imageLink: true,
@@ -79,10 +110,16 @@ export async function getCourseById(courseId: string) {
   return mapCourseRecord(course);
 }
 
-export async function getCoursesPaginated(page: number, limit: number) {
+export async function getCoursesPaginated(
+  page: number,
+  limit: number,
+  options: { onlyPublished?: boolean } = {},
+) {
   const offset = (page - 1) * limit;
+  const where = options.onlyPublished ? { isPublished: true } : {};
   const [courses, totalCourses] = await Promise.all([
     prisma.course.findMany({
+      where,
       skip: offset,
       take: limit,
       orderBy: {
@@ -101,7 +138,7 @@ export async function getCoursesPaginated(page: number, limit: number) {
         },
       },
     }),
-    prisma.course.count(),
+    prisma.course.count({ where }),
   ]);
 
   return { courses: courses.map(mapCourseRecord), totalCourses };
@@ -205,8 +242,34 @@ export async function updateCourse(courseId: string, courseData: CourseUpdateInp
 }
 
 export async function deleteCourse(courseId: string) {
-  return prisma.course.delete({
-    where: { id: courseId },
+  return prisma.$transaction(async (tx) => {
+    const lessons = await tx.lesson.findMany({
+      where: { courseId },
+      select: { id: true },
+    });
+    const lessonIds = lessons.map((lesson) => lesson.id);
+
+    if (lessonIds.length > 0) {
+      await tx.lessonProgress.deleteMany({
+        where: {
+          lessonId: {
+            in: lessonIds,
+          },
+        },
+      });
+    }
+
+    await tx.lesson.deleteMany({
+      where: { courseId },
+    });
+
+    await tx.purchase.deleteMany({
+      where: { courseId },
+    });
+
+    return tx.course.delete({
+      where: { id: courseId },
+    });
   });
 }
 
@@ -262,4 +325,78 @@ export async function getCoursesWithoutImages() {
   });
 
   return courses;
+}
+
+export async function getAdminCourseStats() {
+  const [totalCourses, publishedCourses, draftCourses, totalLessons, totalPurchases, revenue] =
+    await Promise.all([
+      prisma.course.count(),
+      prisma.course.count({ where: { isPublished: true } }),
+      prisma.course.count({ where: { isPublished: false } }),
+      prisma.lesson.count(),
+      prisma.purchase.count({ where: { status: "SUCCESS" } }),
+      prisma.purchase.aggregate({
+        where: { status: "SUCCESS" },
+        _sum: {
+          amount: true,
+        },
+      }),
+    ]);
+
+  return {
+    totalCourses,
+    publishedCourses,
+    draftCourses,
+    totalLessons,
+    totalPurchases,
+    revenue: revenue._sum.amount ?? 0,
+  };
+}
+
+export async function getInstructorProfileById(instructorId: string) {
+  const instructor = await prisma.user.findUnique({
+    where: { id: instructorId },
+    select: {
+      id: true,
+      name: true,
+      email: true,
+      createdAt: true,
+      courses: {
+        where: {
+          isPublished: true,
+        },
+        orderBy: {
+          createdAt: "desc",
+        },
+        include: {
+          image: {
+            select: {
+              imageLink: true,
+            },
+          },
+          instructor: {
+            select: {
+              name: true,
+            },
+          },
+          lessons: {
+            select: {
+              id: true,
+            },
+          },
+        },
+      },
+    },
+  });
+
+  if (!instructor) return null;
+
+  return {
+    id: instructor.id,
+    name: instructor.name,
+    email: instructor.email,
+    createdAt: instructor.createdAt,
+    courses: instructor.courses.map(mapCourseRecord),
+    totalLessons: instructor.courses.reduce((total, course) => total + course.lessons.length, 0),
+  };
 }

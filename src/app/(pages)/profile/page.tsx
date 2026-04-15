@@ -6,7 +6,7 @@ const ProfileLayout = async () => {
   const user = await getCurrentUser();
 
   if (!user) {
-    redirect("/");
+    redirect("/login?next=/profile");
   }
 
   const enrolledCount = user.purchases?.length ?? 0;
@@ -18,6 +18,7 @@ const ProfileLayout = async () => {
       email={user.email}
       accountTag={accountTag}
       enrolledCount={enrolledCount}
+      role={user.role}
     />
   );
 };

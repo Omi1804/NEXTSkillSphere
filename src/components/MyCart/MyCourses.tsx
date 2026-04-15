@@ -1,31 +1,28 @@
 import axios from "axios";
 import CourseCard from "../CourseCard";
 import { useEffect, useState } from "react";
+import { Course } from "@/types/course.types";
 
 const MyCourses = () => {
-  const [purchasedCourses, setPurchasedCourses] = useState<any>(null);
+  const [purchasedCourses, setPurchasedCourses] = useState<Course[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchPurchasedCourses = async () => {
       try {
-        const response = await axios.get("/api/v1/user/courses/purchased", {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("eLearniToken")}`,
-          },
-        });
+        const response = await axios.get("/api/v1/user/courses/purchased");
 
         const responseData = response.data;
-        if (responseData.Courses.length > 0) {
-          setPurchasedCourses(responseData.Courses);
-        }
+        setPurchasedCourses(responseData.Courses || []);
       } catch (error: any) {
         console.error("Error fetching purchased courses:", error);
+        setPurchasedCourses([]);
+      } finally {
+        setIsLoading(false);
       }
     };
 
-    if (localStorage.getItem("eLearniToken")) {
-      fetchPurchasedCourses();
-    }
+    fetchPurchasedCourses();
   }, []);
 
   return (
@@ -39,12 +36,11 @@ const MyCourses = () => {
         <div className="relative inline-block mx-4 shadow-sm w-full">
           <select
             name="prices"
-            id="priceSelect"
+            id="categorySelect"
+            defaultValue="All Categories"
             className="h-full appearance-none outline-none border-none rounded-lg text-black bg-white py-3 px-5  pr-10 tracking-wide font-heading shadow-sm w-full cursor-pointer"
           >
-            <option value="All Categories" selected>
-              All Categories
-            </option>
+            <option value="All Categories">All Categories</option>
 
             <option value="https://demo-themewinter.com/courselog/courses/"> All Categories</option>
             <option value="ai">Artificial Intelligence</option>
@@ -72,11 +68,10 @@ const MyCourses = () => {
           <select
             name="languages"
             id="languagesSelect"
+            defaultValue="All Languages"
             className="h-full appearance-none outline-none border-none rounded-lg text-black bg-white py-3 px-5 pr-10 tracking-wide font-heading shadow-sm w-full cursor-pointer"
           >
-            <option value="All Languages" selected>
-              All Languages
-            </option>
+            <option value="All Languages">All Languages</option>
             <option value="English">English</option>
             <option value="Hindi">Hindi</option>
             <option value="Tamil">Tamil</option>
@@ -97,11 +92,10 @@ const MyCourses = () => {
           <select
             name="prices"
             id="priceSelect"
+            defaultValue="All Prices"
             className="h-full appearance-none outline-none border-none rounded-lg text-black bg-white py-3 px-5 pr-10 tracking-wide font-heading shadow-sm w-full cursor-pointer"
           >
-            <option value="All Prices" selected>
-              All Prices
-            </option>
+            <option value="All Prices">All Prices</option>
             <option value="Free">Free</option>
             <option value="Free">Paid</option>
             <option value="Free">Prices: High To Low</option>
@@ -122,11 +116,10 @@ const MyCourses = () => {
           <select
             name="levels"
             id="levelSelect"
+            defaultValue="All Skills"
             className="h-full appearance-none outline-none border-none rounded-lg text-black bg-white py-3 px-5 pr-10 tracking-wide font-heading shadow-sm w-full cursor-pointer"
           >
-            <option value="All Skills" selected>
-              All Skills
-            </option>
+            <option value="All Skills">All Skills</option>
             <option value="Beginner">Beginner</option>
             <option value="Intermediate">Intermediate</option>
             <option value="Advanced">Advanced</option>
@@ -143,8 +136,12 @@ const MyCourses = () => {
         </div>
       </div>
       <div className="w-full my-5 gap-8 mx-2 grid grid-cols-3 px-[8rem] py-[4rem]">
-        {purchasedCourses ? (
-          purchasedCourses.map((course: any) => (
+        {isLoading ? (
+          <div className="col-span-3 rounded-2xl border border-slate-200 bg-white p-8 text-center font-body text-slate-600">
+            Loading your courses...
+          </div>
+        ) : purchasedCourses.length > 0 ? (
+          purchasedCourses.map((course) => (
             <CourseCard
               key={course.id}
               id={course.id}
@@ -153,10 +150,16 @@ const MyCourses = () => {
               heading={course.title}
               description={course.description}
               instructor={course.instructor}
+              instructorId={course.instructorId}
             />
           ))
         ) : (
-          <div></div>
+          <div className="col-span-3 rounded-2xl border border-dashed border-slate-300 bg-white p-10 text-center">
+            <h2 className="font-body text-2xl font-bold text-slate-900">No courses yet</h2>
+            <p className="mt-2 font-heading text-sm text-slate-600">
+              Purchase a course from the catalog and it will appear here.
+            </p>
+          </div>
         )}
       </div>
     </div>

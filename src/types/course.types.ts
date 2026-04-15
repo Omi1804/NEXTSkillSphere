@@ -7,6 +7,7 @@ export interface Course {
   imageLink?: string | null;
   isPublished: boolean;
   createdBy: string;
+  instructorId?: string;
   createdAt?: Date | string;
   updatedAt?: Date | string;
   instructor?: string;

@@ -27,7 +27,7 @@ export function HeaderClient({ initialUser }: HeaderClientProps) {
     setUserDetails(initialUser);
   }, [initialUser]);
 
-  const openLoginModal = () => setIsLoginOpen(true);
+  const openLoginModal = () => router.push("/login");
   const closeLoginModal = () => setIsLoginOpen(false);
 
   const toggleUserMenu = () => setIsUserMenuOpen((prev) => !prev);
@@ -40,6 +40,8 @@ export function HeaderClient({ initialUser }: HeaderClientProps) {
     } finally {
       setUserDetails(null);
       setIsUserMenuOpen(false);
+      router.refresh();
+      router.push("/");
     }
   };
 
@@ -86,16 +88,15 @@ export function HeaderClient({ initialUser }: HeaderClientProps) {
               <span className="material-symbols-outlined !text-lg transition">lock_open</span>
               <p className="font-body font-light text-base transition">Login</p>
             </button>
-            <button
+            <Link
+              href="/register"
               className={`flex items-center justify-center gap-1 hover:text-[#00eda4] hover:shadow-md  duration-200 ${
                 path === "/register" ? "text-[#00eda4]" : "text-[#969696]"
               }`}
             >
               <span className="material-symbols-outlined !text-xl transition">person</span>
-              <p className="font-body font-light text-base transition">
-                <Link href={"/register"}>Register</Link>
-              </p>
-            </button>
+              <p className="font-body font-light text-base transition">Register</p>
+            </Link>
           </div>
         ) : (
           <div className="relative" ref={dropdownRef}>
@@ -179,6 +180,15 @@ export function HeaderClient({ initialUser }: HeaderClientProps) {
           </li>
           <li
             className={`text-white font-body font-medium text-base  tracking-wide mx-3 hover:text-[#00eda4] cursor-pointer duration-300 ${
+              path === "/wishlist" && styles.active
+            }`}
+          >
+            <p className="duration-300">
+              <Link href={"/wishlist"}>Wishlist</Link>
+            </p>
+          </li>
+          <li
+            className={`text-white font-body font-medium text-base  tracking-wide mx-3 hover:text-[#00eda4] cursor-pointer duration-300 ${
               path === "/contact" && styles.active
             }`}
           >
@@ -187,7 +197,16 @@ export function HeaderClient({ initialUser }: HeaderClientProps) {
             </p>
           </li>
         </ul>
-        <div className="max-w-40 w-full">
+        <div className="flex min-w-[15rem] items-center justify-end gap-5">
+          <div
+            className={`flex items-center justify-center gap-2 cursor-pointer duration-200  hover:text-[#00ECA3] ${
+              path === "/cart" ? "text-[#00ECA3]" : "text-white"
+            }`}
+            onClick={() => router.push("/cart")}
+          >
+            <span className="material-symbols-outlined  text-xl">shopping_cart</span>
+            <p className=" font-body text-base">Cart</p>
+          </div>
           {userDetails && (
             <div
               className={`flex items-center justify-center gap-2 cursor-pointer duration-200  hover:text-[#00ECA3] ${
@@ -195,7 +214,7 @@ export function HeaderClient({ initialUser }: HeaderClientProps) {
               }`}
               onClick={navigateToCart}
             >
-              <span className="material-symbols-outlined  text-xl">shopping_cart</span>
+              <span className="material-symbols-outlined  text-xl">school</span>
               <p className=" font-body text-base">My Courses</p>
             </div>
           )}

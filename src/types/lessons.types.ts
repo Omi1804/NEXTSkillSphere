@@ -3,6 +3,7 @@ export interface LessonRecord {
   title: string;
   videoUrl: string;
   position: number;
+  courseId: string;
   createdAt: Date;
 }
 

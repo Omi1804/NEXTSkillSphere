@@ -7,6 +7,7 @@ import {
   faGooglePlusG,
 } from "@fortawesome/free-brands-svg-icons";
 import styles from "@/app/styles/footer.module.css";
+import Link from "next/link";
 
 const Footer = () => {
   return (
@@ -22,21 +23,51 @@ const Footer = () => {
         <div className="flex items-center justify-between">
           <p className="text-lg font-extrabold text-white mx-4">Follow us on</p>
           <div className="flex items-center justify-between">
-            <p className="rounded-full mx-1 flex items-center bg-[#6A7CF0] text-white transition duration-500 hover:bg-white hover:text-black">
+            <a
+              href="https://www.facebook.com/"
+              target="_blank"
+              rel="noreferrer"
+              className="rounded-full mx-1 flex items-center bg-[#6A7CF0] text-white transition duration-500 hover:bg-white hover:text-black"
+              aria-label="Follow Skill Sphere on Facebook"
+            >
               <FontAwesomeIcon icon={faFacebookF} className="w-4 h-4 p-4  " />
-            </p>
-            <p className="rounded-full mx-1 flex items-center bg-[#6A7CF0] text-white transition duration-500 hover:bg-white hover:text-black">
+            </a>
+            <a
+              href="https://twitter.com/"
+              target="_blank"
+              rel="noreferrer"
+              className="rounded-full mx-1 flex items-center bg-[#6A7CF0] text-white transition duration-500 hover:bg-white hover:text-black"
+              aria-label="Follow Skill Sphere on Twitter"
+            >
               <FontAwesomeIcon icon={faTwitter} className="w-4 h-4 p-4 " />
-            </p>
-            <p className="rounded-full mx-1 flex items-center bg-[#6A7CF0] text-white transition duration-500 hover:bg-white hover:text-black">
+            </a>
+            <a
+              href="https://www.google.com/"
+              target="_blank"
+              rel="noreferrer"
+              className="rounded-full mx-1 flex items-center bg-[#6A7CF0] text-white transition duration-500 hover:bg-white hover:text-black"
+              aria-label="Find Skill Sphere on Google"
+            >
               <FontAwesomeIcon icon={faGooglePlusG} className="w-4 h-4 p-4 " />
-            </p>
-            <p className="rounded-full mx-1 flex items-center bg-[#6A7CF0] text-white transition duration-500 hover:bg-white hover:text-black">
+            </a>
+            <a
+              href="https://vimeo.com/"
+              target="_blank"
+              rel="noreferrer"
+              className="rounded-full mx-1 flex items-center bg-[#6A7CF0] text-white transition duration-500 hover:bg-white hover:text-black"
+              aria-label="Follow Skill Sphere on Vimeo"
+            >
               <FontAwesomeIcon icon={faVimeoV} className="w-4 h-4 p-4 " />
-            </p>
-            <p className="rounded-full mx-1 flex items-center bg-[#6A7CF0] text-white transition duration-500 hover:bg-white hover:text-black">
+            </a>
+            <a
+              href="https://www.instagram.com/"
+              target="_blank"
+              rel="noreferrer"
+              className="rounded-full mx-1 flex items-center bg-[#6A7CF0] text-white transition duration-500 hover:bg-white hover:text-black"
+              aria-label="Follow Skill Sphere on Instagram"
+            >
               <FontAwesomeIcon icon={faInstagram} className="w-4 h-4 p-4 " />
-            </p>
+            </a>
           </div>
         </div>
       </div>
@@ -46,15 +77,15 @@ const Footer = () => {
           <ul>
             <li className="font-extralight my-5  text-[1.1rem] hover:text-[#00ECA3] cursor-pointer duration-300">
               <span className="text-[#00ECA3] mr-2 font-bold text-xl">•</span>
-              Courses
+              <Link href="/courses">Courses</Link>
             </li>
             <li className="font-extralight my-5 text-[1.1rem] hover:text-[#00ECA3] cursor-pointer duration-300">
               <span className="text-[#00ECA3] mr-2 font-bold text-xl">•</span>
-              Tutors
+              <Link href="/about">Tutors</Link>
             </li>
             <li className="font-extralight my-5 text-[1.1rem] hover:text-[#00ECA3] cursor-pointer duration-300">
               <span className="text-[#00ECA3] mr-2 font-bold text-xl">•</span>
-              Quiz & Tests
+              <Link href="/services">Quiz & Tests</Link>
             </li>
           </ul>
         </div>
@@ -63,15 +94,15 @@ const Footer = () => {
           <ul>
             <li className="font-extralight my-5  text-[1.1rem] hover:text-[#00ECA3] cursor-pointer duration-300">
               <span className="text-[#00ECA3] mr-2 font-bold text-xl">•</span>
-              About
+              <Link href="/about">About</Link>
             </li>
             <li className="font-extralight my-5 text-[1.1rem] hover:text-[#00ECA3] cursor-pointer duration-300">
               <span className="text-[#00ECA3] mr-2 font-bold text-xl">•</span>
-              Talk To Us
+              <Link href="/contact">Talk To Us</Link>
             </li>
             <li className="font-extralight my-5 text-[1.1rem] hover:text-[#00ECA3] cursor-pointer duration-300">
               <span className="text-[#00ECA3] mr-2 font-bold text-xl">•</span>
-              Help
+              <Link href="/contact">Help</Link>
             </li>
           </ul>
         </div>
@@ -91,9 +122,12 @@ const Footer = () => {
             <li className="font-extralight my-5 flex items-center text-[1.1rem]">
               <span className="material-symbols-outlined mr-2 text-lg opacity-50">mail</span>
               <span className="font-bold mr-3 text-base">Email : </span>
-              <p className="text-base cursor-pointer hover:text-[#00ECA3] duration-500">
+              <a
+                href="mailto:elearny@example.com"
+                className="text-base cursor-pointer hover:text-[#00ECA3] duration-500"
+              >
                 elearny@example.com
-              </p>
+              </a>
             </li>
           </ul>
         </div>
@@ -105,17 +139,26 @@ const Footer = () => {
             Copyright © 2019 DesignThemes. All Rights Reserved
           </p>
           <div className="flex items-center justify-center">
-            <p className="text-base font-extralight cursor-pointer hover:text-[#00ECA3] duration-500">
+            <Link
+              href="/privacy-policy"
+              className="text-base font-extralight cursor-pointer hover:text-[#00ECA3] duration-500"
+            >
               Privacy Policy
-            </p>
+            </Link>
             <span className="mx-5 font-extralight">|</span>
-            <p className="text-base font-extralight cursor-pointer hover:text-[#00ECA3] duration-500">
+            <Link
+              href="/terms"
+              className="text-base font-extralight cursor-pointer hover:text-[#00ECA3] duration-500"
+            >
               Terms And Conditions
-            </p>
+            </Link>
             <span className="mx-5 font-extralight">|</span>
-            <p className="text-base font-extralight cursor-pointer hover:text-[#00ECA3] duration-500">
+            <Link
+              href="/refund-policy"
+              className="text-base font-extralight cursor-pointer hover:text-[#00ECA3] duration-500"
+            >
               Refund Policy
-            </p>
+            </Link>
           </div>
         </div>
       </div>

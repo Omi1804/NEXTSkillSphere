@@ -1,5 +1,6 @@
 "use client";
 import style from "@/app/styles/home.module.css";
+import Link from "next/link";
 import { useInView } from "react-intersection-observer";
 
 const JoinCourse = () => {
@@ -27,13 +28,15 @@ const JoinCourse = () => {
       >
         LEARN SOMETHING WHEREVER YOU ARE
       </p>
-      <button
-        className={`opacity-0 ${style.homebtn} ${
-          inView && "animate-slide-in-from-bottom"
-        } animate-delay-500`}
-      >
-        <p className="relative z-10 text-white">Join a Course Now</p>
-      </button>
+      <Link href="/courses">
+        <button
+          className={`opacity-0 ${style.homebtn} ${
+            inView && "animate-slide-in-from-bottom"
+          } animate-delay-500`}
+        >
+          <p className="relative z-10 text-white">Join a Course Now</p>
+        </button>
+      </Link>
     </div>
   );
 };

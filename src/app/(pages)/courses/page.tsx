@@ -29,7 +29,7 @@ const courses = async ({ searchParams }: CoursesPageProps) => {
   let totalCourses = 0;
 
   try {
-    const paginatedCourses = await getCoursesPaginated(page, limit);
+    const paginatedCourses = await getCoursesPaginated(page, limit, { onlyPublished: true });
     courses = paginatedCourses.courses;
     totalCourses = paginatedCourses.totalCourses;
   } catch (error) {

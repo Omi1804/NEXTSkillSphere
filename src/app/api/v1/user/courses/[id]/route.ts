@@ -1,14 +1,16 @@
 import { handleApiError } from "@/errors/apiErrorHandler";
-import { authenticateUser } from "@/middlewares/userAuth.middleware";
+import { NotFoundError } from "@/errors";
 import { getCourseById } from "@/repositories/courses.repository";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(req: NextRequest, context: { params: Promise<{ id: string }> }) {
   try {
-    authenticateUser(req);
     const courseId: string = (await context.params)?.id;
 
     const course = await getCourseById(courseId);
+    if (!course || !course.isPublished) {
+      throw new NotFoundError("Course not found");
+    }
 
     return NextResponse.json(
       { message: `Details of Course with id ${courseId}`, course },

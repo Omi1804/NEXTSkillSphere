@@ -1,6 +1,7 @@
 "use client";
 
 import styles from "@/app/styles/home.module.css";
+import Link from "next/link";
 import { useInView } from "react-intersection-observer";
 
 const Authors = () => {
@@ -36,13 +37,14 @@ const Authors = () => {
             or avoids pleasure itself, because it is
           </p>
         </div>
-        <button
+        <Link
+          href="/contact"
           className={`opacity-0 ${styles.homebtn} relative bottom-5 ${
             inView && "animate-slide-in-from-bottom"
           } animate-delay-1000`}
         >
           How to Become an Author?
-        </button>
+        </Link>
       </div>
       <div className="w-[60%] grid grid-cols-3 grid-rows-2 overflow-hidden">
         <div
@@ -56,9 +58,9 @@ const Authors = () => {
             <img src="/lauren.jpg" className="w-full h-full rounded-full" alt="" />
           </div>
           <h3 className="font-heading font-bold text-xl my-1">Lauren Ralph</h3>
-          <a className="font-body hover:text-blue-700 text-white text-sm" href="#">
+          <Link className="font-body hover:text-blue-700 text-white text-sm" href="/about">
             View Profile
-          </a>
+          </Link>
           <p className="font-heading font-light text-base">Consultant</p>
         </div>
         <div
@@ -72,9 +74,9 @@ const Authors = () => {
             <img src="/stanlee-team.jpg" className="w-full h-full rounded-full" alt="" />
           </div>
           <h3 className="font-heading font-bold text-xl my-1">Stan Lee</h3>
-          <a className="font-body hover:text-blue-700 text-white text-sm" href="#">
+          <Link className="font-body hover:text-blue-700 text-white text-sm" href="/about">
             View Profile
-          </a>
+          </Link>
           <p className="font-heading font-light text-base">Consultant</p>
         </div>
         <div
@@ -88,9 +90,9 @@ const Authors = () => {
             <img src="/jason-stateman.jpg" className="w-full h-full rounded-full" alt="" />
           </div>
           <h3 className="font-heading font-bold text-xl my-1">Jason Stateman</h3>
-          <a className="font-body hover:text-blue-700 text-white text-sm" href="#">
+          <Link className="font-body hover:text-blue-700 text-white text-sm" href="/about">
             View Profile
-          </a>
+          </Link>
           <p className="font-heading font-light text-base">Consultant</p>
         </div>
         <div
@@ -104,9 +106,9 @@ const Authors = () => {
             <img src="/steve-matt.jpg" className="w-full h-full rounded-full" alt="" />
           </div>
           <h3 className="font-heading font-bold text-xl my-1">Steve Matt</h3>
-          <a className="font-body hover:text-blue-700 text-white text-sm" href="#">
+          <Link className="font-body hover:text-blue-700 text-white text-sm" href="/about">
             View Profile
-          </a>
+          </Link>
           <p className="font-heading font-light text-base">Consultant</p>
         </div>
         <div
@@ -120,9 +122,9 @@ const Authors = () => {
             <img src="/jenny-smith.jpg" className="w-full h-full rounded-full" alt="" />
           </div>
           <h3 className="font-heading font-bold text-xl my-1">Jenny Smith</h3>
-          <a className="font-body hover:text-blue-700 text-white text-sm" href="#">
+          <Link className="font-body hover:text-blue-700 text-white text-sm" href="/about">
             View Profile
-          </a>
+          </Link>
           <p className="font-heading font-light text-base">Consultant</p>
         </div>
         <div

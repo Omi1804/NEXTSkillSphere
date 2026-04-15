@@ -34,6 +34,7 @@ const AllCoursesList = ({
             heading={course.title}
             description={course.description}
             instructor={course.instructor}
+            instructorId={course.instructorId}
           />
         ))}
       </div>
