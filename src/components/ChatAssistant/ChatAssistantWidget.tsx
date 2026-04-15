@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from "react";
 
 const quickPrompts = ["Find a course", "Learning path", "Pricing help"];
 
-const LOADER_SIZE = 72;
+const LOADER_SIZE = 64;
 const LOADER_INSET = 5;
 const LOADER_CORNER_RADIUS = 16;
 const LOADER_SIDE = LOADER_SIZE - LOADER_INSET * 2;
@@ -123,7 +123,8 @@ const ChatAssistantWidget = () => {
                 I want to find the best course for my goals.
               </div>
               <div className="max-w-[86%] rounded-2xl rounded-tl-sm bg-white p-4 text-sm leading-6 text-slate-700 shadow-sm">
-                Great. Start with a goal, skill level, or time commitment and I'll guide the flow.
+                Great. Start with a goal, skill level, or time commitment and I&apos;ll guide the
+                flow.
               </div>
               {localMessages.map((message, index) => (
                 <div
@@ -186,7 +187,7 @@ const ChatAssistantWidget = () => {
       <motion.button
         type="button"
         onClick={() => setIsOpen((current) => !current)}
-        className="group relative flex h-16 w-16 items-center justify-center rounded-[18px] bg-slate-950 text-white shadow-2xl ring-1 ring-white/30 transition hover:-translate-y-1"
+        className="group relative flex h-14 w-14 items-center justify-center rounded-[18px] bg-slate-950 text-white shadow-2xl ring-1 ring-white/30 transition hover:-translate-y-1"
         aria-label={isOpen ? "Close chat assistant" : "Open chat assistant"}
         whileHover={reduceMotion ? undefined : { scale: 1.04 }}
         whileTap={reduceMotion ? undefined : { scale: 0.96 }}

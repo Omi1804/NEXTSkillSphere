@@ -8,6 +8,7 @@ import Footer from "@/components/ui/Footer";
 import { MetaTags } from "./meta";
 import SmoothScrollProvider from "@/components/SmoothScrollProvider";
 import ChatAssistantWidget from "@/components/ChatAssistant/ChatAssistantWidget";
+import InitialPageLoader from "@/components/Loading/InitialPageLoader";
 
 export const metadata: Metadata = {
   title: "Skill Sphere",
@@ -35,6 +36,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <MetaTags />
       <body className={`${poppins.variable} ${roboto.variable} antialiased`}>
         <SmoothScrollProvider>
+          <InitialPageLoader />
           <Header />
           {children}
           <Footer />
