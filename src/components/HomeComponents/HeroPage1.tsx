@@ -47,7 +47,7 @@ const HeroPage1 = () => {
 
 export const CarouselOne = () => {
   return (
-    <motion.div className="w-full h-[100vh] object-contain bg-[url('/bg3.jpg')] bg-no-repeat bg-center bg-cover text-center py-10 animate-fade-in">
+    <motion.div className="w-full h-[100vh] object-contain bg-[url('/bg3.jpg')] bg-no-repeat bg-center bg-cover text-center py-10 animate-fade-in border-2 border-red-500">
       <motion.div
         initial={{ opacity: 0, y: 40, filter: "blur(10px)" }}
         animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}

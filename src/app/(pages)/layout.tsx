@@ -38,7 +38,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <SmoothScrollProvider>
           <InitialPageLoader />
           <Header />
-          {children}
+          <main className="pt-[113px]">{children}</main>
           <Footer />
           <ChatAssistantWidget />
         </SmoothScrollProvider>
