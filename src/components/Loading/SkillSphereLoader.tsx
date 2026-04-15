@@ -43,11 +43,10 @@ export default function SkillSphereLoader({
     return parseProgressFromLabel(progressValue) ?? 75;
   }, [progressTarget, progressValue]);
 
-  const [progress, setProgress] = useState(autoAnimate ? 10 : derivedTarget);
+  const [animatedProgress, setAnimatedProgress] = useState(10);
 
   useEffect(() => {
     if (!autoAnimate) {
-      setProgress(derivedTarget);
       return;
     }
 
@@ -61,7 +60,7 @@ export default function SkillSphereLoader({
       // Ease-out for a smooth finish and less robotic motion.
       const eased = 1 - Math.pow(1 - t, 3);
       const next = Math.round(startValue + (derivedTarget - startValue) * eased);
-      setProgress(next);
+      setAnimatedProgress(next);
 
       if (t < 1) {
         frameId = window.requestAnimationFrame(animate);
@@ -72,6 +71,7 @@ export default function SkillSphereLoader({
     return () => window.cancelAnimationFrame(frameId);
   }, [autoAnimate, derivedTarget, durationMs]);
 
+  const progress = autoAnimate ? animatedProgress : derivedTarget;
   const stagePool = stages.length > 0 ? stages : DEFAULT_STAGES;
   const stageIndex = Math.min(
     stagePool.length - 1,

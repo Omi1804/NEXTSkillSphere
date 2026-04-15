@@ -199,7 +199,7 @@ export type LessonGroupByOutputType = {
   _max: LessonMaxAggregateOutputType | null
 }
 
-type GetLessonGroupByPayload<T extends LessonGroupByArgs> = Prisma.PrismaPromise<
+export type GetLessonGroupByPayload<T extends LessonGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<LessonGroupByOutputType, T['by']> &
       {
@@ -1318,6 +1318,11 @@ export type LessonFindManyArgs<ExtArgs extends runtime.Types.Extensions.Internal
    * Skip the first `n` Lessons.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of Lessons.
+   */
   distinct?: Prisma.LessonScalarFieldEnum | Prisma.LessonScalarFieldEnum[]
 }
 

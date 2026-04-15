@@ -29,6 +29,13 @@ export async function createAdmin(data: AdminCreateInput) {
   });
 }
 
+export async function updateUserPassword(userId: string, password: string) {
+  return prisma.user.update({
+    where: { id: userId },
+    data: { password },
+  });
+}
+
 export async function updateCourseImage(courseId: string, imageId: number) {
   return prisma.course.update({
     where: { id: courseId },

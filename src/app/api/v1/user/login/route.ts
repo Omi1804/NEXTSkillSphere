@@ -5,6 +5,7 @@ import {
 } from "@/constants/userAuth.constants";
 import { BadRequestError } from "@/errors";
 import { handleApiError } from "@/errors/apiErrorHandler";
+import { sanitizeUser } from "@/lib/sanitizeUser";
 import { loginUser } from "@/services/userAuth.service";
 import { NextResponse } from "next/server";
 
@@ -20,7 +21,7 @@ export async function POST(req: Request) {
 
     const response = NextResponse.json({
       message: `Logged in successfully ${user.name}`,
-      userDetails: user,
+      userDetails: sanitizeUser(user),
     });
 
     response.cookies.set({

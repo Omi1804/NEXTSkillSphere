@@ -39,6 +39,13 @@ export async function createUser(data: UserCreateInput) {
   });
 }
 
+export async function updateUserPassword(userId: string, password: string) {
+  return prisma.user.update({
+    where: { id: userId },
+    data: { password },
+  });
+}
+
 export async function findPurchaseByUserAndCourse(userId: string, courseId: string) {
   return prisma.purchase.findUnique({
     where: {

@@ -5,6 +5,7 @@ import {
 } from "@/constants/userAuth.constants";
 import { BadRequestError } from "@/errors";
 import { handleApiError } from "@/errors/apiErrorHandler";
+import { sanitizeUser } from "@/lib/sanitizeUser";
 import { signupUser } from "@/services/userAuth.service";
 import { UserInput } from "@/types/user.types";
 import { NextResponse } from "next/server";
@@ -25,7 +26,7 @@ export async function POST(req: Request) {
     });
 
     const response = NextResponse.json(
-      { message: "User created successfully", user },
+      { message: "User created successfully", user: sanitizeUser(user) },
       { status: 200 },
     );
 

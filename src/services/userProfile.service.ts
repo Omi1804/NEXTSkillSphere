@@ -8,6 +8,7 @@ import {
   findUserByEmail,
   upsertLessonProgress,
 } from "@/repositories/user.repository";
+import { sanitizeUser } from "@/lib/sanitizeUser";
 
 export async function getUserProfileByEmail(email?: string | null) {
   if (!email) {
@@ -20,7 +21,7 @@ export async function getUserProfileByEmail(email?: string | null) {
     throw new AuthError("Auth expired, Please login again");
   }
 
-  return user;
+  return sanitizeUser(user);
 }
 
 export async function purchaseCourse(user: any, id: string) {

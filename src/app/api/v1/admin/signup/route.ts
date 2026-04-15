@@ -7,6 +7,7 @@ import {
   ADMIN_SESSION_COOKIE,
 } from "@/constants/adminAuth.constants";
 import { handleApiError } from "@/errors/apiErrorHandler";
+import { sanitizeUser } from "@/lib/sanitizeUser";
 
 export async function POST(req: Request) {
   try {
@@ -21,7 +22,7 @@ export async function POST(req: Request) {
     const response = NextResponse.json(
       {
         message: "Admin created successfully",
-        adminDetails: admin,
+        adminDetails: sanitizeUser(admin),
       },
       { status: 200 },
     );

@@ -17,8 +17,8 @@ import type * as Prisma from "./prismaNamespace"
 
 const config: runtime.GetPrismaClientConfig = {
   "previewFeatures": [],
-  "clientVersion": "7.4.1",
-  "engineVersion": "55ae170b1ced7fc6ed07a15f110549408c501bb3",
+  "clientVersion": "7.7.0",
+  "engineVersion": "75cbdc1eb7150937890ad5465d861175c6624711",
   "activeProvider": "postgresql",
   "inlineSchema": "generator client {\n  provider = \"prisma-client\"\n  output   = \"../generated/prisma\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n}\n\nenum Role {\n  USER\n  ADMIN\n}\n\nenum PurchaseStatus {\n  SUCCESS\n  FAILED\n  REFUNDED\n}\n\nmodel User {\n  id       String @id @default(uuid())\n  name     String\n  email    String @unique\n  password String\n  role     Role   @default(USER)\n\n  createdAt DateTime @default(now())\n\n  courses          Course[]         @relation(\"InstructorCourses\")\n  purchases        Purchase[]\n  lessonProgresses LessonProgress[]\n}\n\nmodel Course {\n  id          String @id @default(uuid())\n  title       String\n  description String\n  price       Int\n\n  image_id Int?          @unique\n  image    CourseImages? @relation(fields: [image_id], references: [id])\n\n  isPublished Boolean @default(false)\n\n  createdBy  String\n  instructor User   @relation(\"InstructorCourses\", fields: [createdBy], references: [id])\n\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n\n  lessons   Lesson[]\n  purchases Purchase[]\n}\n\n//to be added in future when we want to add more details to the course, for now we can keep it simple with just title, description, price and image\n//  \"category\": \"Programming\",\n//     \"instructor\": \"Jane Smith\"\n\nmodel CourseImages {\n  id        Int      @id @default(autoincrement())\n  imageLink String\n  course    Course?\n  createdAt DateTime @default(now())\n}\n\nmodel Lesson {\n  id       String @id @default(uuid())\n  title    String\n  videoUrl String\n  position Int\n\n  courseId String\n  course   Course @relation(fields: [courseId], references: [id])\n\n  createdAt        DateTime         @default(now())\n  lessonProgresses LessonProgress[]\n}\n\nmodel Purchase {\n  id        String         @id @default(uuid())\n  userId    String\n  courseId  String\n  paymentId String\n  amount    Int\n  status    PurchaseStatus @default(SUCCESS)\n\n  purchasedAt DateTime @default(now())\n\n  user   User   @relation(fields: [userId], references: [id])\n  course Course @relation(fields: [courseId], references: [id])\n\n  @@unique([userId, courseId])\n}\n\nmodel LessonProgress {\n  id        String  @id @default(uuid())\n  completed Boolean @default(false)\n  userId    String\n  lessonId  String\n\n  user   User   @relation(fields: [userId], references: [id])\n  lesson Lesson @relation(fields: [lessonId], references: [id])\n\n  @@unique([userId, lessonId])\n}\n",
   "runtimeDataModel": {
@@ -67,7 +67,9 @@ export interface PrismaClientConstructor {
    * Type-safe database client for TypeScript
    * @example
    * ```
-   * const prisma = new PrismaClient()
+   * const prisma = new PrismaClient({
+   *   adapter: new PrismaPg({ connectionString: process.env.DATABASE_URL })
+   * })
    * // Fetch zero or more Users
    * const users = await prisma.user.findMany()
    * ```
@@ -89,7 +91,9 @@ export interface PrismaClientConstructor {
  * Type-safe database client for TypeScript
  * @example
  * ```
- * const prisma = new PrismaClient()
+ * const prisma = new PrismaClient({
+ *   adapter: new PrismaPg({ connectionString: process.env.DATABASE_URL })
+ * })
  * // Fetch zero or more Users
  * const users = await prisma.user.findMany()
  * ```

@@ -151,7 +151,7 @@ export type LessonProgressGroupByOutputType = {
   _max: LessonProgressMaxAggregateOutputType | null
 }
 
-type GetLessonProgressGroupByPayload<T extends LessonProgressGroupByArgs> = Prisma.PrismaPromise<
+export type GetLessonProgressGroupByPayload<T extends LessonProgressGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<LessonProgressGroupByOutputType, T['by']> &
       {
@@ -1207,6 +1207,11 @@ export type LessonProgressFindManyArgs<ExtArgs extends runtime.Types.Extensions.
    * Skip the first `n` LessonProgresses.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of LessonProgresses.
+   */
   distinct?: Prisma.LessonProgressScalarFieldEnum | Prisma.LessonProgressScalarFieldEnum[]
 }
 

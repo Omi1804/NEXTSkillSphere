@@ -178,7 +178,7 @@ export type CourseImagesGroupByOutputType = {
   _max: CourseImagesMaxAggregateOutputType | null
 }
 
-type GetCourseImagesGroupByPayload<T extends CourseImagesGroupByArgs> = Prisma.PrismaPromise<
+export type GetCourseImagesGroupByPayload<T extends CourseImagesGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<CourseImagesGroupByOutputType, T['by']> &
       {
@@ -1034,6 +1034,11 @@ export type CourseImagesFindManyArgs<ExtArgs extends runtime.Types.Extensions.In
    * Skip the first `n` CourseImages.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of CourseImages.
+   */
   distinct?: Prisma.CourseImagesScalarFieldEnum | Prisma.CourseImagesScalarFieldEnum[]
 }
 
