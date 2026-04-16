@@ -15,7 +15,7 @@ const ModernTechniques = () => {
       </div>
       <div className="w-[60%] px-8 py-2">
         <p className="font-light font-heading text-base tracking-wide mb-2">
-          GET THE GRIP OF ELEARNY
+          GET THE GRIP OF ELEARNI
         </p>
         <h1 className="font-body font-bold mb-2 text-3xl">A Modern Learning Technique</h1>
         <p className="w-[8rem] h-[3px] bg-[#00ECA3] my-4"></p>

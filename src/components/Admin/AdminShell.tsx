@@ -31,7 +31,7 @@ const AdminShell = ({ admin, children }: AdminShellProps) => {
     <div className="min-h-screen bg-[#f6f8fb]">
       <aside className="fixed inset-y-0 left-0 hidden w-72 border-r border-slate-200 bg-slate-950 p-5 text-white lg:block">
         <Link href="/admin/dashboard" className="flex items-center gap-3">
-          <img src="/icons/logo.webp" alt="Skill Sphere" className="h-10 w-24 object-contain" />
+          <img src="/icons/logo.webp" alt="eLearni" className="h-10 w-24 object-contain" />
         </Link>
 
         <nav className="mt-10 space-y-2">
@@ -65,7 +65,7 @@ const AdminShell = ({ admin, children }: AdminShellProps) => {
               <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[#057455]">
                 Admin
               </p>
-              <h1 className="text-xl font-bold text-slate-950">Skill Sphere Control Center</h1>
+              <h1 className="text-xl font-bold text-slate-950">eLearni Control Center</h1>
             </div>
             <div className="flex items-center gap-3">
               <div className="hidden text-right sm:block">

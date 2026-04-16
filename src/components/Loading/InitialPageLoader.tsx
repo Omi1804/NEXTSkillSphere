@@ -4,7 +4,8 @@ import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { useEffect, useState } from "react";
 import SkillSphereLoader from "./SkillSphereLoader";
 
-const INITIAL_LOADER_STORAGE_KEY = "skill-sphere-initial-loader-shown";
+const INITIAL_LOADER_STORAGE_KEY = "elearni-initial-loader-shown";
+const LEGACY_INITIAL_LOADER_STORAGE_KEY = "skill-sphere-initial-loader-shown";
 const LOADER_DURATION_MS = 1000 * 2;
 
 export default function InitialPageLoader() {
@@ -15,7 +16,9 @@ export default function InitialPageLoader() {
     let hideDelay = LOADER_DURATION_MS;
 
     try {
-      const hasSeenLoader = window.sessionStorage.getItem(INITIAL_LOADER_STORAGE_KEY);
+      const hasSeenLoader =
+        window.sessionStorage.getItem(INITIAL_LOADER_STORAGE_KEY) ||
+        window.sessionStorage.getItem(LEGACY_INITIAL_LOADER_STORAGE_KEY);
 
       if (hasSeenLoader) {
         hideDelay = 0;
@@ -57,7 +60,7 @@ export default function InitialPageLoader() {
           exit={{ opacity: 0 }}
           transition={{ duration: shouldReduceMotion ? 0 : 0.35, ease: "easeOut" }}
           aria-live="polite"
-          aria-label="Skill Sphere is loading"
+          aria-label="eLearni is loading"
         >
           <SkillSphereLoader progressTarget={100} durationMs={1950} />
         </motion.div>

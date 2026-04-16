@@ -53,7 +53,7 @@ const LoginPageClient = () => {
           <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/25 to-transparent" />
           <div className="absolute bottom-0 left-0 p-10 text-white">
             <p className="text-sm font-semibold uppercase tracking-[0.28em] text-[#00ECA3]">
-              Skill Sphere
+              eLearni
             </p>
             <h1 className="mt-4 max-w-md text-4xl font-bold leading-tight">
               Continue learning where you left off.

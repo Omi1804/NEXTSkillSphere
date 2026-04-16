@@ -98,7 +98,7 @@ export const CarouselOne = () => {
           className="flex items-center gap-3 rounded-lg justify-center w-[13rem] p-4 rounded-tl-[2.3rem] bg-[linear-gradient(90deg,_rgb(0,_237,_164)_0%,_rgb(106,_125,_241)_100%)] text-white shadow-md hover:shadow-xl hover:scale-105 duration-300 animate-slide-in-from-bottom opacity-0 animate-delay-750"
         >
           <span className="material-symbols-outlined !text-[1.2rem]">adjust</span>
-          <p className="font-heading text-base font-semibold">Explore eLearny</p>
+          <p className="font-heading text-base font-semibold">Explore eLearni</p>
         </Link>
       </motion.div>
     </motion.div>

@@ -2,9 +2,11 @@
 
 import { useCallback, useEffect, useState } from "react";
 
-const CART_KEY = "skillSphereCart";
-const WISHLIST_KEY = "skillSphereWishlist";
-const COLLECTION_EVENT = "skillSphereCollectionsChanged";
+const CART_KEY = "eLearniCart";
+const WISHLIST_KEY = "eLearniWishlist";
+const COLLECTION_EVENT = "eLearniCollectionsChanged";
+const LEGACY_CART_KEY = "skillSphereCart";
+const LEGACY_WISHLIST_KEY = "skillSphereWishlist";
 
 type CollectionKey = typeof CART_KEY | typeof WISHLIST_KEY;
 
@@ -12,7 +14,9 @@ const readCollection = (key: CollectionKey) => {
   if (typeof window === "undefined") return [];
 
   try {
-    const parsed = JSON.parse(window.localStorage.getItem(key) || "[]");
+    const legacyKey = key === CART_KEY ? LEGACY_CART_KEY : LEGACY_WISHLIST_KEY;
+    const rawValue = window.localStorage.getItem(key) || window.localStorage.getItem(legacyKey) || "[]";
+    const parsed = JSON.parse(rawValue);
     return Array.isArray(parsed) ? parsed.filter((id): id is string => typeof id === "string") : [];
   } catch {
     return [];
@@ -20,7 +24,9 @@ const readCollection = (key: CollectionKey) => {
 };
 
 const writeCollection = (key: CollectionKey, ids: string[]) => {
+  const legacyKey = key === CART_KEY ? LEGACY_CART_KEY : LEGACY_WISHLIST_KEY;
   window.localStorage.setItem(key, JSON.stringify(Array.from(new Set(ids))));
+  window.localStorage.removeItem(legacyKey);
   window.dispatchEvent(new Event(COLLECTION_EVENT));
 };
 

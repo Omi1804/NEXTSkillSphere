@@ -1,4 +1,13 @@
 import LegalPage from "@/components/Legal/LegalPage";
+import type { Metadata } from "next";
+import { createPageMetadata } from "@/lib/seo";
+
+export const metadata: Metadata = createPageMetadata({
+  title: "Refund Policy",
+  description: "Understand the eLearni refund policy, payment clarifications, and learner support process.",
+  path: "/refund-policy",
+  keywords: ["refund policy", "payment support", "course refunds"],
+});
 
 const RefundPolicyPage = () => {
   return (

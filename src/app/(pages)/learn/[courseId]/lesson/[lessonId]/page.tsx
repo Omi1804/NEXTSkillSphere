@@ -1,8 +1,10 @@
 import LessonFocusClient from "@/components/Learn/LessonFocusClient";
 import { getCurrentUser } from "@/lib/getCurrentUser";
+import { createPageMetadata } from "@/lib/seo";
 import { getCourseById, getCourseProgressForUser } from "@/repositories/courses.repository";
 import { getLessonById, getLessonsByCourseId } from "@/repositories/lessons.repository";
 import { findPurchaseByUserAndCourse } from "@/repositories/user.repository";
+import type { Metadata } from "next";
 import { notFound, redirect } from "next/navigation";
 
 type LessonPageProps = {
@@ -11,6 +13,17 @@ type LessonPageProps = {
     lessonId: string;
   }>;
 };
+
+export async function generateMetadata({ params }: LessonPageProps): Promise<Metadata> {
+  const { courseId, lessonId } = await params;
+
+  return createPageMetadata({
+    title: "Lesson",
+    description: "Continue your enrolled course lesson on eLearni.",
+    path: `/learn/${courseId}/lesson/${lessonId}`,
+    noIndex: true,
+  });
+}
 
 const LessonPage = async ({ params }: LessonPageProps) => {
   const { courseId, lessonId } = await params;

@@ -167,7 +167,7 @@ const LearningPath = () => {
         </li>
         <li className={`${styles.learningList} ${styles.secondLink}`} onClick={() => setActive(2)}>
           <p className={`${styles.learningLink} ${active === 2 && styles.currentLink} `}>
-            Learn why eLearny is Best
+            Learn why eLearni is best
           </p>
         </li>
         <li className={`${styles.learningList} ${styles.thirdLink}`} onClick={() => setActive(3)}>

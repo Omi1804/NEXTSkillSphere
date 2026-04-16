@@ -1,11 +1,20 @@
 import LegalPage from "@/components/Legal/LegalPage";
+import type { Metadata } from "next";
+import { createPageMetadata } from "@/lib/seo";
+
+export const metadata: Metadata = createPageMetadata({
+  title: "Privacy Policy",
+  description: "Read the eLearni privacy policy and learn how account, course, and purchase data is handled.",
+  path: "/privacy-policy",
+  keywords: ["privacy policy", "data handling", "learner privacy"],
+});
 
 const PrivacyPolicyPage = () => {
   return (
     <LegalPage
       eyebrow="Privacy"
       title="Privacy Policy"
-      intro="This page explains the core privacy expectations for learners using Skill Sphere. Update the legal wording with counsel before launch."
+      intro="This page explains the core privacy expectations for learners using eLearni. Update the legal wording with counsel before launch."
       sections={[
         {
           title: "Information we collect",

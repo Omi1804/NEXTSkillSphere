@@ -48,7 +48,7 @@ const Details = () => {
         <div className="flex m-6 ">
           <span className="material-symbols-outlined mx-2 ">mail</span>
           <h3 className="font-bold font-heading text-base mx-2 w-[5.5rem]">EMAIL :</h3>
-          <p className="font-heading font-light text-base mx-2">elearny@example.com</p>
+          <p className="font-heading font-light text-base mx-2">hello@elearni.com</p>
         </div>
         <div className="m-8">
           <h1 className="font-heading font-bold text-xl my-4">Follow Us On:</h1>

@@ -1,4 +1,13 @@
 import LegalPage from "@/components/Legal/LegalPage";
+import type { Metadata } from "next";
+import { createPageMetadata } from "@/lib/seo";
+
+export const metadata: Metadata = createPageMetadata({
+  title: "Terms and Conditions",
+  description: "Review the eLearni terms and conditions for course access, account responsibilities, and platform usage.",
+  path: "/terms",
+  keywords: ["terms and conditions", "platform terms", "course access policy"],
+});
 
 const TermsPage = () => {
   return (
@@ -17,7 +26,7 @@ const TermsPage = () => {
         },
         {
           title: "Platform changes",
-          body: "Course content, pricing, and platform features may change as Skill Sphere improves the learning experience.",
+          body: "Course content, pricing, and platform features may change as eLearni improves the learning experience.",
         },
       ]}
     />

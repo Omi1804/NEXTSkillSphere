@@ -89,7 +89,7 @@ const ChatAssistantWidget = () => {
                     <span className="material-symbols-outlined">smart_toy</span>
                   </div>
                   <div>
-                    <p className="text-sm font-bold">Skill Sphere Assistant</p>
+                    <p className="text-sm font-bold">eLearni Assistant</p>
                     <p className="mt-1 text-xs text-slate-300">Ready to help you choose faster</p>
                   </div>
                 </div>

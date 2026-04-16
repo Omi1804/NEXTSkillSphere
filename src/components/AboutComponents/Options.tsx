@@ -27,7 +27,7 @@ export const Options = () => {
           <div className="flex my-10 justify-between">
             <div className="flex flex-col">
               <p className="font-body font-bold text-base my-1">JEAN DEAN</p>
-              <p className="font-light font-body ">- eLearny Founder</p>
+              <p className="font-light font-body ">- eLearni Founder</p>
             </div>
             <div className="w-[8rem] mx-8">
               <img src="/icons/sign.webp" alt="" className="w-full h-full" />

@@ -28,7 +28,7 @@ const parseProgressFromLabel = (progressValue?: string) => {
 
 export default function SkillSphereLoader({
   title = "Preparing your learning journey...",
-  message = "Tailoring a vibrant Skill Sphere experience just for you.",
+  message = "Tailoring a vibrant eLearni experience just for you.",
   progressLabel = "Optimizing",
   progressValue = "75%",
   progressTarget,

@@ -28,7 +28,7 @@ const Footer = () => {
               target="_blank"
               rel="noreferrer"
               className="rounded-full mx-1 flex items-center bg-[#6A7CF0] text-white transition duration-500 hover:bg-white hover:text-black"
-              aria-label="Follow Skill Sphere on Facebook"
+              aria-label="Follow eLearni on Facebook"
             >
               <FontAwesomeIcon icon={faFacebookF} className="w-4 h-4 p-4  " />
             </a>
@@ -37,7 +37,7 @@ const Footer = () => {
               target="_blank"
               rel="noreferrer"
               className="rounded-full mx-1 flex items-center bg-[#6A7CF0] text-white transition duration-500 hover:bg-white hover:text-black"
-              aria-label="Follow Skill Sphere on Twitter"
+              aria-label="Follow eLearni on Twitter"
             >
               <FontAwesomeIcon icon={faTwitter} className="w-4 h-4 p-4 " />
             </a>
@@ -46,7 +46,7 @@ const Footer = () => {
               target="_blank"
               rel="noreferrer"
               className="rounded-full mx-1 flex items-center bg-[#6A7CF0] text-white transition duration-500 hover:bg-white hover:text-black"
-              aria-label="Find Skill Sphere on Google"
+              aria-label="Find eLearni on Google"
             >
               <FontAwesomeIcon icon={faGooglePlusG} className="w-4 h-4 p-4 " />
             </a>
@@ -55,7 +55,7 @@ const Footer = () => {
               target="_blank"
               rel="noreferrer"
               className="rounded-full mx-1 flex items-center bg-[#6A7CF0] text-white transition duration-500 hover:bg-white hover:text-black"
-              aria-label="Follow Skill Sphere on Vimeo"
+              aria-label="Follow eLearni on Vimeo"
             >
               <FontAwesomeIcon icon={faVimeoV} className="w-4 h-4 p-4 " />
             </a>
@@ -64,7 +64,7 @@ const Footer = () => {
               target="_blank"
               rel="noreferrer"
               className="rounded-full mx-1 flex items-center bg-[#6A7CF0] text-white transition duration-500 hover:bg-white hover:text-black"
-              aria-label="Follow Skill Sphere on Instagram"
+              aria-label="Follow eLearni on Instagram"
             >
               <FontAwesomeIcon icon={faInstagram} className="w-4 h-4 p-4 " />
             </a>
@@ -123,10 +123,10 @@ const Footer = () => {
               <span className="material-symbols-outlined mr-2 text-lg opacity-50">mail</span>
               <span className="font-bold mr-3 text-base">Email : </span>
               <a
-                href="mailto:elearny@example.com"
+                href="mailto:hello@elearni.com"
                 className="text-base cursor-pointer hover:text-[#00ECA3] duration-500"
               >
-                elearny@example.com
+                hello@elearni.com
               </a>
             </li>
           </ul>

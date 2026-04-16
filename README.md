@@ -1,6 +1,6 @@
-# NEXTSkillSphere
+# eLearni
 
-NEXTSkillSphere is a course-selling platform that showcases curated learning paths, enables secure checkout for premium programs, and exposes API routes for both learners and administrators. The app combines server-rendered marketing pages with interactive components (animated learning sections, carousels, cart management) so prospective students can explore offerings and purchase seamlessly.
+eLearni is a course-selling platform that showcases curated learning paths, enables secure checkout for premium programs, and exposes API routes for both learners and administrators. The app combines server-rendered marketing pages with interactive components (animated learning sections, carousels, cart management) so prospective students can explore offerings and purchase seamlessly.
 
 ## Features
 
@@ -33,6 +33,7 @@ Create a `.env` (or `.env.local`) file with at least:
 ```
 DATABASE_URL="postgresql://USER:PASSWORD@HOST:PORT/DB"
 SECRET_KEY="replace-with-secure-random-string"
+NEXT_PUBLIC_SITE_URL="https://elearni.devomini.com"
 ```
 
 Add any other provider keys (email, storage, analytics) your deployment requires.
@@ -66,11 +67,11 @@ A standard Next.js production Dockerfile lets you containerize the app.
 
 1. Build the image
    ```bash
-   docker build -t nextskillsphere .
+   docker build -t elearni .
    ```
 2. Run the container (ensure `.env` contains all required variables)
    ```bash
-   docker run --env-file .env -p 3000:3000 nextskillsphere
+   docker run --env-file .env -p 3000:3000 elearni
    ```
 3. Access the app at http://localhost:3000.
 

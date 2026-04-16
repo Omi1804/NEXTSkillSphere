@@ -34,7 +34,7 @@ const InstructorProfilePage = ({ instructor }: InstructorProfilePageProps) => {
               </p>
               <h1 className="mt-4 text-4xl font-black md:text-6xl">{instructor.name}</h1>
               <p className="mt-4 max-w-3xl text-sm leading-7 text-slate-300">
-                Course creator at Skill Sphere, focused on structured lessons, practical learning
+                Course creator at eLearni, focused on structured lessons, practical learning
                 paths, and self-paced student progress.
               </p>
               <div className="mt-8 grid gap-3 sm:grid-cols-3">

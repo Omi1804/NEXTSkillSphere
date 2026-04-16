@@ -1,11 +1,19 @@
 import CommonHero from "@/components/CommonHero";
+import JsonLd from "@/components/seo/JsonLd";
 import CourseDetailsView from "@/components/CoursesComponents/CourseDetailsView";
 import { getCurrentUser } from "@/lib/getCurrentUser";
+import {
+  buildBreadcrumbSchema,
+  buildCourseSchema,
+  createPageMetadata,
+  summarizeText,
+} from "@/lib/seo";
 import {
   CourseProgressRecord,
   getCourseById,
   getCourseProgressForUser,
 } from "@/repositories/courses.repository";
+import type { Metadata } from "next";
 import { getLessonsByCourseId } from "@/repositories/lessons.repository";
 import { findPurchaseByUserAndCourse } from "@/repositories/user.repository";
 import { notFound } from "next/navigation";
@@ -15,6 +23,28 @@ type CoursePageProps = {
     id: string;
   }>;
 };
+
+export async function generateMetadata({ params }: CoursePageProps): Promise<Metadata> {
+  const { id } = await params;
+  const course = await getCourseById(id);
+
+  if (!course || !course.isPublished) {
+    return createPageMetadata({
+      title: "Course not found",
+      description: "The requested course could not be found.",
+      path: `/courses/${id}`,
+      noIndex: true,
+    });
+  }
+
+  return createPageMetadata({
+    title: course.title,
+    description: summarizeText(course.description),
+    path: `/courses/${course.id}`,
+    image: course.imageLink ?? undefined,
+    keywords: [course.title, "online course", "self-paced learning", course.instructor || "instructor"],
+  });
+}
 
 const page = async ({ params }: CoursePageProps) => {
   const { id } = await params;
@@ -43,6 +73,16 @@ const page = async ({ params }: CoursePageProps) => {
 
   return (
     <>
+      <JsonLd
+        data={[
+          buildBreadcrumbSchema([
+            { name: "Home", path: "/" },
+            { name: "Courses", path: "/courses" },
+            { name: course.title, path: `/courses/${course.id}` },
+          ]),
+          buildCourseSchema(course),
+        ]}
+      />
       <CommonHero
         Image={"course_image10.jpg"}
         heroHeading={course.title}

@@ -1,7 +1,9 @@
 import CheckoutClient from "@/components/Checkout/CheckoutClient";
 import { getCurrentUser } from "@/lib/getCurrentUser";
+import { createPageMetadata } from "@/lib/seo";
 import { getCourseById } from "@/repositories/courses.repository";
 import { findPurchaseByUserAndCourse } from "@/repositories/user.repository";
+import type { Metadata } from "next";
 import { notFound, redirect } from "next/navigation";
 
 type CheckoutPageProps = {
@@ -9,6 +11,17 @@ type CheckoutPageProps = {
     courseId: string;
   }>;
 };
+
+export async function generateMetadata({ params }: CheckoutPageProps): Promise<Metadata> {
+  const { courseId } = await params;
+
+  return createPageMetadata({
+    title: "Checkout",
+    description: "Complete your secure eLearni enrollment checkout.",
+    path: `/checkout/${courseId}`,
+    noIndex: true,
+  });
+}
 
 const CheckoutPage = async ({ params }: CheckoutPageProps) => {
   const { courseId } = await params;

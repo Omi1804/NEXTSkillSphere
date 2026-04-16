@@ -67,7 +67,7 @@ const CourseCard = ({
         <div className="flex items-center justify-between mb-5">
           <div className="flex items-center gap-1">
             <span className="material-symbols-outlined text-[#00ECA3] text-xl">school</span>
-            <p className="font-body font-light text-base">SkillSphere Course</p>
+            <p className="font-body font-light text-base">eLearni Course</p>
           </div>
           <div className="flex items-center gap-1">
             <span className="material-symbols-outlined text-[#00ECA3] text-xl">schedule</span>

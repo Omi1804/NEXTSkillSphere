@@ -1,6 +1,15 @@
 import { ProfileClient } from "@/components/Profile/Profileclient";
 import { getCurrentUser } from "@/lib/getCurrentUser";
+import type { Metadata } from "next";
+import { createPageMetadata } from "@/lib/seo";
 import { redirect } from "next/navigation";
+
+export const metadata: Metadata = createPageMetadata({
+  title: "Profile",
+  description: "Manage your eLearni profile, courses, and account progress.",
+  path: "/profile",
+  noIndex: true,
+});
 
 const ProfileLayout = async () => {
   const user = await getCurrentUser();

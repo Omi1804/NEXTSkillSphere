@@ -44,7 +44,7 @@ const AdminLoginForm = () => {
       <section className="hidden items-end overflow-hidden rounded-2xl bg-white/5 p-10 lg:flex">
         <div>
           <p className="text-sm font-semibold uppercase tracking-[0.28em] text-[#00ECA3]">
-            Skill Sphere Admin
+            eLearni Admin
           </p>
           <h1 className="mt-5 max-w-xl text-5xl font-bold leading-tight">
             Manage courses, lessons, and assets from one calm dashboard.

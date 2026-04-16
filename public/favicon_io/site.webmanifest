@@ -1,11 +1,14 @@
 {
-  "name": "Skill Sphere",
-  "short_name": "Skill Sphere",
+  "name": "eLearni",
+  "short_name": "eLearni",
+  "description": "eLearni helps learners build practical tech skills through flexible online courses and guided learning paths.",
   "icons": [
     { "src": "/favicon_io/android-chrome-192x192.png", "sizes": "192x192", "type": "image/png" },
     { "src": "/favicon_io/android-chrome-512x512.png", "sizes": "512x512", "type": "image/png" }
   ],
-  "theme_color": "#ffffff",
-  "background_color": "#ffffff",
-  "display": "standalone"
+  "theme_color": "#057455",
+  "background_color": "#f6f8fb",
+  "display": "standalone",
+  "start_url": "/",
+  "scope": "/"
 }

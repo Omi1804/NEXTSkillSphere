@@ -1,8 +1,18 @@
 import CommonHero from "@/components/CommonHero";
 import AllCoursesList from "@/components/CoursesComponents/AllCoursesList";
 import JoinCourse from "@/components/HomeComponents/JoinCourse";
+import type { Metadata } from "next";
+import { createPageMetadata } from "@/lib/seo";
 import { getCoursesPaginated } from "@/repositories/courses.repository";
 import { Course } from "@/types/course.types";
+
+export const metadata: Metadata = createPageMetadata({
+  title: "Courses",
+  description:
+    "Browse published eLearni courses to build practical skills with self-paced lessons, projects, and expert guidance.",
+  path: "/courses",
+  keywords: ["online courses", "self-paced courses", "tech upskilling"],
+});
 
 const parsePositiveInt = (value: string | undefined, fallback: number) => {
   const parsed = Number(value);

@@ -85,7 +85,7 @@ export function ProfileClient({
       <section className="relative h-[25rem] isolate overflow-hidden bg-slate-950 px-4 py-12 text-white sm:px-8 lg:px-16 mb-8">
         <img
           src="/course_image10.jpg"
-          alt="Skill Sphere learning workspace"
+          alt="eLearni learning workspace"
           className="absolute inset-0 -z-20 h-full w-full object-cover opacity-45 object-top"
         />
         <div className="absolute inset-0 -z-10 bg-[linear-gradient(115deg,#020617_0%,rgba(2,6,23,0.52)_38%,rgba(2,6,23,0.55)_100%)]" />

@@ -1,11 +1,14 @@
 import type { Metadata } from "next";
 import "../globals.css";
 import { Poppins, Roboto } from "next/font/google";
+import { createPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Skill Sphere Admin",
-  description: "Course management dashboard for Skill Sphere.",
-};
+export const metadata: Metadata = createPageMetadata({
+  title: "eLearni Admin",
+  description: "Admin dashboard for managing eLearni courses, lessons, publishing, and assets.",
+  path: "/admin",
+  noIndex: true,
+});
 
 const poppins = Poppins({
   subsets: ["latin"],

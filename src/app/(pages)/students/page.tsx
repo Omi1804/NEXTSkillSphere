@@ -1,6 +1,13 @@
-"use client";
 import CommonHero from "@/components/CommonHero";
-import React from "react";
+import type { Metadata } from "next";
+import { createPageMetadata } from "@/lib/seo";
+
+export const metadata: Metadata = createPageMetadata({
+  title: "Students",
+  description: "Student-focused information for the eLearni learning platform.",
+  path: "/students",
+  noIndex: true,
+});
 
 const Students = () => {
   return (
