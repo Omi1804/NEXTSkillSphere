@@ -84,8 +84,8 @@ export function HeaderClient({ initialUser }: HeaderClientProps) {
   return (
     <motion.div
       animate={{ backgroundColor: hideTopBar ? "rgba(34, 34, 34, 0.85)" : "rgba(34, 34, 34, 1)" }}
-      transition={{ ease: "easeInOut", duration: 0.3 }}
-      className="fixed top-0 left-0 right-0 z-50 backdrop-blur-sm"
+      transition={{ ease: "easeInOut", duration: 0.5 }}
+      className="fixed top-0 left-0 right-0 z-[100] backdrop-blur-sm"
     >
       <motion.div
         initial={false}
@@ -94,9 +94,9 @@ export function HeaderClient({ initialUser }: HeaderClientProps) {
           opacity: hideTopBar ? 0 : 1,
         }}
         transition={{ duration: 0.3, ease: "easeInOut" }}
-        className="overflow-hidden px-[5rem]"
+        className="relative z-[120] px-[5rem]"
       >
-        <div className="border-b-[0.1px] border-[#969696] pb-2 w-full flex items-center justify-between pt-4">
+        <div className="border-b-[0.1px] border-[#969696] pb-2 w-full flex items-center justify-between pt-4 z-[120]">
           <div className="flex items-center gap-5 ">
             <FontAwesomeIcon
               icon={faGoogle}
@@ -141,14 +141,14 @@ export function HeaderClient({ initialUser }: HeaderClientProps) {
           ) : (
             <div className="relative" ref={dropdownRef}>
               <button
-                className="flex items-center justify-center text-[#969696] gap-1 hover:text-[#00eda4] hover:shadow-md  duration-200"
+                className="relative z-[130] flex items-center justify-center text-[#969696] gap-1 hover:text-[#00eda4] hover:shadow-md duration-200"
                 onClick={toggleUserMenu}
               >
                 <span className="material-symbols-outlined text-2xl transition">person</span>
                 <p className="font-body font-light text-lg transition">{userDetails.name}</p>
               </button>
               {isUserMenuOpen && (
-                <div className="absolute right-0 mt-3 w-56 rounded-2xl bg-[#1c1c1c] border border-[#2c2c2c] shadow-2xl z-50 p-3 animate-in fade-in slide-in-from-top-2">
+                <div className="absolute right-0 mt-3 w-56 rounded-md rounded-tl-2xl bg-[#1c1c1c] border border-[#2c2c2c] shadow-2xl z-50 p-3 animate-in fade-in slide-in-from-top-2">
                   <div className="px-3 py-2 border-b border-[#2f2f2f]">
                     <p className="font-body text-sm text-[#b0b0b0]">Signed in as</p>
                     <p className="font-body text-base text-white font-medium truncate">
@@ -177,7 +177,7 @@ export function HeaderClient({ initialUser }: HeaderClientProps) {
       </motion.div>
       <div
         style={{ paddingBottom: !hideTopBar ? "20px" : "12px" }}
-        className="w-full flex justify-between pt-3 px-[5rem]"
+        className="relative z-[90] w-full flex justify-between pt-3 px-[5rem]"
       >
         <div className="w-[8rem] h-auto object-contain object-center flex items-center justify-center">
           <Link href={"/"}>

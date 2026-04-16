@@ -2,11 +2,10 @@
 
 import { getApiErrorMessage, getClientErrorMessage } from "@/errors/clientError";
 import Link from "next/link";
-import { useRouter, useSearchParams } from "next/navigation";
-import { FormEvent, startTransition, useState } from "react";
+import { useSearchParams } from "next/navigation";
+import { FormEvent, useState } from "react";
 
 const LoginPageClient = () => {
-  const router = useRouter();
   const searchParams = useSearchParams();
   const nextPath = searchParams.get("next") || "/";
   const [email, setEmail] = useState("");
@@ -32,10 +31,9 @@ const LoginPageClient = () => {
         throw new Error(getApiErrorMessage(data, "Unable to login"));
       }
 
-      startTransition(() => {
-        router.refresh();
-        router.replace(nextPath);
-      });
+      const safeNextPath = nextPath.startsWith("/") ? nextPath : "/";
+
+      window.location.assign(safeNextPath);
     } catch (err) {
       setError(getClientErrorMessage(err, "Something went wrong"));
     } finally {
@@ -45,7 +43,7 @@ const LoginPageClient = () => {
 
   return (
     <main className="bg-[#f6f8fb] px-4 py-16 md:px-10">
-      <section className="mx-auto grid max-w-6xl overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-xl lg:grid-cols-[0.9fr_1.1fr]">
+      <section className="mx-auto grid h-[560px] max-w-6xl overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-xl lg:grid-cols-[0.9fr_1.1fr]">
         <div className="relative hidden min-h-[560px] overflow-hidden bg-slate-950 lg:block">
           <img
             src="/course_image10.jpg"
