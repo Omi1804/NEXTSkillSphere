@@ -1,3 +1,5 @@
+"use client";
+
 import axios from "axios";
 import CourseCard from "../CourseCard";
 import { useEffect, useState } from "react";
