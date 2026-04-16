@@ -1,83 +1,232 @@
 # eLearni
 
-eLearni is a course-selling platform that showcases curated learning paths, enables secure checkout for premium programs, and exposes API routes for both learners and administrators. The app combines server-rendered marketing pages with interactive components (animated learning sections, carousels, cart management) so prospective students can explore offerings and purchase seamlessly.
+eLearni is a course-selling platform built with the Next.js App Router. It now includes a public marketing and commerce experience, learner-facing course and progress flows, and a protected admin workspace for managing courses, lessons, and course imagery.
 
-## Features
+The project has moved well beyond the original brochure-style setup. The current app includes:
 
-- Dynamic home, course catalog, services, students, and contact pages powered by the Next.js App Router.
-- Protected admin APIs for course creation, updates, and user management using JWT authentication.
-- User APIs for browsing catalog data, managing carts, and tracking purchased courses.
-- Prisma-backed data layer for relational storage with PostgreSQL (or any Prisma-supported database).
-- Tailwind CSS styling with reusable components, animations, and CSS modules for page-specific layouts.
+- a branded homepage with motion, smooth scrolling, and a first-load experience
+- separate login and register flows
+- course catalog, detail pages, reviews, and instructor profiles
+- cart and wishlist flows for learners
+- a learn dashboard and lesson-focused learning route
+- payment status pages with checkout plumbing left intentionally ready for Razorpay integration
+- a floating chat assistant UI shell on user routes
+- admin dashboard, course CRUD, lesson management, and image assignment tools
+- JWT cookie auth for users and admins
+- bcrypt-based password hashing and legacy password migration on login
+
+## Current Product Surface
+
+### Public and learner routes
+
+- `/` home page
+- `/about`
+- `/services`
+- `/students`
+- `/contact`
+- `/courses`
+- `/courses/[id]`
+- `/courses/[id]/reviews`
+- `/instructors/[id]`
+- `/login`
+- `/register`
+- `/profile`
+- `/wishlist`
+- `/cart`
+- `/mycart`
+- `/checkout/[courseId]`
+- `/payment/success`
+- `/payment/failed`
+- `/learn/[courseId]`
+- `/learn/[courseId]/lesson/[lessonId]`
+- `/privacy-policy`
+- `/refund-policy`
+- `/terms`
+
+### Admin routes
+
+- `/admin/login`
+- `/admin/dashboard`
+- `/admin/courses`
+- `/admin/courses/new`
+- `/admin/courses/[id]/edit`
+- `/admin/courses/[id]/lessons`
+- `/admin/images`
+
+### API routes
+
+#### User auth and profile
+
+- `POST /api/v1/user/signup`
+- `POST /api/v1/user/login`
+- `GET /api/v1/user/me`
+- `POST /api/v1/logout`
+
+#### User course and progress APIs
+
+- `GET /api/v1/user/courses`
+- `GET /api/v1/user/courses/[id]`
+- `GET /api/v1/user/courses/[id]/lessons`
+- `GET /api/v1/user/courses/[id]/progress`
+- `POST /api/v1/user/courses/purchase/[id]`
+- `GET /api/v1/user/courses/purchased`
+- `PATCH /api/v1/user/lessons/[lessonId]/progress`
+
+#### Admin auth APIs
+
+- `POST /api/v1/admin/signup`
+- `POST /api/v1/admin/login`
+- `POST /api/v1/admin/logout`
+- `GET /api/v1/admin/me`
+
+#### Admin content APIs
+
+- `GET, POST /api/v1/admin/courses`
+- `PUT, DELETE /api/v1/admin/courses/[id]`
+- `GET, POST /api/v1/admin/courses/[id]/lessons`
+- `PUT, DELETE /api/v1/admin/lessons/[lessonId]`
+- `GET, POST /api/v1/admin/images`
+- `PATCH /api/v1/admin/courses/bulk/images`
+- `POST /api/v1/admin/courses/bulk`
+
+#### Utility routes
+
+- `GET /api/health`
+- `POST /api/seed/images`
 
 ## Tech Stack
 
-- Next.js 14 (App Router, SSR/ISR)
-- React 18 + TypeScript
-- Tailwind CSS + CSS Modules
-- Prisma ORM + PostgreSQL
-- JWT authentication (admins and learners)
-- Docker (optional containerized runtime)
+- Next.js `16.2.3`
+- React `19.2.5`
+- TypeScript `5.9`
+- Tailwind CSS `3.4`
+- Prisma `7.7`
+- PostgreSQL
+- Framer Motion
+- Lenis smooth scrolling
+- JWT cookie auth
+- bcryptjs password hashing
+- Zustand and Recoil where useful in the UI layer
 
-## Prerequisites
+## Authentication and Security
 
-- Node.js 18+
-- npm (examples below use npm, but pnpm/yarn also work)
-- PostgreSQL database and a valid `DATABASE_URL`
-- `SECRET_KEY` for JWT signing
+The app currently uses signed JWT cookies for both learner and admin sessions.
 
-## Environment Variables
+- user and admin passwords are hashed with bcrypt before storage
+- legacy plaintext passwords are upgraded to bcrypt after the next successful login
+- auth responses sanitize user objects before returning them to the client
+- admin and user cookies are `httpOnly`
+- secure cookie mode is enabled automatically in production
 
-Create a `.env` (or `.env.local`) file with at least:
+Required environment variables:
 
-```
+```bash
 DATABASE_URL="postgresql://USER:PASSWORD@HOST:PORT/DB"
-SECRET_KEY="replace-with-secure-random-string"
-NEXT_PUBLIC_SITE_URL="https://elearni.devomini.com"
+SECRET_KEY="replace-with-a-long-random-secret"
+NEXT_PUBLIC_SITE_URL="http://localhost:3000"
 ```
 
-Add any other provider keys (email, storage, analytics) your deployment requires.
+## Data Model
 
-## Local Development (npm)
+The Prisma schema currently models:
 
-1. Install dependencies
-   ```bash
-   npm install
-   ```
-2. Generate the Prisma client and apply migrations
-   ```bash
-   npx prisma migrate dev
-   ```
-3. Start the dev server
-   ```bash
-   npm run dev
-   ```
-4. Visit http://localhost:3000 to browse the marketing site, hit `/api` routes, and iterate on components.
+- `User`
+- `Course`
+- `CourseImages`
+- `Lesson`
+- `Purchase`
+- `LessonProgress`
 
-### Useful Scripts
+`User` includes both learner and admin roles via the `Role` enum.
 
-- `npm run dev` – start Next.js in development mode
-- `npm run build` – compile for production
-- `npm run start` – run the production server
-- `npx prisma studio` – inspect and edit the database via Prisma Studio
+## Commerce Notes
 
-## Docker Workflow
+- cart and wishlist state are currently client-side and persisted in `localStorage`
+- checkout and purchase plumbing exist, but the actual payment gateway is intentionally left open for Razorpay integration
+- payment success and failure routes already exist and can be wired to a real gateway callback flow
 
-A standard Next.js production Dockerfile lets you containerize the app.
+## UX Notes
 
-1. Build the image
-   ```bash
-   docker build -t elearni .
-   ```
-2. Run the container (ensure `.env` contains all required variables)
-   ```bash
-   docker run --env-file .env -p 3000:3000 elearni
-   ```
-3. Access the app at http://localhost:3000.
+The current user experience includes:
 
-> Tip: For local databases, share network access (`--network host` on Linux or `--add-host host.docker.internal:host-gateway` on macOS/Windows) so the container can reach your DB.
+- global smooth scroll on public routes
+- first-load branded loading screen
+- route-level loading UI
+- animated homepage sections
+- floating chat assistant launcher and chat shell
+- immersive profile page with admin access visibility
+
+## Local Development
+
+### Prerequisites
+
+- Node.js 20+
+- npm
+- PostgreSQL database
+
+### Install
+
+```bash
+npm install
+```
+
+### Apply database migrations
+
+```bash
+npx prisma migrate dev
+```
+
+### Start the app
+
+```bash
+npm run dev
+```
+
+Then open [http://localhost:3000](http://localhost:3000).
+
+## Scripts
+
+- `npm run dev` start the Next.js dev server
+- `npm run build` generate Prisma client and create a production build
+- `npm run start` start the production server
+- `npm run lint` run ESLint
+- `npm run lint:fix` auto-fix lint issues where possible
+- `npm run format` format the codebase with Prettier
+- `npm run format:check` verify formatting
+
+## Database and Prisma
+
+This repo uses a generated Prisma client under `generated/prisma`, so after dependency or schema changes the client is regenerated by:
+
+- `postinstall`
+- `npm run build`
+
+You can inspect the database locally with:
+
+```bash
+npx prisma studio
+```
 
 ## Deployment
 
-- Deploy to Vercel, AWS, Render, or any platform that supports Node.js or Docker.
-- Run `npx prisma migrate deploy` before starting the app in production to keep the schema in sync.
+You can deploy this app to Vercel, Render, Railway, AWS, or a custom Node/Docker environment.
+
+Recommended production flow:
+
+```bash
+npm install
+npx prisma migrate deploy
+npm run build
+npm run start
+```
+
+## Current Gaps
+
+A few things are intentionally not finished yet:
+
+- real payment gateway integration, including Razorpay checkout and webhook verification
+- persistent server-side cart and wishlist storage
+- real chat assistant backend logic
+- richer course metadata such as categories, tags, coupons, and instructor bios in the database schema
+
+That means the current codebase is best understood as a polished course-selling foundation with real admin management, learner flows, and auth/security in place, plus a few commerce integrations still waiting for the final wiring.
