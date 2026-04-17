@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Analytics } from "@vercel/analytics/next";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import "../globals.css";
 import "lenis/dist/lenis.css";
@@ -106,6 +107,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
       </head>
       <body className={`${poppins.variable} ${roboto.variable} antialiased`}>
+        <Analytics />
         <JsonLd data={[buildOrganizationSchema(), buildWebsiteSchema()]} />
         <SmoothScrollProvider>
           <InitialPageLoader />
