@@ -10,7 +10,7 @@ The project has moved well beyond the original brochure-style setup. The current
 - cart and wishlist flows for learners
 - a learn dashboard and lesson-focused learning route
 - payment status pages with checkout plumbing left intentionally ready for Razorpay integration
-- a floating chat assistant UI shell on user routes
+- a floating AI chat assistant on user routes with live backend responses
 - admin dashboard, course CRUD, lesson management, and image assignment tools
 - JWT cookie auth for users and admins
 - bcrypt-based password hashing and legacy password migration on login
@@ -93,6 +93,7 @@ The project has moved well beyond the original brochure-style setup. The current
 
 - `GET /api/health`
 - `POST /api/seed/images`
+- `POST /api/v1/chat`
 
 ## Tech Stack
 
@@ -104,6 +105,8 @@ The project has moved well beyond the original brochure-style setup. The current
 - PostgreSQL
 - Framer Motion
 - Lenis smooth scrolling
+- Groq SDK (chat LLM provider)
+- Upstash Redis + Upstash Ratelimit
 - JWT cookie auth
 - bcryptjs password hashing
 - Zustand and Recoil where useful in the UI layer
@@ -124,7 +127,45 @@ Required environment variables:
 DATABASE_URL="postgresql://USER:PASSWORD@HOST:PORT/DB"
 SECRET_KEY="replace-with-a-long-random-secret"
 NEXT_PUBLIC_SITE_URL="http://localhost:3000"
+GROQ_API_KEY="your-groq-api-key"
+UPSTASH_REDIS_REST_URL="https://...upstash.io"
+UPSTASH_REDIS_REST_TOKEN="your-upstash-token"
 ```
+
+## AI Chat Assistant
+
+The app now includes a live chat assistant backed by Groq LLM calls and surfaced through `POST /api/v1/chat`.
+
+Current chat behavior:
+
+- model: `llama-3.3-70b-versatile` via Groq
+- assistant constrained to course-selling guidance (benefits, pricing, level, duration, enrollment)
+- floating chat widget supports prompt shortcuts, formatted assistant responses, and usage hints
+
+### Chat Protection and Rate Limiting
+
+The chat route includes layered safeguards:
+
+- IP-based request rate limit: `20` requests per minute (sliding window)
+- message validation: reject non-string payloads, empty messages, and spam-like noisy/repetitive input
+- hard message-length limit: `< 200` characters
+- Groq output cap per request: `max_tokens = 350`
+- per-session token budget: `5000` tokens per hour (tracked in Redis)
+
+When limits are hit, the API returns structured error codes and status codes so the widget can show clear user feedback:
+
+- `RATE_LIMITED` (`429`)
+- `SESSION_TOKEN_LIMIT` (`429`)
+- `MESSAGE_TOO_LONG` (`400`)
+- `EMPTY_MESSAGE` (`400`)
+- `INVALID_MESSAGE` (`400`)
+- `SPAM_DETECTED` (`400`)
+- `SERVER_ERROR` (`500`)
+
+Rate-limit metadata is also returned through headers:
+
+- `X-RateLimit-Limit`
+- `X-RateLimit-Remaining`
 
 ## Data Model
 
@@ -226,7 +267,7 @@ A few things are intentionally not finished yet:
 
 - real payment gateway integration, including Razorpay checkout and webhook verification
 - persistent server-side cart and wishlist storage
-- real chat assistant backend logic
+- persistent chat history and long-term conversation memory
 - richer course metadata such as categories, tags, coupons, and instructor bios in the database schema
 
 That means the current codebase is best understood as a polished course-selling foundation with real admin management, learner flows, and auth/security in place, plus a few commerce integrations still waiting for the final wiring.
