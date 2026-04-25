@@ -24,6 +24,8 @@
     "@prisma/adapter-pg": "^7.7.0",
     "@prisma/client": "^7.7.0",
     "@react-google-maps/api": "^2.20.8",
+    "@upstash/ratelimit": "^2.0.8",
+    "@upstash/redis": "^1.37.0",
     "@vercel/analytics": "^2.0.1",
     "axios": "^1.15.0",
     "bcryptjs": "^3.0.3",

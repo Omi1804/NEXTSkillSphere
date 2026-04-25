@@ -6,6 +6,23 @@ import ChatButton from "./ChatButton";
 import { renderAssistantContent } from "./renderConfigs";
 
 const quickPrompts = ["Find a course", "Learning path", "Pricing help"];
+const MAX_MESSAGE_LENGTH = 200;
+
+const getSessionId = () => {
+  if (typeof window === "undefined") return "server";
+
+  const storageKey = "chat_session_id";
+  const existingId = window.localStorage.getItem(storageKey);
+  if (existingId) return existingId;
+
+  const newId =
+    typeof crypto !== "undefined" && "randomUUID" in crypto
+      ? crypto.randomUUID()
+      : `${Date.now()}-${Math.random().toString(36).slice(2, 10)}`;
+
+  window.localStorage.setItem(storageKey, newId);
+  return newId;
+};
 
 type ChatMessage = {
   id: string;
@@ -30,6 +47,7 @@ const ChatAssistantWidget = () => {
   const [draftMessage, setDraftMessage] = useState("");
   const [messages, setMessages] = useState<ChatMessage[]>(initialMessages);
   const [isSending, setIsSending] = useState(false);
+  const [usageHint, setUsageHint] = useState<string | null>(null);
 
   const panelMotion = reduceMotion
     ? {}
@@ -57,8 +75,21 @@ const ChatAssistantWidget = () => {
     const trimmedMessage = (messageOverride ?? draftMessage).trim();
     if (!trimmedMessage) return;
 
+    if (trimmedMessage.length > MAX_MESSAGE_LENGTH) {
+      setMessages((currentMessages) => [
+        ...currentMessages,
+        addMessage(
+          "assistant",
+          `Message too long. Keep it under ${MAX_MESSAGE_LENGTH} characters.`,
+          true,
+        ),
+      ]);
+      return;
+    }
+
     setMessages((currentMessages) => [...currentMessages, addMessage("user", trimmedMessage)]);
     setDraftMessage("");
+    setUsageHint(null);
 
     try {
       setIsSending(true);
@@ -66,13 +97,41 @@ const ChatAssistantWidget = () => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          "x-chat-session-id": getSessionId(),
         },
         body: JSON.stringify({ message: trimmedMessage }),
       });
 
-      const payload = (await response.json()) as { result?: string; error?: string };
+      const payload = (await response.json()) as {
+        result?: string;
+        error?: string;
+        code?: string;
+        maxLength?: number;
+        tokenLimit?: number;
+        tokenUsed?: number;
+        usage?: {
+          tokensUsed: number;
+          tokensLimit: number;
+        };
+      };
 
       if (!response.ok) {
+        if (payload.code === "SESSION_TOKEN_LIMIT") {
+          throw new Error(
+            `Session token limit reached (${payload.tokenUsed || 0}/${payload.tokenLimit || 0}). Please wait about an hour before trying again.`,
+          );
+        }
+
+        if (payload.code === "RATE_LIMITED") {
+          throw new Error("Too many messages in a short time. Please slow down and try again.");
+        }
+
+        if (payload.code === "MESSAGE_TOO_LONG") {
+          throw new Error(
+            `Message too long. Keep it under ${payload.maxLength || MAX_MESSAGE_LENGTH} characters.`,
+          );
+        }
+
         throw new Error(payload.error || "Unable to get a response right now.");
       }
 
@@ -82,14 +141,21 @@ const ChatAssistantWidget = () => {
         ...currentMessages,
         addMessage("assistant", assistantReply),
       ]);
-    } catch {
+
+      if (payload.usage) {
+        setUsageHint(
+          `Session usage: ${payload.usage.tokensUsed}/${payload.usage.tokensLimit} tokens`,
+        );
+      }
+    } catch (error) {
+      const errorMessage =
+        error instanceof Error
+          ? error.message
+          : "I am having trouble connecting right now. Please try again in a moment.";
+
       setMessages((currentMessages) => [
         ...currentMessages,
-        addMessage(
-          "assistant",
-          "I am having trouble connecting right now. Please try again in a moment.",
-          true,
-        ),
+        addMessage("assistant", errorMessage, true),
       ]);
     } finally {
       setIsSending(false);
@@ -185,12 +251,16 @@ const ChatAssistantWidget = () => {
                   </button>
                 ))}
               </div>
-              <div className="flex items-center gap-2 rounded-xl border border-slate-200 bg-slate-50 px-3 py-2">
+              {usageHint && (
+                <p className="mt-2 text-[11px] font-medium text-slate-500">{usageHint}</p>
+              )}
+              <div className="flex items-center gap-2 rounded-xl border border-slate-200 bg-slate-50 px-3 py-1">
                 <input
                   type="text"
                   placeholder="Ask about courses..."
                   value={draftMessage}
                   onChange={(event) => setDraftMessage(event.target.value)}
+                  maxLength={MAX_MESSAGE_LENGTH}
                   disabled={isSending}
                   onKeyDown={(event) => {
                     if (event.key === "Enter") {
@@ -205,12 +275,15 @@ const ChatAssistantWidget = () => {
                   type="button"
                   onClick={() => void handleSend()}
                   disabled={isSending}
-                  className="flex h-10 w-10 items-center justify-center rounded-xl bg-slate-950 text-white transition hover:bg-slate-800"
+                  className="flex h-8 w-8 items-center justify-center rounded-lg bg-slate-950 text-white transition hover:bg-slate-800"
                   aria-label="Send message"
                 >
-                  <span className="material-symbols-outlined text-base">send</span>
+                  <span className="material-symbols-outlined !text-base">send</span>
                 </button>
               </div>
+              <p className="mt-2 text-[11px] text-slate-400">
+                {draftMessage.length}/{MAX_MESSAGE_LENGTH}
+              </p>
             </div>
           </motion.div>
         )}
