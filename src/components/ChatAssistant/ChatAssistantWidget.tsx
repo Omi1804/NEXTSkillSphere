@@ -2,59 +2,34 @@
 
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
+import ChatButton from "./ChatButton";
+import { renderAssistantContent } from "./renderConfigs";
 
 const quickPrompts = ["Find a course", "Learning path", "Pricing help"];
 
-const LOADER_SIZE = 64;
-const LOADER_INSET = 5;
-const LOADER_CORNER_RADIUS = 16;
-const LOADER_SIDE = LOADER_SIZE - LOADER_INSET * 2;
-const LOADER_PATH_LENGTH =
-  2 * (LOADER_SIDE + LOADER_SIDE - 4 * LOADER_CORNER_RADIUS) + 2 * Math.PI * LOADER_CORNER_RADIUS;
+type ChatMessage = {
+  id: string;
+  role: "assistant" | "user";
+  content: string;
+  isError?: boolean;
+};
+
+const initialMessages: ChatMessage[] = [
+  {
+    id: "assistant-welcome",
+    role: "assistant",
+    content:
+      "Hi, I can help you explore courses, compare paths, and continue learning. Tell me your goal and I will suggest the best options.",
+  },
+];
 
 const ChatAssistantWidget = () => {
   const endRef = useRef<HTMLDivElement | null>(null);
+  const reduceMotion = useReducedMotion();
   const [isOpen, setIsOpen] = useState(false);
   const [draftMessage, setDraftMessage] = useState("");
-  const [localMessages, setLocalMessages] = useState<string[]>([]);
-  const [scrollProgress, setScrollProgress] = useState(0);
-  const reduceMotion = useReducedMotion();
-
-  useEffect(() => {
-    let rafId: number | null = null;
-
-    const updateScrollProgress = () => {
-      const scrollTop = window.scrollY;
-      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-      const progress = docHeight > 0 ? scrollTop / docHeight : 0;
-      setScrollProgress(Math.min(1, Math.max(0, progress)));
-      rafId = null;
-    };
-
-    const onScroll = () => {
-      if (rafId !== null) return;
-      rafId = window.requestAnimationFrame(updateScrollProgress);
-    };
-
-    window.addEventListener("scroll", onScroll, { passive: true });
-    updateScrollProgress();
-
-    return () => {
-      window.removeEventListener("scroll", onScroll);
-      if (rafId !== null) {
-        window.cancelAnimationFrame(rafId);
-      }
-    };
-  }, []);
-
-  useEffect(() => {
-    if (isOpen && endRef.current) {
-      endRef.current.scrollTo({
-        top: endRef.current.scrollHeight,
-        behavior: "smooth",
-      });
-    }
-  }, [isOpen, localMessages]);
+  const [messages, setMessages] = useState<ChatMessage[]>(initialMessages);
+  const [isSending, setIsSending] = useState(false);
 
   const panelMotion = reduceMotion
     ? {}
@@ -65,15 +40,70 @@ const ChatAssistantWidget = () => {
         transition: { type: "spring" as const, stiffness: 360, damping: 28 },
       };
 
-  const handleSend = () => {
-    const trimmedMessage = draftMessage.trim();
+  const addMessage = (
+    role: "assistant" | "user",
+    content: string,
+    isError = false,
+  ): ChatMessage => ({
+    id: `${role}-${Date.now()}-${Math.random().toString(36).slice(2, 9)}`,
+    role,
+    content,
+    isError,
+  });
+
+  const handleSend = async (messageOverride?: string) => {
+    if (isSending) return;
+
+    const trimmedMessage = (messageOverride ?? draftMessage).trim();
     if (!trimmedMessage) return;
-    setLocalMessages((messages) => [...messages, trimmedMessage]);
+
+    setMessages((currentMessages) => [...currentMessages, addMessage("user", trimmedMessage)]);
     setDraftMessage("");
+
+    try {
+      setIsSending(true);
+      const response = await fetch("/api/v1/chat", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ message: trimmedMessage }),
+      });
+
+      const payload = (await response.json()) as { result?: string; error?: string };
+
+      if (!response.ok) {
+        throw new Error(payload.error || "Unable to get a response right now.");
+      }
+
+      const assistantReply =
+        payload.result?.trim() || "I could not generate a reply. Please try again.";
+      setMessages((currentMessages) => [
+        ...currentMessages,
+        addMessage("assistant", assistantReply),
+      ]);
+    } catch {
+      setMessages((currentMessages) => [
+        ...currentMessages,
+        addMessage(
+          "assistant",
+          "I am having trouble connecting right now. Please try again in a moment.",
+          true,
+        ),
+      ]);
+    } finally {
+      setIsSending(false);
+    }
   };
 
-  const strokeDashoffset = LOADER_PATH_LENGTH * (1 - scrollProgress);
-
+  useEffect(() => {
+    if (isOpen && endRef.current) {
+      endRef.current.scrollTo({
+        top: endRef.current.scrollHeight,
+        behavior: "smooth",
+      });
+    }
+  }, [isOpen, messages, isSending]);
   return (
     <div className="fixed bottom-6 right-6 z-[1000] flex flex-col items-end gap-4">
       <AnimatePresence>
@@ -104,7 +134,6 @@ const ChatAssistantWidget = () => {
               </div>
             </div>
 
-            {/* ── Messages ── */}
             <div
               ref={endRef}
               className="max-h-[420px] space-y-4 !overflow-y-auto bg-[#f6f8fb] p-5"
@@ -115,29 +144,29 @@ const ChatAssistantWidget = () => {
                 WebkitOverflowScrolling: "touch",
               }}
             >
-              <div className="max-w-[82%] rounded-2xl rounded-tl-sm bg-white p-4 text-sm leading-6 text-slate-700 shadow-sm">
-                Hi, I can help you explore courses, compare paths, and continue learning. The chat
-                logic is ready for your integration.
-              </div>
-              <div className="ml-auto max-w-[78%] rounded-2xl rounded-tr-sm bg-[#00ECA3] p-4 text-sm font-semibold leading-6 text-slate-950 shadow-sm">
-                I want to find the best course for my goals.
-              </div>
-              <div className="max-w-[86%] rounded-2xl rounded-tl-sm bg-white p-4 text-sm leading-6 text-slate-700 shadow-sm">
-                Great. Start with a goal, skill level, or time commitment and I&apos;ll guide the
-                flow.
-              </div>
-              {localMessages.map((message, index) => (
+              {messages.map((message) => (
                 <div
-                  key={`${message}-${index}`}
-                  className="ml-auto max-w-[78%] rounded-2xl rounded-tr-sm bg-slate-950 p-4 text-sm font-semibold leading-6 text-white shadow-sm"
+                  key={message.id}
+                  className={
+                    message.role === "user"
+                      ? "ml-auto max-w-[78%] rounded-2xl rounded-tr-sm bg-slate-950 p-4 text-sm font-semibold leading-6 text-white shadow-sm"
+                      : `max-w-[86%] rounded-2xl rounded-tl-sm p-4 text-sm leading-6 shadow-sm ${
+                          message.isError
+                            ? "border border-red-200 bg-red-50 text-red-700"
+                            : "bg-white text-slate-700"
+                        }`
+                  }
                 >
-                  {message}
+                  {message.role === "assistant" ? (
+                    <div className="space-y-2">{renderAssistantContent(message.content)}</div>
+                  ) : (
+                    <p className="whitespace-pre-wrap">{message.content}</p>
+                  )}
                 </div>
               ))}
-              {localMessages.length > 0 && (
-                <div className="max-w-[86%] rounded-2xl rounded-tl-sm bg-white p-4 text-sm leading-6 text-slate-700 shadow-sm">
-                  Nice. The visual chat shell is connected locally; plug your bot endpoint here when
-                  the assistant backend is ready.
+              {isSending && (
+                <div className="max-w-[86%] rounded-2xl rounded-tl-sm bg-white p-4 text-sm leading-6 text-slate-500 shadow-sm">
+                  Thinking...
                 </div>
               )}
             </div>
@@ -148,7 +177,8 @@ const ChatAssistantWidget = () => {
                   <button
                     key={prompt}
                     type="button"
-                    onClick={() => setDraftMessage(prompt)}
+                    onClick={() => void handleSend(prompt)}
+                    disabled={isSending}
                     className="rounded-full border border-slate-200 px-3 py-1.5 text-xs font-bold text-slate-600 transition hover:border-[#00B982] hover:text-[#057455]"
                   >
                     {prompt}
@@ -161,10 +191,11 @@ const ChatAssistantWidget = () => {
                   placeholder="Ask about courses..."
                   value={draftMessage}
                   onChange={(event) => setDraftMessage(event.target.value)}
+                  disabled={isSending}
                   onKeyDown={(event) => {
                     if (event.key === "Enter") {
                       event.preventDefault();
-                      handleSend();
+                      void handleSend();
                     }
                   }}
                   className="min-w-0 flex-1 bg-transparent text-sm text-slate-700 outline-none placeholder:text-slate-400"
@@ -172,7 +203,8 @@ const ChatAssistantWidget = () => {
                 />
                 <button
                   type="button"
-                  onClick={handleSend}
+                  onClick={() => void handleSend()}
+                  disabled={isSending}
                   className="flex h-10 w-10 items-center justify-center rounded-xl bg-slate-950 text-white transition hover:bg-slate-800"
                   aria-label="Send message"
                 >
@@ -184,65 +216,7 @@ const ChatAssistantWidget = () => {
         )}
       </AnimatePresence>
 
-      <motion.button
-        type="button"
-        onClick={() => setIsOpen((current) => !current)}
-        className="group relative flex h-14 w-14 items-center justify-center rounded-[18px] bg-slate-950 text-white shadow-2xl ring-1 ring-white/30 transition hover:-translate-y-1"
-        aria-label={isOpen ? "Close chat assistant" : "Open chat assistant"}
-        whileHover={reduceMotion ? undefined : { scale: 1.04 }}
-        whileTap={reduceMotion ? undefined : { scale: 0.96 }}
-      >
-        <svg
-          width={LOADER_SIZE}
-          height={LOADER_SIZE}
-          viewBox={`0 0 ${LOADER_SIZE} ${LOADER_SIZE}`}
-          className="pointer-events-none absolute -inset-1"
-          aria-hidden="true"
-        >
-          <defs>
-            <linearGradient id="scroll-ring-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%" stopColor="#00ECA3" />
-              <stop offset="100%" stopColor="#6a7df1" />
-            </linearGradient>
-          </defs>
-
-          <rect
-            x={LOADER_INSET}
-            y={LOADER_INSET}
-            width={LOADER_SIDE}
-            height={LOADER_SIDE}
-            rx={LOADER_CORNER_RADIUS}
-            fill="none"
-            stroke="white"
-            strokeOpacity={0.08}
-            strokeWidth={2.5}
-          />
-
-          <rect
-            x={LOADER_INSET}
-            y={LOADER_INSET}
-            width={LOADER_SIDE}
-            height={LOADER_SIDE}
-            rx={LOADER_CORNER_RADIUS}
-            fill="none"
-            stroke="url(#scroll-ring-gradient)"
-            strokeWidth={2.5}
-            strokeLinecap="round"
-            strokeDasharray={LOADER_PATH_LENGTH}
-            strokeDashoffset={strokeDashoffset}
-          />
-        </svg>
-
-        <span className="material-symbols-outlined !text-3xl">
-          {isOpen ? "forum" : "support_agent"}
-        </span>
-
-        {!isOpen && (
-          <span className="absolute -right-1 -top-1 flex h-5 w-5 items-center justify-center rounded-full bg-[#00ECA3] text-[10px] font-black text-slate-950 shadow">
-            AI
-          </span>
-        )}
-      </motion.button>
+      <ChatButton isOpen={isOpen} setIsOpen={setIsOpen} />
     </div>
   );
 };
