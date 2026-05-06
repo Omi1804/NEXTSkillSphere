@@ -17,6 +17,14 @@ export const Role = {
 export type Role = (typeof Role)[keyof typeof Role]
 
 
+export const ChatRole = {
+  USER: 'USER',
+  ASSISTANT: 'ASSISTANT'
+} as const
+
+export type ChatRole = (typeof ChatRole)[keyof typeof ChatRole]
+
+
 export const PurchaseStatus = {
   SUCCESS: 'SUCCESS',
   FAILED: 'FAILED',

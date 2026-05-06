@@ -10,6 +10,7 @@ import styles from "@/app/styles/home.module.css";
 import { LoginModal } from "./LoginModal";
 import { HeaderUser } from "@/types/header.types";
 import { useOnClickOutside } from "@/hooks/useOnClickOutside";
+import { useUserStore } from "@/store/useUserStore";
 
 interface HeaderClientProps {
   initialUser: HeaderUser | null;
@@ -21,6 +22,7 @@ export function HeaderClient({ initialUser }: HeaderClientProps) {
   const dropdownRef = useRef<HTMLDivElement | null>(null);
   const lastScrollY = useRef(0);
 
+  const { setCurrentUser } = useUserStore();
   const [userDetails, setUserDetails] = useState<HeaderUser | null>(initialUser);
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
   const [isLoginOpen, setIsLoginOpen] = useState(false);
@@ -30,7 +32,8 @@ export function HeaderClient({ initialUser }: HeaderClientProps) {
 
   useEffect(() => {
     setUserDetails(initialUser);
-  }, [initialUser]);
+    setCurrentUser(initialUser);
+  }, [initialUser, setCurrentUser]);
 
   const openLoginModal = () => router.push("/login");
   const closeLoginModal = () => setIsLoginOpen(false);

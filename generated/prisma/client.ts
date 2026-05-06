@@ -71,3 +71,8 @@ export type Purchase = Prisma.PurchaseModel
  * 
  */
 export type LessonProgress = Prisma.LessonProgressModel
+/**
+ * Model ChatMessage
+ * 
+ */
+export type ChatMessage = Prisma.ChatMessageModel

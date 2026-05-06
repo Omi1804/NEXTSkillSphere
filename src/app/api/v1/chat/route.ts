@@ -1,4 +1,7 @@
+import { USER_SESSION_COOKIE } from "@/constants/userAuth.constants";
+import { prisma } from "@/lib/prisma";
 import { rateLimit, redis } from "@/lib/rateLimiter";
+import { authenticateUser } from "@/middlewares/userAuth.middleware";
 import Groq from "groq-sdk";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -73,6 +76,16 @@ export async function POST(req: NextRequest) {
   }
 
   try {
+    let user = null;
+    const token = req.cookies.get(USER_SESSION_COOKIE)?.value;
+    if (token) {
+      try {
+        user = await authenticateUser(req);
+      } catch (error) {
+        user = null;
+      }
+    }
+
     const { message } = await req.json();
     if (typeof message !== "string") {
       return jsonWithRateHeaders(
@@ -120,6 +133,7 @@ export async function POST(req: NextRequest) {
       );
     }
 
+    const userId = user ? user.id : null;
     const sessionId = getSessionId(req, ip);
     const tokenKey = `chat:tokens:${sessionId}`;
 
@@ -139,6 +153,16 @@ export async function POST(req: NextRequest) {
         429,
         { limit, remaining },
       );
+    }
+
+    if (userId) {
+      await prisma.chatMessage.create({
+        data: {
+          userId,
+          content: trimmedMessage,
+          role: "USER",
+        },
+      });
     }
 
     const completion = await groq.chat.completions.create({
@@ -179,6 +203,16 @@ export async function POST(req: NextRequest) {
             }
           }
 
+          if (userId && fullResponse.trim()) {
+            await prisma.chatMessage.create({
+              data: {
+                userId,
+                content: fullResponse,
+                role: "ASSISTANT",
+              },
+            });
+          }
+
           const outputTokens = estimateTokens(fullResponse);
           const totalTokensUsed = estimatedInputTokens + outputTokens;
 
@@ -206,6 +240,7 @@ export async function POST(req: NextRequest) {
       },
     });
   } catch (error) {
+    console.log(error);
     return jsonWithRateHeaders(
       {
         error: "Something went wrong",

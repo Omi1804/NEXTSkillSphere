@@ -56,7 +56,8 @@ export const ModelName = {
   CourseImages: 'CourseImages',
   Lesson: 'Lesson',
   Purchase: 'Purchase',
-  LessonProgress: 'LessonProgress'
+  LessonProgress: 'LessonProgress',
+  ChatMessage: 'ChatMessage'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -144,6 +145,17 @@ export const LessonProgressScalarFieldEnum = {
 } as const
 
 export type LessonProgressScalarFieldEnum = (typeof LessonProgressScalarFieldEnum)[keyof typeof LessonProgressScalarFieldEnum]
+
+
+export const ChatMessageScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  role: 'role',
+  content: 'content',
+  timestamp: 'timestamp'
+} as const
+
+export type ChatMessageScalarFieldEnum = (typeof ChatMessageScalarFieldEnum)[keyof typeof ChatMessageScalarFieldEnum]
 
 
 export const SortOrder = {

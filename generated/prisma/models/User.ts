@@ -193,6 +193,7 @@ export type UserWhereInput = {
   courses?: Prisma.CourseListRelationFilter
   purchases?: Prisma.PurchaseListRelationFilter
   lessonProgresses?: Prisma.LessonProgressListRelationFilter
+  chatMessages?: Prisma.ChatMessageListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -205,6 +206,7 @@ export type UserOrderByWithRelationInput = {
   courses?: Prisma.CourseOrderByRelationAggregateInput
   purchases?: Prisma.PurchaseOrderByRelationAggregateInput
   lessonProgresses?: Prisma.LessonProgressOrderByRelationAggregateInput
+  chatMessages?: Prisma.ChatMessageOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -220,6 +222,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   courses?: Prisma.CourseListRelationFilter
   purchases?: Prisma.PurchaseListRelationFilter
   lessonProgresses?: Prisma.LessonProgressListRelationFilter
+  chatMessages?: Prisma.ChatMessageListRelationFilter
 }, "id" | "email">
 
 export type UserOrderByWithAggregationInput = {
@@ -256,6 +259,7 @@ export type UserCreateInput = {
   courses?: Prisma.CourseCreateNestedManyWithoutInstructorInput
   purchases?: Prisma.PurchaseCreateNestedManyWithoutUserInput
   lessonProgresses?: Prisma.LessonProgressCreateNestedManyWithoutUserInput
+  chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -268,6 +272,7 @@ export type UserUncheckedCreateInput = {
   courses?: Prisma.CourseUncheckedCreateNestedManyWithoutInstructorInput
   purchases?: Prisma.PurchaseUncheckedCreateNestedManyWithoutUserInput
   lessonProgresses?: Prisma.LessonProgressUncheckedCreateNestedManyWithoutUserInput
+  chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserUpdateInput = {
@@ -280,6 +285,7 @@ export type UserUpdateInput = {
   courses?: Prisma.CourseUpdateManyWithoutInstructorNestedInput
   purchases?: Prisma.PurchaseUpdateManyWithoutUserNestedInput
   lessonProgresses?: Prisma.LessonProgressUpdateManyWithoutUserNestedInput
+  chatMessages?: Prisma.ChatMessageUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -292,6 +298,7 @@ export type UserUncheckedUpdateInput = {
   courses?: Prisma.CourseUncheckedUpdateManyWithoutInstructorNestedInput
   purchases?: Prisma.PurchaseUncheckedUpdateManyWithoutUserNestedInput
   lessonProgresses?: Prisma.LessonProgressUncheckedUpdateManyWithoutUserNestedInput
+  chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -353,6 +360,11 @@ export type UserScalarRelationFilter = {
   isNot?: Prisma.UserWhereInput
 }
 
+export type UserNullableScalarRelationFilter = {
+  is?: Prisma.UserWhereInput | null
+  isNot?: Prisma.UserWhereInput | null
+}
+
 export type StringFieldUpdateOperationsInput = {
   set?: string
 }
@@ -407,6 +419,22 @@ export type UserUpdateOneRequiredWithoutLessonProgressesNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutLessonProgressesInput, Prisma.UserUpdateWithoutLessonProgressesInput>, Prisma.UserUncheckedUpdateWithoutLessonProgressesInput>
 }
 
+export type UserCreateNestedOneWithoutChatMessagesInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutChatMessagesInput, Prisma.UserUncheckedCreateWithoutChatMessagesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutChatMessagesInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneWithoutChatMessagesNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutChatMessagesInput, Prisma.UserUncheckedCreateWithoutChatMessagesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutChatMessagesInput
+  upsert?: Prisma.UserUpsertWithoutChatMessagesInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutChatMessagesInput, Prisma.UserUpdateWithoutChatMessagesInput>, Prisma.UserUncheckedUpdateWithoutChatMessagesInput>
+}
+
 export type UserCreateWithoutCoursesInput = {
   id?: string
   name: string
@@ -416,6 +444,7 @@ export type UserCreateWithoutCoursesInput = {
   createdAt?: Date | string
   purchases?: Prisma.PurchaseCreateNestedManyWithoutUserInput
   lessonProgresses?: Prisma.LessonProgressCreateNestedManyWithoutUserInput
+  chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutCoursesInput = {
@@ -427,6 +456,7 @@ export type UserUncheckedCreateWithoutCoursesInput = {
   createdAt?: Date | string
   purchases?: Prisma.PurchaseUncheckedCreateNestedManyWithoutUserInput
   lessonProgresses?: Prisma.LessonProgressUncheckedCreateNestedManyWithoutUserInput
+  chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutCoursesInput = {
@@ -454,6 +484,7 @@ export type UserUpdateWithoutCoursesInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   purchases?: Prisma.PurchaseUpdateManyWithoutUserNestedInput
   lessonProgresses?: Prisma.LessonProgressUpdateManyWithoutUserNestedInput
+  chatMessages?: Prisma.ChatMessageUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCoursesInput = {
@@ -465,6 +496,7 @@ export type UserUncheckedUpdateWithoutCoursesInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   purchases?: Prisma.PurchaseUncheckedUpdateManyWithoutUserNestedInput
   lessonProgresses?: Prisma.LessonProgressUncheckedUpdateManyWithoutUserNestedInput
+  chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutPurchasesInput = {
@@ -476,6 +508,7 @@ export type UserCreateWithoutPurchasesInput = {
   createdAt?: Date | string
   courses?: Prisma.CourseCreateNestedManyWithoutInstructorInput
   lessonProgresses?: Prisma.LessonProgressCreateNestedManyWithoutUserInput
+  chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutPurchasesInput = {
@@ -487,6 +520,7 @@ export type UserUncheckedCreateWithoutPurchasesInput = {
   createdAt?: Date | string
   courses?: Prisma.CourseUncheckedCreateNestedManyWithoutInstructorInput
   lessonProgresses?: Prisma.LessonProgressUncheckedCreateNestedManyWithoutUserInput
+  chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutPurchasesInput = {
@@ -514,6 +548,7 @@ export type UserUpdateWithoutPurchasesInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   courses?: Prisma.CourseUpdateManyWithoutInstructorNestedInput
   lessonProgresses?: Prisma.LessonProgressUpdateManyWithoutUserNestedInput
+  chatMessages?: Prisma.ChatMessageUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPurchasesInput = {
@@ -525,6 +560,7 @@ export type UserUncheckedUpdateWithoutPurchasesInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   courses?: Prisma.CourseUncheckedUpdateManyWithoutInstructorNestedInput
   lessonProgresses?: Prisma.LessonProgressUncheckedUpdateManyWithoutUserNestedInput
+  chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutLessonProgressesInput = {
@@ -536,6 +572,7 @@ export type UserCreateWithoutLessonProgressesInput = {
   createdAt?: Date | string
   courses?: Prisma.CourseCreateNestedManyWithoutInstructorInput
   purchases?: Prisma.PurchaseCreateNestedManyWithoutUserInput
+  chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutLessonProgressesInput = {
@@ -547,6 +584,7 @@ export type UserUncheckedCreateWithoutLessonProgressesInput = {
   createdAt?: Date | string
   courses?: Prisma.CourseUncheckedCreateNestedManyWithoutInstructorInput
   purchases?: Prisma.PurchaseUncheckedCreateNestedManyWithoutUserInput
+  chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutLessonProgressesInput = {
@@ -574,6 +612,7 @@ export type UserUpdateWithoutLessonProgressesInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   courses?: Prisma.CourseUpdateManyWithoutInstructorNestedInput
   purchases?: Prisma.PurchaseUpdateManyWithoutUserNestedInput
+  chatMessages?: Prisma.ChatMessageUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutLessonProgressesInput = {
@@ -585,6 +624,71 @@ export type UserUncheckedUpdateWithoutLessonProgressesInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   courses?: Prisma.CourseUncheckedUpdateManyWithoutInstructorNestedInput
   purchases?: Prisma.PurchaseUncheckedUpdateManyWithoutUserNestedInput
+  chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutChatMessagesInput = {
+  id?: string
+  name: string
+  email: string
+  password: string
+  role?: $Enums.Role
+  createdAt?: Date | string
+  courses?: Prisma.CourseCreateNestedManyWithoutInstructorInput
+  purchases?: Prisma.PurchaseCreateNestedManyWithoutUserInput
+  lessonProgresses?: Prisma.LessonProgressCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutChatMessagesInput = {
+  id?: string
+  name: string
+  email: string
+  password: string
+  role?: $Enums.Role
+  createdAt?: Date | string
+  courses?: Prisma.CourseUncheckedCreateNestedManyWithoutInstructorInput
+  purchases?: Prisma.PurchaseUncheckedCreateNestedManyWithoutUserInput
+  lessonProgresses?: Prisma.LessonProgressUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutChatMessagesInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutChatMessagesInput, Prisma.UserUncheckedCreateWithoutChatMessagesInput>
+}
+
+export type UserUpsertWithoutChatMessagesInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutChatMessagesInput, Prisma.UserUncheckedUpdateWithoutChatMessagesInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutChatMessagesInput, Prisma.UserUncheckedCreateWithoutChatMessagesInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutChatMessagesInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutChatMessagesInput, Prisma.UserUncheckedUpdateWithoutChatMessagesInput>
+}
+
+export type UserUpdateWithoutChatMessagesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  courses?: Prisma.CourseUpdateManyWithoutInstructorNestedInput
+  purchases?: Prisma.PurchaseUpdateManyWithoutUserNestedInput
+  lessonProgresses?: Prisma.LessonProgressUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutChatMessagesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  courses?: Prisma.CourseUncheckedUpdateManyWithoutInstructorNestedInput
+  purchases?: Prisma.PurchaseUncheckedUpdateManyWithoutUserNestedInput
+  lessonProgresses?: Prisma.LessonProgressUncheckedUpdateManyWithoutUserNestedInput
 }
 
 
@@ -596,12 +700,14 @@ export type UserCountOutputType = {
   courses: number
   purchases: number
   lessonProgresses: number
+  chatMessages: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   courses?: boolean | UserCountOutputTypeCountCoursesArgs
   purchases?: boolean | UserCountOutputTypeCountPurchasesArgs
   lessonProgresses?: boolean | UserCountOutputTypeCountLessonProgressesArgs
+  chatMessages?: boolean | UserCountOutputTypeCountChatMessagesArgs
 }
 
 /**
@@ -635,6 +741,13 @@ export type UserCountOutputTypeCountLessonProgressesArgs<ExtArgs extends runtime
   where?: Prisma.LessonProgressWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountChatMessagesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ChatMessageWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -646,6 +759,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   courses?: boolean | Prisma.User$coursesArgs<ExtArgs>
   purchases?: boolean | Prisma.User$purchasesArgs<ExtArgs>
   lessonProgresses?: boolean | Prisma.User$lessonProgressesArgs<ExtArgs>
+  chatMessages?: boolean | Prisma.User$chatMessagesArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -681,6 +795,7 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   courses?: boolean | Prisma.User$coursesArgs<ExtArgs>
   purchases?: boolean | Prisma.User$purchasesArgs<ExtArgs>
   lessonProgresses?: boolean | Prisma.User$lessonProgressesArgs<ExtArgs>
+  chatMessages?: boolean | Prisma.User$chatMessagesArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -692,6 +807,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     courses: Prisma.$CoursePayload<ExtArgs>[]
     purchases: Prisma.$PurchasePayload<ExtArgs>[]
     lessonProgresses: Prisma.$LessonProgressPayload<ExtArgs>[]
+    chatMessages: Prisma.$ChatMessagePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1097,6 +1213,7 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   courses<T extends Prisma.User$coursesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$coursesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CoursePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   purchases<T extends Prisma.User$purchasesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$purchasesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PurchasePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   lessonProgresses<T extends Prisma.User$lessonProgressesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$lessonProgressesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$LessonProgressPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  chatMessages<T extends Prisma.User$chatMessagesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$chatMessagesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ChatMessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1594,6 +1711,30 @@ export type User$lessonProgressesArgs<ExtArgs extends runtime.Types.Extensions.I
   take?: number
   skip?: number
   distinct?: Prisma.LessonProgressScalarFieldEnum | Prisma.LessonProgressScalarFieldEnum[]
+}
+
+/**
+ * User.chatMessages
+ */
+export type User$chatMessagesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ChatMessage
+   */
+  select?: Prisma.ChatMessageSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ChatMessage
+   */
+  omit?: Prisma.ChatMessageOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ChatMessageInclude<ExtArgs> | null
+  where?: Prisma.ChatMessageWhereInput
+  orderBy?: Prisma.ChatMessageOrderByWithRelationInput | Prisma.ChatMessageOrderByWithRelationInput[]
+  cursor?: Prisma.ChatMessageWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ChatMessageScalarFieldEnum | Prisma.ChatMessageScalarFieldEnum[]
 }
 
 /**

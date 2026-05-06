@@ -4,6 +4,7 @@ import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import ChatButton from "./ChatButton";
 import { renderAssistantContent } from "./renderConfigs";
+import { useUserStore } from "@/store/useUserStore";
 
 const quickPrompts = ["Find a course", "Learning path", "Pricing help"];
 const MAX_MESSAGE_LENGTH = 200;
@@ -45,6 +46,8 @@ const ChatAssistantWidget = () => {
   const reduceMotion = useReducedMotion();
   const [isOpen, setIsOpen] = useState(false);
   const [draftMessage, setDraftMessage] = useState("");
+  const { currentUser } = useUserStore();
+
   const [messages, setMessages] = useState<ChatMessage[]>(initialMessages);
   const [isSending, setIsSending] = useState(false);
   const [usageHint, setUsageHint] = useState<string | null>(null);
@@ -174,6 +177,36 @@ const ChatAssistantWidget = () => {
     }
   };
 
+  const getChatHistory = async () => {
+    try {
+      const response = await fetch("/api/v1/chat/history", {});
+
+      const payload = await response.json();
+      if (response.ok && payload.history) {
+        const historyMessages = (
+          payload.history as Array<{
+            id: string;
+            role: "user" | "assistant";
+            content: string;
+          }>
+        ).map((msg) => ({
+          id: msg.id,
+          role: msg.role,
+          content: msg.content,
+        }));
+        setMessages([...initialMessages, ...historyMessages]);
+      }
+    } catch (error) {
+      // Silently fail on history load errors, as it's non-critical
+    }
+  };
+
+  useEffect(() => {
+    if (currentUser) {
+      getChatHistory();
+    }
+  }, [currentUser]);
+
   useEffect(() => {
     if (isOpen && endRef.current) {
       endRef.current.scrollTo({
@@ -226,7 +259,7 @@ const ChatAssistantWidget = () => {
                 <div
                   key={message.id}
                   className={
-                    message.role === "user"
+                    message.role.toLowerCase() === "user"
                       ? "ml-auto max-w-[78%] rounded-2xl rounded-tr-sm bg-slate-950 p-4 text-sm font-semibold leading-6 text-white shadow-sm"
                       : `max-w-[86%] rounded-2xl rounded-tl-sm p-4 text-sm leading-6 shadow-sm ${
                           message.isError
@@ -293,9 +326,21 @@ const ChatAssistantWidget = () => {
                   <span className="material-symbols-outlined !text-base">send</span>
                 </button>
               </div>
-              <p className="mt-2 text-[11px] text-slate-400">
-                {draftMessage.length}/{MAX_MESSAGE_LENGTH}
-              </p>
+              <div className="flex items-center gap-5 justify-between">
+                <p className="mt-2 text-[11px] text-slate-400">
+                  {draftMessage.length}/{MAX_MESSAGE_LENGTH}
+                </p>
+                {!currentUser ? (
+                  <p className="mt-2 text-[11px] text-amber-500">
+                    Tip: Log in to save your chat history!
+                  </p>
+                ) : (
+                  <p className="mt-2 text-[11px] text-green-600">
+                    Logged in as{" "}
+                    <span className="font-medium text-slate-700">{currentUser.name}</span>
+                  </p>
+                )}
+              </div>
             </div>
           </motion.div>
         )}

@@ -12,6 +12,11 @@ enum Role {
   ADMIN
 }
 
+enum ChatRole {
+  USER
+  ASSISTANT
+}
+
 enum PurchaseStatus {
   SUCCESS
   FAILED
@@ -30,6 +35,7 @@ model User {
   courses          Course[]         @relation("InstructorCourses")
   purchases        Purchase[]
   lessonProgresses LessonProgress[]
+  chatMessages     ChatMessage[]
 }
 
 model Course {
@@ -103,4 +109,14 @@ model LessonProgress {
   lesson Lesson @relation(fields: [lessonId], references: [id])
 
   @@unique([userId, lessonId])
+}
+
+model ChatMessage {
+  id        String   @id @default(uuid())
+  userId    String?
+  role      ChatRole
+  content   String
+  timestamp DateTime @default(now())
+
+  user User? @relation(fields: [userId], references: [id])
 }
