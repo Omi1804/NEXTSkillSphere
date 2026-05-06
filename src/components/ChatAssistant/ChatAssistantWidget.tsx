@@ -102,20 +102,15 @@ const ChatAssistantWidget = () => {
         body: JSON.stringify({ message: trimmedMessage }),
       });
 
-      const payload = (await response.json()) as {
-        result?: string;
-        error?: string;
-        code?: string;
-        maxLength?: number;
-        tokenLimit?: number;
-        tokenUsed?: number;
-        usage?: {
-          tokensUsed: number;
-          tokensLimit: number;
-        };
-      };
-
       if (!response.ok) {
+        const payload = (await response.json()) as {
+          error?: string;
+          code?: string;
+          maxLength?: number;
+          tokenLimit?: number;
+          tokenUsed?: number;
+        };
+
         if (payload.code === "SESSION_TOKEN_LIMIT") {
           throw new Error(
             `Session token limit reached (${payload.tokenUsed || 0}/${payload.tokenLimit || 0}). Please wait about an hour before trying again.`,
@@ -135,16 +130,33 @@ const ChatAssistantWidget = () => {
         throw new Error(payload.error || "Unable to get a response right now.");
       }
 
-      const assistantReply =
-        payload.result?.trim() || "I could not generate a reply. Please try again.";
+      if (!response.body) {
+        throw new Error("Streaming response not available.");
+      }
+
+      setIsSending(false);
+      const assistantId = `assistant-${Date.now()}-${Math.random().toString(36).slice(2, 9)}`;
       setMessages((currentMessages) => [
         ...currentMessages,
-        addMessage("assistant", assistantReply),
+        { id: assistantId, role: "assistant", content: "" },
       ]);
 
-      if (payload.usage) {
-        setUsageHint(
-          `Session usage: ${payload.usage.tokensUsed}/${payload.usage.tokensLimit} tokens`,
+      const reader = response.body.getReader();
+      const decoder = new TextDecoder();
+      let fullResponse = "";
+
+      while (true) {
+        const { value, done } = await reader.read();
+        if (done) break;
+
+        const chunk = decoder.decode(value, { stream: true });
+        if (!chunk) continue;
+
+        fullResponse += chunk;
+        setMessages((currentMessages) =>
+          currentMessages.map((message) =>
+            message.id === assistantId ? { ...message, content: fullResponse } : message,
+          ),
         );
       }
     } catch (error) {

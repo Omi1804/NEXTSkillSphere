@@ -8,6 +8,7 @@ const MAX_MESSAGE_LENGTH = 200;
 const MAX_OUTPUT_TOKENS = 350;
 const TOKEN_BUDGET_PER_HOUR = 5000;
 const TOKEN_WINDOW_SECONDS = 60 * 60;
+const STREAM_CHUNK_DELAY_MS = Number(process.env.CHAT_STREAM_DELAY_MS || 25);
 
 const getClientIp = (req: NextRequest) => {
   const forwarded = req.headers.get("x-forwarded-for");
@@ -29,6 +30,8 @@ const getSessionId = (req: NextRequest, ip: string) => {
 };
 
 const estimateTokens = (text: string) => Math.ceil(text.length / 4);
+
+const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 const isSpamMessage = (text: string) => {
   if (/(.)\1{19,}/i.test(text)) return true;
@@ -154,35 +157,54 @@ export async function POST(req: NextRequest) {
       ],
       temperature: 0.4,
       max_tokens: MAX_OUTPUT_TOKENS,
+      stream: true,
     });
 
-    const outputTokens =
-      completion.usage?.completion_tokens ??
-      estimateTokens(completion.choices[0].message?.content || "");
-    const totalTokensUsed = completion.usage?.total_tokens ?? estimatedInputTokens + outputTokens;
+    const encoder = new TextEncoder();
 
-    const updatedTokenUsage = Number(
-      (await redis.incrby(tokenKey, totalTokensUsed)) || tokenUsed + totalTokensUsed,
-    );
-    if (updatedTokenUsage === totalTokensUsed) {
-      await redis.expire(tokenKey, TOKEN_WINDOW_SECONDS);
-    }
+    const stream = new ReadableStream({
+      async start(controller) {
+        try {
+          let fullResponse = "";
 
-    return NextResponse.json(
-      {
-        result: completion.choices[0].message?.content || "I'm sorry, I didn't understand that.",
-        usage: {
-          tokensUsed: updatedTokenUsage,
-          tokensLimit: TOKEN_BUDGET_PER_HOUR,
-        },
+          for await (const chunk of completion) {
+            const content = chunk.choices[0]?.delta?.content || "";
+
+            if (content) {
+              fullResponse += content;
+              controller.enqueue(encoder.encode(content));
+              if (STREAM_CHUNK_DELAY_MS > 0) {
+                await sleep(STREAM_CHUNK_DELAY_MS);
+              }
+            }
+          }
+
+          const outputTokens = estimateTokens(fullResponse);
+          const totalTokensUsed = estimatedInputTokens + outputTokens;
+
+          const updatedTokenUsage = Number(
+            (await redis.incrby(tokenKey, totalTokensUsed)) || tokenUsed + totalTokensUsed,
+          );
+
+          if (updatedTokenUsage === totalTokensUsed) {
+            await redis.expire(tokenKey, TOKEN_WINDOW_SECONDS);
+          }
+
+          controller.close();
+        } catch (error) {
+          controller.error(error);
+        }
       },
-      {
-        headers: {
-          "X-RateLimit-Limit": String(limit),
-          "X-RateLimit-Remaining": String(remaining),
-        },
+    });
+
+    return new Response(stream, {
+      headers: {
+        "Content-Type": "text/plain; charset=utf-8",
+        "Cache-Control": "no-cache",
+        "X-RateLimit-Limit": String(limit),
+        "X-RateLimit-Remaining": String(remaining),
       },
-    );
+    });
   } catch (error) {
     return jsonWithRateHeaders(
       {
