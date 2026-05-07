@@ -1,64 +1,26 @@
+import {
+  estimateTokens,
+  getClientIp,
+  getSessionId,
+  isSpamMessage,
+  jsonWithRateHeaders,
+  sleep,
+} from "@/config/chat";
+import {
+  MAX_MESSAGE_LENGTH,
+  MAX_OUTPUT_TOKENS,
+  STREAM_CHUNK_DELAY_MS,
+  TOKEN_BUDGET_PER_HOUR,
+  TOKEN_WINDOW_SECONDS,
+} from "@/constants/chat.constants";
 import { USER_SESSION_COOKIE } from "@/constants/userAuth.constants";
-import { prisma } from "@/lib/prisma";
 import { rateLimit, redis } from "@/lib/rateLimiter";
 import { authenticateUser } from "@/middlewares/userAuth.middleware";
+import { createChatMessage } from "@/repositories/chat.repository";
 import Groq from "groq-sdk";
-import { NextRequest, NextResponse } from "next/server";
+import { NextRequest } from "next/server";
 
 const groq = new Groq({ apiKey: process.env.GROQ_API_KEY || "" });
-
-const MAX_MESSAGE_LENGTH = 200;
-const MAX_OUTPUT_TOKENS = 350;
-const TOKEN_BUDGET_PER_HOUR = 5000;
-const TOKEN_WINDOW_SECONDS = 60 * 60;
-const STREAM_CHUNK_DELAY_MS = Number(process.env.CHAT_STREAM_DELAY_MS || 25);
-
-const getClientIp = (req: NextRequest) => {
-  const forwarded = req.headers.get("x-forwarded-for");
-  if (forwarded) {
-    const firstIp = forwarded.split(",")[0]?.trim();
-    if (firstIp) return firstIp;
-  }
-
-  return req.headers.get("x-real-ip")?.trim() || "anonymous";
-};
-
-const getSessionId = (req: NextRequest, ip: string) => {
-  const headerSessionId = req.headers.get("x-chat-session-id")?.trim();
-  if (headerSessionId && /^[a-zA-Z0-9_-]{8,80}$/.test(headerSessionId)) {
-    return headerSessionId;
-  }
-
-  return `ip:${ip}`;
-};
-
-const estimateTokens = (text: string) => Math.ceil(text.length / 4);
-
-const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
-
-const isSpamMessage = (text: string) => {
-  if (/(.)\1{19,}/i.test(text)) return true;
-  if (/\b(\w+)(?:\s+\1){7,}\b/i.test(text)) return true;
-
-  const noiseOnly = text.replace(/[a-zA-Z0-9\s]/g, "").length;
-  if (text.length >= 20 && noiseOnly / text.length > 0.65) return true;
-
-  return false;
-};
-
-const jsonWithRateHeaders = (
-  body: Record<string, unknown>,
-  status: number,
-  rateMeta: { limit: number; remaining: number },
-) => {
-  return NextResponse.json(body, {
-    status,
-    headers: {
-      "X-RateLimit-Limit": String(rateMeta.limit),
-      "X-RateLimit-Remaining": String(rateMeta.remaining),
-    },
-  });
-};
 
 export async function POST(req: NextRequest) {
   const ip = getClientIp(req);
@@ -156,13 +118,7 @@ export async function POST(req: NextRequest) {
     }
 
     if (userId) {
-      await prisma.chatMessage.create({
-        data: {
-          userId,
-          content: trimmedMessage,
-          role: "USER",
-        },
-      });
+      await createChatMessage(userId, trimmedMessage, "USER");
     }
 
     const completion = await groq.chat.completions.create({
@@ -204,13 +160,7 @@ export async function POST(req: NextRequest) {
           }
 
           if (userId && fullResponse.trim()) {
-            await prisma.chatMessage.create({
-              data: {
-                userId,
-                content: fullResponse,
-                role: "ASSISTANT",
-              },
-            });
+            await createChatMessage(userId, fullResponse, "ASSISTANT");
           }
 
           const outputTokens = estimateTokens(fullResponse);
